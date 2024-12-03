@@ -1,0 +1,45 @@
+<div class="movie">
+    <form [formGroup]="movieForm" (ngSubmit)="onRegister()">
+        <div class="row text-center">
+            <p class="fs-4 fw-bold text-primary">Movie Creation</p>
+        </div>
+        <div class="row mt-3">
+            <label class="col-2 offset-2 form-control-sm fs-5 text-primary" for="name">Movie Name</label>
+            <input class="col-4 form-control-sm" id="name" formControlName="name">
+            <p class="offset-2" *ngIf="movieForm.get('name')?.invalid && movieForm.get('name')?.touched">
+                Movie Name is required and must be at least 6 characters long.
+            </p>
+        </div>
+    
+        <div class="row mt-4">
+            <label class="col-2 offset-2 form-control-sm fs-5 text-primary" for="type">Movie Type</label>
+            <input class="col-4 form-control-sm" id="type" formControlName="type">
+            <p class="offset-2" *ngIf="movieForm.get('type')?.invalid && movieForm.get('type')?.touched">
+                Movie Type is required.
+            </p>
+        </div>
+    
+        <div class="row mt-4">
+            <label class="col-2 offset-2 form-control-sm fs-5 text-primary" for="date">Movie Date</label>
+            <!-- <input class="col-4 form-control-sm" id="date" formControlName="date" type="number"> -->
+            <!-- <p-datePicker
+                class="col-4 form-control-sm" 
+                id="date"
+                [(ngModel)]="date2" 
+                [iconDisplay]="'input'" 
+                [showIcon]="true" 
+                inputId="icondisplay" /> -->
+            <app-datepicker class="col-4 form-control-sm" 
+            id="date"></app-datepicker>
+            <p class="offset-2" *ngIf="movieForm.get('date')?.invalid && movieForm.get('date')?.touched">
+                Movie Date is required.
+            </p>
+        </div>
+
+        <div class="row mt-4">
+            <button class="btn btn-primary col-1 offset-4" (click)="onClear()">Clear</button>
+        <button class="btn btn-primary col-1 offset-2" type="submit" [disabled]="!movieForm.valid">Register</button>
+        </div>
+        
+    </form>
+</div>

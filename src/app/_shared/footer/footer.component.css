@@ -1,0 +1,8 @@
+.footer-nav {
+    min-height: 35px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background: #279BE4;
+    padding-top: 6px;
+}

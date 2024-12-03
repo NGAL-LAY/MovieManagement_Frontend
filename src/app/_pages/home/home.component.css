@@ -1,0 +1,47 @@
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+}
+#content {
+    float: left;
+    word-wrap: break-word;
+    background: #FFFFFF;
+    font-family: Raleway, sans-serif;
+}
+
+#content-sidebar{
+    overflow: hidden;
+    width: 100px;
+    height: 100%;
+    float: left;
+    background: #2A2D33;
+}
+
+.content-header{
+    margin-top: 20px;
+    height: 468px;
+}
+
+.content-header input{
+    border: thin;
+}
+
+.content-header button{
+    font-size: .875rem;
+    padding-top: 3px;
+}
+
+#content-header-item{
+    height: 30px;
+}
+
+.dynamic-div{
+    width: 180px;
+    display: inline;
+    margin-left: 30px;
+}
+

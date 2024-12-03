@@ -1,0 +1,103 @@
+<div class="container-fluid">
+    <div id="header">
+        <app-header></app-header>
+    </div>
+    <!-- body start-->
+    <div class="row bg-primary" style="height: 489px;">
+        <!-- All movies -->
+        <div class="col-3 border border-2 border-secondary rounded-2">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </div>
+        <!-- Current movies -->
+        <div class="col-9 bg-success-subtle" *ngIf="!blnNewMovie">
+            <!-- buttom -->
+            <div class="row m-3">
+                <button class="col-1 offset-2 btn btn-primary" 
+                (click)="onNewMovie()"
+                >New
+                </button>
+                <button class="col-1 offset-2 btn btn-primary"
+                (click)="onEditMovie()"
+                >Edit
+                </button>
+                <button class="col-1 offset-2 btn btn-danger">Delete</button>
+            </div>
+            <!-- media -->
+            <div class="row border border-2 border-secondary rounded-2 media" *ngIf='!blnPlay'>
+                <div class="movie-about">
+                    <p>{{strMovieAbout}}</p>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <!-- https://www.angularjswiki.com/angular/how-to-embed-youtube-videos-in-angular-apps/ -->
+                        <img src="https://th.bing.com/th/id/OIP.Nf4HBjqFmfH7RJWb-dJCPQHaEo?rs=1&pid=ImgDetMain"
+                         width="270px"
+                          height="140px" 
+                          alt="">
+                        <a [routerLink]="['movie-details']" 
+                        (click)="onEditMovie()"
+                        >{{strMovieName}}</a>
+                    </div>
+                    <!-- comments, reviews -->
+                    <div class="col-3 offset-1">
+                        <button class="btn btn-primary m-3">Reviews</button>
+                        <button class="btn btn-primary m-3">Comments</button>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+
+         <!-- movie create -->
+         <div class="movie col-9 bg-success-subtle" *ngIf="blnNewMovie">
+            <form [formGroup]="movieForm" (ngSubmit)="onRegisterMovie()">
+                <div class="row text-center">
+                    <p class="fs-4 fw-bold text-primary">Movie Creation</p>
+                </div>
+                <div class="row mt-3">
+                    <label class="col-2 offset-2 form-control-sm fs-5 text-primary" for="name">Movie Name</label>
+                    <input class="col-4 form-control-sm" id="name" formControlName="name" autocomplete="off">
+                    <!-- <p class="offset-2" *ngIf="movieForm.get('name')?.invalid && movieForm.get('name')?.touched">
+                        Movie Name is required and must be at least 6 characters long.
+                    </p> -->
+                </div>
+            
+                <div class="row mt-4">
+                    <label class="col-2 offset-2 form-control-sm fs-5 text-primary" for="type">Movie Type</label>
+                    <input class="col-4 form-control-sm" id="type" formControlName="type" type="text">
+                    <!-- <p class="offset-2" *ngIf="movieForm.get('type')?.invalid && movieForm.get('type')?.touched">
+                        Movie Type is required.
+                    </p> -->
+                </div>
+            
+                <div class="row mt-4">
+                    <label class="col-2 offset-2 form-control-sm fs-5 text-primary" for="date">Movie Date</label>
+                    <app-datepicker class="col-4 form-control-sm" 
+                    id="date" (dateChange)="onDateChange($event)" ngDefaultControl formControlName="date"></app-datepicker>
+                    <!-- <p class="offset-2" *ngIf="movieForm.get('date')?.invalid && movieForm.get('date')?.touched">
+                        Movie Date is required.
+                    </p> -->
+                </div>
+        
+                <div class="row mt-4">
+                    <button class="btn btn-primary col-1 offset-4" (click)="onClear()">Clear</button>
+                    <button class="btn btn-primary col-1 offset-2" type="submit">Register</button>
+                </div>
+                
+            </form>
+        </div>
+         
+    
+    </div>
+    <!-- body end -->
+
+    <div id="footer">
+        <app-footer></app-footer>
+    </div>
+    
+</div>

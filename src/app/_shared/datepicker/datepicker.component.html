@@ -1,0 +1,9 @@
+<div class="row">
+    <mat-form-field class="form-height">
+          <input matInput [matDatepicker]="datepicker" placeholder="Select a date"
+          (click)="datepicker.open()" [(ngModel)]="selectedDate" (ngModelChange)="getFormattedDate($event)">
+          <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+          <mat-datepicker #datepicker></mat-datepicker>
+    </mat-form-field>
+</div>
+
