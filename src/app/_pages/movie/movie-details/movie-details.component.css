@@ -1,3 +1,17 @@
-.movie{
-    margin-top: 80px;
+.body-height {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.validation-message {
+    height: 20px;
+    margin: 0;
+    color: red;
+    visibility: hidden; 
+}
+
+.validation-message.visible {
+    visibility: visible; 
+    margin-left: 31.5%;
 }

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators,ReactiveFormsModule } from '@angular/forms';
 import { DatepickerComponent } from '../../../_shared/datepicker/datepicker.component';
+import { RouterLink } from '@angular/router';
 
 
 @Component({
@@ -9,6 +10,7 @@ import { DatepickerComponent } from '../../../_shared/datepicker/datepicker.comp
   standalone: true,
   imports: [
     ReactiveFormsModule,
+    RouterLink,
     CommonModule,
     DatepickerComponent
   ],

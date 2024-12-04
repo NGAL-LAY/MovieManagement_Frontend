@@ -8,8 +8,7 @@ import { MovieService } from '../../../_services/movie.service';
 import { ConstantService } from '../../../_shared/constant/constant.service';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DatepickerComponent } from '../../../_shared/datepicker/datepicker.component';
-import { log } from 'node:console';
-import { response } from 'express';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movies',
@@ -32,7 +31,8 @@ export class MoviesComponent {
   constructor(
     private movieService: MovieService,
     private constantService: ConstantService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   )
   {
       //validdate movie
@@ -64,6 +64,10 @@ export class MoviesComponent {
       }
     });
 
+  }
+
+  isMovieDetailsActive(): boolean {
+    return this.router.url.includes('movie-details');
   }
 
   onClick(){
