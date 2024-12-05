@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { ConstantService } from '../_shared/constant/constant.service';
 
@@ -8,21 +8,22 @@ import { ConstantService } from '../_shared/constant/constant.service';
 })
 export class MovieService{
 
-  constructor(
-    private http: HttpClient,
-    private constantService: ConstantService
-  ){}
-
   // API for only movies
   movieAPI: string = "";
 
-  ngOninit(){
+  constructor(
+    private http: HttpClient,
+    private constantService: ConstantService
+  ){
     // api set up
     this.movieAPI = this.constantService.apiUrl+ "movies";
+    console.log("API from constant", this.movieAPI);
   }
 
   // get movies
-  getMovies(): Observable<any> {
+  getAllMovies(): Observable<any> {
+    console.log("call API", this.movieAPI);
+    console.log("call API", 'http://localhost:8080/api/movies');
     return this.http.get<any>(this.movieAPI);
   }
 

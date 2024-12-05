@@ -101,7 +101,7 @@ export class MoviesComponent {
    */
   onEditMovie(){
     this.blnNewMovie = true;
-    this.movieService.getMovies().subscribe(
+    this.movieService.getAllMovies().subscribe(
       (movie)=>{
         this.movies = movie;
         // check movie array is null or empty
