@@ -22,22 +22,12 @@
 
         <div class="row mb-3">
             <label class="col-3 offset-1 form-control-sm fs-5 text-primary" for="date">Movie Date</label>
-            <!-- <input class="col-4 form-control-sm" id="date" formControlName="date" type="number"> -->
-            <!-- <p-datePicker
-                class="col-4 form-control-sm" 
-                id="date"
-                [(ngModel)]="date2" 
-                [iconDisplay]="'input'" 
-                [showIcon]="true" 
-                inputId="icondisplay" /> -->
-            <app-datepicker class="col-7 form-control-sm" id="date"></app-datepicker>
-            <p class="offset-2" *ngIf="movieForm.get('date')?.invalid && movieForm.get('date')?.touched">
-                Movie Date is required.
-            </p>
+            <app-datepicker class="col-7 form-control-sm" id="date" type="date" formControlName="date" 
+             (dateChange)="onDateChange($event)"></app-datepicker>
         </div>
         <div class="row">
             <button class="btn btn-outline-primary col-2 offset-4" routerLink="/movies">Back</button>
-            <button class="btn btn-primary col-2 offset-3" type="submit" [disabled]="!movieForm.valid">Register</button>
+            <button class="btn btn-primary col-2 offset-3" type="submit">Register</button>
         </div>
     </form>
 </div>

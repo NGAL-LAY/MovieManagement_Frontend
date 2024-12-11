@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators,ReactiveFormsModule } from '@angular/forms';
 import { DatepickerComponent } from '../../../_shared/datepicker/datepicker.component';
 import { RouterLink } from '@angular/router';
+import { Movie, MovieService } from '../../../_services/movie.service';
 
 
 @Component({
@@ -19,7 +20,9 @@ import { RouterLink } from '@angular/router';
 })
 export class MovieDetailsComponent {
 
-  constructor(){}
+  constructor(
+    private movieService: MovieService,
+  ){}
 
   movieForm = new FormGroup({
     name: new FormControl('',[
@@ -36,19 +39,30 @@ export class MovieDetailsComponent {
     ])
   });
 
+// This method will be called when the date changes
+onDateChange(date: any) {
+  console.log('Date selected:', date);
+  // You can update the form control value here if necessary
+  this.movieForm.patchValue({ date: date });
+}
+
   /*
     new movie register  
   */
   onRegister(){
-    console.log(this.movieForm.value);
-  }
-
-  /*
-    clear textbox data
-  */
-  onClear(){
-    this.movieForm.controls.name.setValue('');
-    this.movieForm.controls.type.setValue('');
-    this.movieForm.controls.date.setValue('');
+      const movie: Movie = {
+        name: this.movieForm.value.name || '',  
+        type: this.movieForm.value.type || '', 
+        date: this.movieForm.value.date || '',  
+      };
+      
+      this.movieService.registerMovie(movie).subscribe(
+        (response) => {
+          console.log('Movie registered successfully', response);
+        },
+        (error) => {
+          console.error('Error registering movie', error);
+        }
+      );
   }
 }
