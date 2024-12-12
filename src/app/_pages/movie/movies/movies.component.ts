@@ -43,26 +43,27 @@ export class MoviesComponent {
         });
   }
 
-  movies: any[] = [];
+  movie: any;
   movieForm: FormGroup;
   strMovieName: string = "";
   strMovieType: string = "";
   strMovieDate: string = "";
   blnPlay: Boolean = false;
-  blnNewMovie: Boolean = false;
-  strMovieAbout: string = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus sequi explicabo commodi iusto obcaecati. Molestiae, illo nostrum. Asperiores ullam atque eos facere a optio rem corrupti blanditiis nisi, vitae reiciendis.';
+  strMovieAbout: string = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus sequi explicabo commodi iusto obcaecati. Molestiae, illo nostrum. Asperiores ullam atque eos facere a optio rem corrupti blanditiis nisi, vitae reiciendis.Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus sequi explicabo commodi iusto obcaecati. Molestiae, illo nostrum. Asperiores ullam atque eos facere a optio rem corrupti blanditiis nisi, vitae reiciendis.Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus sequi explicabo commodi iusto obcaecati. Molestiae, illo nostrum. Asperiores ullam atque eos facere a optio rem corrupti blanditiis nisi, vitae reiciendis.';
 
 
 
   ngOnInit(): void {
+    console.log("value from home",this.constantService.getObject());
+    this.movie = this.constantService.getObject();
     // Subscribe to the constantService
-    this.constantService.currentMovieData.subscribe(data => {
-      if (data) {
-        // this.strMovieName = data.name;
-        // this.strMovieType = data.type;
-        this.setMovieName(data.name);
-      }
-    });
+    // this.constantService.currentMovieData.subscribe(data => {
+    //   if (data) {
+    //     // this.strMovieName = data.name;
+    //     // this.strMovieType = data.type;
+    //     this.setMovieName(data.name);
+    //   }
+    // });
 
   }
 
@@ -84,7 +85,6 @@ export class MoviesComponent {
   }
 
   onNewMovie(){
-    this.blnNewMovie = true;
     // console.log("i am movie components");
     // this.movieService.getMovies().subscribe(
     //   (data) => {
@@ -100,21 +100,24 @@ export class MoviesComponent {
    * show movies
    */
   onEditMovie(){
-    this.blnNewMovie = true;
-    this.movieService.getAllMovies().subscribe(
-      (movie)=>{
-        this.movies = movie;
-        // check movie array is null or empty
-        if(this.movies.length > 0){
-          this.strMovieName = this.movies[0].name;
-          this.strMovieType = this.movies[0].type;
+    // this.movieService.getAllMovies().subscribe(
+    //   (movie)=>{
+    //     this.movies = movie;
+    //     // check movie array is null or empty
+    //     if(this.movies.length > 0){
+    //       this.strMovieName = this.movies[0].name;
+    //       this.strMovieType = this.movies[0].type;
           
-        }
-      },
-      (error)=>{
-        console.error('Error fetching movies',error); // handle get movie error 
-      }
-    )
+    //     }
+    //   },
+    //   (error)=>{
+    //     console.error('Error fetching movies',error); // handle get movie error 
+    //   }
+    // )
+  }
+
+  onDeleteMovie(){
+
   }
 
   /**

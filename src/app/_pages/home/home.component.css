@@ -22,8 +22,8 @@ a {
 }
 
 .content-header{
-    margin-top: 20px;
-    height: 468px;
+    margin-top: 15px;
+    height: 44px;
 }
 
 .content-header input{
@@ -38,10 +38,22 @@ a {
 #content-header-item{
     height: 30px;
 }
-
+.content-body{
+    overflow-y: auto; 
+    max-height: 446px;
+}
 .dynamic-div{
-    width: 180px;
-    display: inline;
-    margin-left: 30px;
+    width: 230px;
+    display: inline-block;
+    margin-left: 17px;
+    margin-right: 2px;
+    margin-bottom: 10px;
+}
+.img-margin{
+    margin-top: 3px;
+}
+
+.card-margin{
+    margin-bottom: 1px;
 }
 

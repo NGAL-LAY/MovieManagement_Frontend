@@ -53,7 +53,7 @@ onDateChange(date: any) {
       const movie: Movie = {
         name: this.movieForm.value.name || '',  
         type: this.movieForm.value.type || '', 
-        date: this.movieForm.value.date || '',  
+        year: this.movieForm.value.date || '',  
       };
       
       this.movieService.registerMovie(movie).subscribe(

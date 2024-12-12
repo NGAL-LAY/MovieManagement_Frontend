@@ -33,7 +33,8 @@ export class HomeComponent implements OnInit{
     private authService: AuthService, 
     private router: Router,
     private movieService: MovieService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private constantService: ConstantService
   ) {}
 
   ngOnInit(): void {
@@ -77,6 +78,12 @@ getAllMovies(){
           }
         );
     }
+  }
+  
+  // transfer object(movie)
+  selectMovie(movie: any) {
+    this.constantService.setObject(movie);
+    this.router.navigate(['/movies']);
   }
   
   logout(): void {

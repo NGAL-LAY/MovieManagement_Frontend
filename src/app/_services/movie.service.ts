@@ -2,7 +2,6 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable, OnInit } from '@angular/core';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { ConstantService } from '../_shared/constant/constant.service';
-import { log } from 'console';
 
 @Injectable({
   providedIn: 'root'
@@ -31,17 +30,15 @@ export class MovieService{
       })
     );
   }
-
-  // Register a new movie
-  registerMovie(movie: Movie): Observable<Movie> {
-    console.log("Movies service",movie);
-    const headers = { 'Content-Type': 'application/json' };
-    return this.http.post<Movie>(this.movieAPI, movie,{headers});
-  }
+// register new movie
+registerMovie(movieData: Movie): Observable<Movie> {
+  const headers = { 'Content-Type': 'application/json' };
+  return this.http.post<Movie>(this.movieAPI, movieData, { headers });
 }
+ }
 
 export interface Movie {
   name: string;
   type: string;
-  date: string; 
+  year: string; 
 }

@@ -1,107 +1,115 @@
 <section class="container-fluid" id="content">
-    <div id="header">
-        <app-header></app-header>
+  <div id="header">
+    <app-header></app-header>
+  </div>
+  <div class="row">
+    <div class="content-sidebar col-2 bg-info">
+      <ul>
+        <!-- all films -->
+        <li class="active mt-5 mb-5 ms-1">
+          <button class="btn form-control btn-dark" [ngClass]="{'btn-outline-light': activeGenre === 'all'}"
+            type="submit" (click)="onGenreClick('all')">
+            All Films
+          </button>
+        </li>
+        <!-- sci-fi -->
+        <li class="mt-5 mb-5 ms-1">
+          <button class="btn form-control btn-dark" [ngClass]="{'btn-outline-light': activeGenre === 'scifi'}"
+            type="submit" (click)="onGenreClick('scifi')">
+            Sci-Fi
+          </button>
+        </li>
+        <!-- drama -->
+        <li class="mt-5 mb-5 ms-1">
+          <button class="btn form-control btn-dark" [ngClass]="{'btn-outline-light': activeGenre === 'drama'}"
+            type="submit" (click)="onGenreClick('drama')">
+            Drama
+          </button>
+        </li>
+        <!-- action -->
+        <li class="mt-5 mb-5 ms-1">
+          <button class="btn form-control btn-dark" [ngClass]="{'btn-outline-light': activeGenre === 'action'}"
+            type="submit" (click)="onGenreClick('action')">
+            Action
+          </button>
+        </li>
+        <!-- comedy -->
+        <li class="mt-5 mb-5 ms-1">
+          <button class="btn form-control btn-dark" [ngClass]="{'btn-outline-light': activeGenre === 'comedy'}"
+            type="submit" (click)="onGenreClick('comedy')">
+            Comedy
+          </button>
+        </li>
+      </ul>
     </div>
-    <div class="row">
-        <div class="content-sidebar col-2 bg-info">
-            <ul>
-              <!-- all films -->
-              <li class="active mt-5 mb-5 ms-1">
-                <button class="btn form-control btn-dark" [ngClass]="{'btn-outline-light': activeGenre === 'all'}" type="submit"
-                  (click)="onGenreClick('all')">
-                  All Films
-                </button>
-              </li>
-              <!-- sci-fi -->
-              <li class="mt-5 mb-5 ms-1">
-                <button class="btn form-control btn-dark" [ngClass]="{'btn-outline-light': activeGenre === 'scifi'}" type="submit"
-                  (click)="onGenreClick('scifi')">
-                  Sci-Fi
-                </button>
-              </li>
-              <!-- drama -->
-              <li class="mt-5 mb-5 ms-1">
-                <button class="btn form-control btn-dark" [ngClass]="{'btn-outline-light': activeGenre === 'drama'}" type="submit"
-                  (click)="onGenreClick('drama')">
-                  Drama
-                </button>
-              </li>
-              <!-- action -->
-              <li class="mt-5 mb-5 ms-1">
-                <button class="btn form-control btn-dark" [ngClass]="{'btn-outline-light': activeGenre === 'action'}" type="submit"
-                  (click)="onGenreClick('action')">
-                  Action
-                </button>
-              </li>
-              <!-- comedy -->
-              <li class="mt-5 mb-5 ms-1">
-                <button class="btn form-control btn-dark" [ngClass]="{'btn-outline-light': activeGenre === 'comedy'}" type="submit"
-                  (click)="onGenreClick('comedy')">
-                  Comedy
-                </button>
-              </li>
-            </ul>
-        </div>
-        <div class="col-10 bg-success-subtle">
-            <div class="content-header row">
-                <input class="col-3 form-control-sm  ms-2 bg-primary-subtle" id="content-header-item" type="text" placeholder="Search Movies Name">
-                
-                <!--Games -->
-                <select class="form-select-sm col-1 offset-2 me-4 bg-primary text-white" id="content-header-item" aria-label="Default select example">
-                    <option selected>Games</option>
-                    <option value="1">Action</option>
-                    <option value="2">Adventure</option>
-                    <option value="3">Comedy</option>
-                    <option value="4">Drama</option>
-                    <option value="5">Sci_Fi</option>
-                  </select>
-                <!-- Languages  -->
-                <select class="form-select-sm col-1 me-4 bg-primary text-white" id="content-header-item" aria-label="Default select example">
-                    <option selected>Languages</option>
-                    <option value="1">English</option>
-                        <option value="2">Chinese</option>
-                        <option value="3">India</option>
-                        <option value="4">Korea</option>
-                        <option value="5">Myanmar</option>
-                  </select>
-                
-                <!-- Countries  -->
-                <select class="form-select-sm col-1 me-4 bg-primary text-white" id="content-header-item" aria-label="Default select example">
-                    <option selected>Countries</option>
-                    <option value="1">America</option>
-                        <option value="2">Chinese</option>
-                        <option value="3">English</option>
-                        <option value="4">India</option>
-                        <option value="5">Korea</option>
-                        <option value="6">Myanmar</option>
-                        <option value="7">Thai</option>
-                  </select>
-                <!-- Rating  -->
-                <select class="form-select-sm col-1 me-5 bg-primary text-white" id="content-header-item" aria-label="Default select example">
-                    <option selected>Rating</option>
-                    <option value="5">5</option>
-                        <option value="4">4</option>
-                        <option value="3">3</option>
-                        <option value="2">2</option>
-                        <option value="1">1</option>
-                  </select>
-                <!-- Search -->
-                  <button class="btn btn-primary col-1" id="content-header-item" style="text-align: center;" type="submit">Search</button>
-                  <!-- image card  -->
-                  <div class="row dynamic-div" *ngFor="let movie of movies;let i = index">
-                    <a [routerLink]="['/movies']">
-                        <div class="card">
-                            <img class="card-img-top" src="https://th.bing.com/th/id/OIP.Nf4HBjqFmfH7RJWb-dJCPQHaEo?rs=1&pid=ImgDetMain" alt="Card image cap">
-                            <div class="card-body">
-                              <p class="card-text">Movie {{i}}</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+    <div class="col-10 bg-success-subtle">
+      <div class="content-header row">
+        <input class="col-3 form-control-sm  ms-2 bg-primary-subtle" id="content-header-item" type="text"
+          placeholder="Search Movies Name">
+
+        <!--Games -->
+        <select class="form-select-sm col-1 offset-2 me-4 bg-primary text-white" id="content-header-item"
+          aria-label="Default select example">
+          <option selected>Games</option>
+          <option value="1">Action</option>
+          <option value="2">Adventure</option>
+          <option value="3">Comedy</option>
+          <option value="4">Drama</option>
+          <option value="5">Sci_Fi</option>
+        </select>
+        <!-- Languages  -->
+        <select class="form-select-sm col-1 me-4 bg-primary text-white" id="content-header-item"
+          aria-label="Default select example">
+          <option selected>Languages</option>
+          <option value="1">English</option>
+          <option value="2">Chinese</option>
+          <option value="3">India</option>
+          <option value="4">Korea</option>
+          <option value="5">Myanmar</option>
+        </select>
+
+        <!-- Countries  -->
+        <select class="form-select-sm col-1 me-4 bg-primary text-white" id="content-header-item"
+          aria-label="Default select example">
+          <option selected>Countries</option>
+          <option value="1">America</option>
+          <option value="2">Chinese</option>
+          <option value="3">English</option>
+          <option value="4">India</option>
+          <option value="5">Korea</option>
+          <option value="6">Myanmar</option>
+          <option value="7">Thai</option>
+        </select>
+        <!-- Rating  -->
+        <select class="form-select-sm col-1 me-5 bg-primary text-white" id="content-header-item"
+          aria-label="Default select example">
+          <option selected>Rating</option>
+          <option value="5">5</option>
+          <option value="4">4</option>
+          <option value="3">3</option>
+          <option value="2">2</option>
+          <option value="1">1</option>
+        </select>
+        <!-- Search -->
+        <button class="btn btn-primary col-1" id="content-header-item" style="text-align: center;"
+          type="submit">Search</button>
+      </div>
+      <div class="content-body">
+        <!-- image card  -->
+        <div class="row dynamic-div"  *ngFor="let movie of movies;let i = index">
+          <div class="card" (click)="selectMovie(movie)">
+            <img class="card-img-top img-margin"
+              src="https://th.bing.com/th/id/OIP.Nf4HBjqFmfH7RJWb-dJCPQHaEo?rs=1&pid=ImgDetMain" alt="Card image cap">
+            <div class="card-body">
+              <p class="card-text card-margin">{{movie.name}}</p>
+              <p class="card-text">{{movie.type}}</p>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-    <div id="footer">
-        <app-footer></app-footer>
-    </div>
+  </div>
+  <div id="footer">
+    <app-footer></app-footer>
+  </div>
 </section>

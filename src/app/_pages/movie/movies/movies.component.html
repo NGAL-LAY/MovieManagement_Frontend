@@ -14,7 +14,7 @@
             <li>5</li>
         </div>
         <!-- Current movies -->
-        <div class="col-9 bg-success-subtle" *ngIf="!blnNewMovie">
+        <div class="col-9 bg-success-subtle">
             <!-- buttom -->
             <div class="row m-3">
                 <button class="col-1 offset-2 btn btn-primary" 
@@ -25,19 +25,22 @@
                 (click)="onEditMovie()"
                 >Edit
                 </button>
-                <button class="col-1 offset-2 btn btn-danger">Delete</button>
+                <button class="col-1 offset-2 btn btn-danger"
+                (click)="onDeleteMovie()"
+                >Delete</button>
             </div>
             <!-- media -->
             <div class="row border border-2 border-secondary rounded-2 media" *ngIf='!blnPlay'>
-                <div class="movie-about col-8">
-                    <p>{{strMovieAbout}}</p>
-                </div>
-                <div class="col-3">
-                    <!-- https://www.angularjswiki.com/angular/how-to-embed-youtube-videos-in-angular-apps/ -->
-                    <img src="https://th.bing.com/th/id/OIP.Nf4HBjqFmfH7RJWb-dJCPQHaEo?rs=1&pid=ImgDetMain"
-                        height="140px" width="206px" alt="">
-                    <a [routerLink]="['movie-details']" (click)="onEditMovie()">{{strMovieName}}</a>
-                </div>
+                        <p class="col-12 movie-about">{{strMovieAbout}}</p>
+                    <div class="d-flex">
+                        <div class="movie-name">
+                            <p>Name : {{movie.name}}</p>
+                            <p>Type : {{movie.type}}</p>
+                            <p>Release: {{movie.year}}</p>
+                        </div>
+                        <img src="https://th.bing.com/th/id/OIP.Nf4HBjqFmfH7RJWb-dJCPQHaEo?rs=1&pid=ImgDetMain" height="120px"
+                                width="250px" alt="">
+                    </div>
             </div>
 
             <!-- comments, reviews -->

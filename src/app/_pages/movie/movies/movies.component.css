@@ -6,15 +6,19 @@
 
 .movie-about{
     background-color: aquamarine;
+    max-height: 200px;
+    overflow-y: auto;
+}
+.movie-name{
+    width: 220px; 
+    margin-right: 50px;
+    margin-left: 50px;
 }
 
 .movie{
     margin-top: 80px;
 }
-
-img{
-    margin-top: 100px;
-}
  button{
     min-width: 100px;
  }
+
