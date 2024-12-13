@@ -5,7 +5,7 @@
         </div>
         <div class="row mb-3">
             <label class="col-3 offset-1 form-control-sm fs-5 text-primary" for="name">Movie Name</label>
-            <input class="col-7 form-control-sm" id="name" formControlName="name">
+            <input class="col-7 form-control-sm" id="name" formControlName="name" [value]="movieDetails?.name">
             <p class="validation-message"
                 [class.visible]="movieForm.get('name')?.invalid && movieForm.get('name')?.touched">
                 Movie Name is required and at least 6 characters.
@@ -22,7 +22,7 @@
 
         <div class="row mb-3">
             <label class="col-3 offset-1 form-control-sm fs-5 text-primary" for="date">Movie Date</label>
-            <app-datepicker class="col-7 form-control-sm" id="date" type="date" formControlName="date" 
+            <app-datepicker class="col-7 form-control-sm" id="year" type="date" formControlName="date" 
              (dateChange)="onDateChange($event)"></app-datepicker>
         </div>
         <div class="row">

@@ -18,7 +18,7 @@
             <!-- buttom -->
             <div class="row m-3">
                 <button class="col-1 offset-2 btn btn-primary" 
-                routerLink="movie-details"
+                (click)="onNewMovie()"
                 >New
                 </button>
                 <button class="col-1 offset-2 btn btn-primary"
@@ -30,37 +30,33 @@
                 >Delete</button>
             </div>
             <!-- media -->
-            <div class="row border border-2 border-secondary rounded-2 media" *ngIf='!blnPlay'>
-                        <p class="col-12 movie-about">{{strMovieAbout}}</p>
+            <div class="row border border-2 border-secondary rounded-2 media" >
+                <div *ngIf="!isDeleted">
+                    <p class="col-12 movie-about">{{strMovieAbout}}</p>
                     <div class="d-flex">
                         <div class="movie-name">
-                            <p>Name : {{movie.name}}</p>
-                            <p>Type : {{movie.type}}</p>
-                            <p>Release: {{movie.year}}</p>
+                            <p>Name : {{movie?.name}}</p>
+                            <p>Type : {{movie?.type}}</p>
+                            <p>Release: {{movie?.year}}</p>
                         </div>
                         <img src="https://th.bing.com/th/id/OIP.Nf4HBjqFmfH7RJWb-dJCPQHaEo?rs=1&pid=ImgDetMain" height="120px"
                                 width="250px" alt="">
                     </div>
+                </div>
             </div>
 
             <!-- comments, reviews -->
             <div class="row m-3">
-                <button class="col-1 offset-2 btn btn-outline-primary" 
-                routerLink="/home"
-                >Back
-                </button>
-                <button class="col-1 offset-2 btn btn-primary"
-                (click)="onEditMovie()"
-                >Review
-                </button>
-                <button class="col-1 offset-2 btn btn-primary">Comment</button>
+                <button class="col-1 offset-2 btn btn-outline-primary" routerLink="/home">Back</button>
+                <button class="col-1 offset-2 btn btn-primary" (click)="onEditMovie()" *ngIf="!isDeleted">Review</button>
+                <button class="col-1 offset-2 btn btn-primary" *ngIf="!isDeleted">Comment</button>
             </div>
         </div>
     </div>
     <!-- body end -->
 
     <!-- child movie details component -->
-    <app-movie-details *ngIf="isMovieDetailsActive()"></app-movie-details>
+    <app-movie-details *ngIf="isMovieDetailsActive()" [movieDetails]="movieDetails"></app-movie-details>
 
     <div id="footer">
         <app-footer></app-footer>

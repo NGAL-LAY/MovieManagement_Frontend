@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators,ReactiveFormsModule } from '@angular/forms';
 import { DatepickerComponent } from '../../../_shared/datepicker/datepicker.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Movie, MovieService } from '../../../_services/movie.service';
+import { ConstantService } from '../../../_shared/constant/constant.service';
 
 
 @Component({
@@ -18,26 +19,44 @@ import { Movie, MovieService } from '../../../_services/movie.service';
   templateUrl: './movie-details.component.html',
   styleUrl: './movie-details.component.css'
 })
-export class MovieDetailsComponent {
+export class MovieDetailsComponent implements OnInit {
+  // movie details from parent movie
+  @Input() movieDetails: any;
+  movieForm!: FormGroup;
 
   constructor(
     private movieService: MovieService,
+    private router: Router,
+    private constantService: ConstantService
   ){}
 
-  movieForm = new FormGroup({
-    name: new FormControl('',[
-      Validators.required,
-      Validators.minLength(6),
-      Validators.maxLength(25)
-    ]),
-    type: new FormControl('',[
-      Validators.required
-    ]),
-    date: new FormControl('' ,[
-      Validators.required,
-      Validators.pattern(/^\d{4}-\d{2}-\d{2}$/) // YYYY-MM-DD format
-    ])
-  });
+  ngOnInit(): void {
+    this.movieForm = new FormGroup({
+      name: new FormControl('',[
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(25)
+      ]),
+      type: new FormControl('',[
+        Validators.required
+      ]),
+      date: new FormControl('' ,[
+        Validators.required,
+        Validators.pattern(/^\d{4}-\d{2}-\d{2}$/) // YYYY-MM-DD format
+      ])
+    });
+
+    // Dynamically set values
+  if (this.movieDetails) {
+    this.movieForm.patchValue({
+      name: this.movieDetails.name,
+      type: this.movieDetails.type,
+      date: this.movieDetails.year
+    });
+  }
+  }
+
+  
 
 // This method will be called when the date changes
 onDateChange(date: any) {
@@ -58,10 +77,8 @@ onDateChange(date: any) {
       
       this.movieService.registerMovie(movie).subscribe(
         (response) => {
-          console.log('Movie registered successfully', response);
-        },
-        (error) => {
-          console.error('Error registering movie', error);
+          this.constantService.setObject(movie);
+          this.router.navigate(['/movies']);
         }
       );
   }
