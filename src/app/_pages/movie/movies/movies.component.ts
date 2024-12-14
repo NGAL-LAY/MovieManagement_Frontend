@@ -1,6 +1,6 @@
 import { Component} from '@angular/core';
 import { MovieDetailsComponent } from '../movie-details/movie-details.component';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { NavigationEnd, RouterLink, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from '../../../_shared/header/header.component';
 import { FooterComponent } from '../../../_shared/footer/footer.component';
 import { CommonModule } from '@angular/common';
@@ -44,9 +44,12 @@ export class MoviesComponent {
   {}
 
   ngOnInit(): void {
-    // value from home movie
-    this.movie = this.constantService.getObject();
-  }
+    this.constantService.getObject().subscribe((movie) => {
+      if (movie) {
+        this.movie = movie;
+      }
+    });
+}
 
   /**
    * check active link
@@ -77,10 +80,18 @@ export class MoviesComponent {
   onDeleteMovie(){
     this.movieService.deleteMovie(this.movie?.id).subscribe(
       (response) => {
-        // this.router.navigate(['/home']);
         this.isDeleted = true;
       }
     );
+    // var movieId: number = 0;
+    // if(this.movie.id == null)
+    // this.movieService.getMovieByName(this.movie?.name).subscribe(
+    //   (rsp => {
+    //     movieId = rsp.id;
+    //   })
+    // );
+    // if(movieId != 0){
+      
+    // }
   }
-
 }

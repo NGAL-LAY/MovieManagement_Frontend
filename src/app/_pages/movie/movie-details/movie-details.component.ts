@@ -77,7 +77,7 @@ onDateChange(date: any) {
       
       this.movieService.registerMovie(movie).subscribe(
         (response) => {
-          this.constantService.setObject(movie);
+          this.constantService.setObject(response);
           this.router.navigate(['/movies']);
         }
       );

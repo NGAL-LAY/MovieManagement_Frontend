@@ -34,6 +34,20 @@ export class MovieService {
   }
 
   /**
+   * get movie by name
+   */
+  getMovieByName(name: string): Observable<any> {
+    return this.http.get<any>(`${this.movieAPI}/${name}`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 404) {
+          return throwError('Not Found');
+        }
+        return throwError('An unexpected error occurred');
+      })
+    );
+  }
+
+  /**
    * register new movie
    */
   registerMovie(movieData: Movie): Observable<Movie> {
@@ -53,6 +67,8 @@ export class MovieService {
    */
   deleteMovie(id: number): Observable<any> {
     const headers = { 'Content-Type': 'application/json' };
+    console.log("API", `${this.movieAPI}/${id}`);
+    
     return this.http.delete<number>(`${this.movieAPI}/${id}`, { headers }).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === 404) {
