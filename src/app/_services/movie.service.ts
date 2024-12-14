@@ -51,8 +51,25 @@ export class MovieService {
    * register new movie
    */
   registerMovie(movieData: Movie): Observable<Movie> {
+    console.log("This is register function");
+    
     const headers = { 'Content-Type': 'application/json' };
     return this.http.post<Movie>(this.movieAPI, movieData, { headers }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 404) {
+          return throwError('Not Found');
+        }
+        return throwError('An unexpected error occurred');
+      })
+    );
+  }
+
+  /**
+   * update movie
+   */
+  updateMovie(id: number, movie: Movie): Observable<any> {
+    const headers = { 'Content-Type': 'application/json' };
+    return this.http.put<number>(`${this.movieAPI}/${id}`,movie, { headers }).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === 404) {
           return throwError('Not Found');
@@ -67,8 +84,6 @@ export class MovieService {
    */
   deleteMovie(id: number): Observable<any> {
     const headers = { 'Content-Type': 'application/json' };
-    console.log("API", `${this.movieAPI}/${id}`);
-    
     return this.http.delete<number>(`${this.movieAPI}/${id}`, { headers }).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === 404) {

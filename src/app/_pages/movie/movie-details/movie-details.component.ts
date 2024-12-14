@@ -4,7 +4,6 @@ import { FormControl, FormGroup, Validators,ReactiveFormsModule } from '@angular
 import { DatepickerComponent } from '../../../_shared/datepicker/datepicker.component';
 import { Router, RouterLink } from '@angular/router';
 import { Movie, MovieService } from '../../../_services/movie.service';
-import { ConstantService } from '../../../_shared/constant/constant.service';
 
 
 @Component({
@@ -23,11 +22,12 @@ export class MovieDetailsComponent implements OnInit {
   // movie details from parent movie
   @Input() movieDetails: any;
   movieForm!: FormGroup;
+  // edit status
+  isEdit: boolean = false;
 
   constructor(
     private movieService: MovieService,
     private router: Router,
-    private constantService: ConstantService
   ){}
 
   ngOnInit(): void {
@@ -40,14 +40,12 @@ export class MovieDetailsComponent implements OnInit {
       type: new FormControl('',[
         Validators.required
       ]),
-      date: new FormControl('' ,[
-        Validators.required,
-        Validators.pattern(/^\d{4}-\d{2}-\d{2}$/) // YYYY-MM-DD format
-      ])
+      date: new FormControl('')
     });
 
     // Dynamically set values
-  if (this.movieDetails) {
+  if (this.movieDetails.name) {
+    this.isEdit = true;
     this.movieForm.patchValue({
       name: this.movieDetails.name,
       type: this.movieDetails.type,
@@ -55,15 +53,6 @@ export class MovieDetailsComponent implements OnInit {
     });
   }
   }
-
-  
-
-// This method will be called when the date changes
-onDateChange(date: any) {
-  console.log('Date selected:', date);
-  // You can update the form control value here if necessary
-  this.movieForm.patchValue({ date: date });
-}
 
   /*
     new movie register  
@@ -74,12 +63,28 @@ onDateChange(date: any) {
         type: this.movieForm.value.type || '', 
         year: this.movieForm.value.date || '',  
       };
-      
-      this.movieService.registerMovie(movie).subscribe(
+        this.movieService.registerMovie(movie).subscribe(
+          (response) => {
+            localStorage.setItem('movie', JSON.stringify(response));
+            this.router.navigate(['/movies']);
+          }
+        );
+  }
+
+  /*
+    movie update  
+  */
+    onUpdate(){
+      const movie: Movie = {
+        name: this.movieForm.value.name || '',  
+        type: this.movieForm.value.type || '', 
+        year: this.movieForm.value.date || '',  
+      };
+      this.movieService.updateMovie(this.movieDetails.id,movie).subscribe(
         (response) => {
-          this.constantService.setObject(response);
+          localStorage.setItem('movie', JSON.stringify(response));
           this.router.navigate(['/movies']);
         }
       );
-  }
+    }
 }

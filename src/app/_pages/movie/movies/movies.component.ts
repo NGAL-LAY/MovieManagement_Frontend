@@ -21,7 +21,7 @@ import { Router } from '@angular/router';
     HeaderComponent,
     FooterComponent,
     MovieDetailsComponent,
-    DatepickerComponent
+    DatepickerComponent,
   ],
   templateUrl: './movies.component.html',
   styleUrl: './movies.component.css'
@@ -32,23 +32,35 @@ export class MoviesComponent {
   movie: any;
   // to transfer moviedetails
   movieDetails: any;
-  // to check delete successfully
-  isDeleted: boolean = false;
   strMovieAbout: string = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus sequi explicabo commodi iusto obcaecati. Molestiae, illo nostrum. Asperiores ullam atque eos facere a optio rem corrupti blanditiis nisi, vitae reiciendis.Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus sequi explicabo commodi iusto obcaecati. Molestiae, illo nostrum. Asperiores ullam atque eos facere a optio rem corrupti blanditiis nisi, vitae reiciendis.Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus sequi explicabo commodi iusto obcaecati. Molestiae, illo nostrum. Asperiores ullam atque eos facere a optio rem corrupti blanditiis nisi, vitae reiciendis.';
   
   constructor(
     private movieService: MovieService,
-    private constantService: ConstantService,
+    // private constantService: ConstantService,
     private router: Router
   )
   {}
 
   ngOnInit(): void {
-    this.constantService.getObject().subscribe((movie) => {
-      if (movie) {
-        this.movie = movie;
-      }
-    });
+  // Refresh logic on navigation to the same route
+  this.router.events.subscribe((event) => {
+    if (event instanceof NavigationEnd && event.url === '/movies') {
+      this.refreshMovies();
+    }
+  });
+
+  // Initial load
+  this.refreshMovies();
+}
+
+/**
+   * get movie data from storage
+   */
+refreshMovies(): void {
+  const movieData = localStorage.getItem('movie');
+  if (movieData) {
+    this.movie = JSON.parse(movieData);
+  }
 }
 
   /**
@@ -62,6 +74,7 @@ export class MoviesComponent {
    * new movie 
    */
   onNewMovie(){
+    localStorage.setItem('movie', JSON.stringify(this.movie));
     this.movieDetails = [];
     this.router.navigate(['/movies/movie-details']);
   }
@@ -70,6 +83,7 @@ export class MoviesComponent {
    * show movie details
    */
   onEditMovie(){
+    localStorage.setItem('movie', JSON.stringify(this.movie));
     this.movieDetails = this.movie;
     this.router.navigate(['/movies/movie-details']);
   }
@@ -80,18 +94,8 @@ export class MoviesComponent {
   onDeleteMovie(){
     this.movieService.deleteMovie(this.movie?.id).subscribe(
       (response) => {
-        this.isDeleted = true;
+        this.router.navigate(['/home']);
       }
     );
-    // var movieId: number = 0;
-    // if(this.movie.id == null)
-    // this.movieService.getMovieByName(this.movie?.name).subscribe(
-    //   (rsp => {
-    //     movieId = rsp.id;
-    //   })
-    // );
-    // if(movieId != 0){
-      
-    // }
   }
 }

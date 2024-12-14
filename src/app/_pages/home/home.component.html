@@ -14,8 +14,8 @@
         </li>
         <!-- sci-fi -->
         <li class="mt-5 mb-5 ms-1">
-          <button class="btn form-control btn-dark" [ngClass]="{'btn-outline-light': activeGenre === 'scifi'}"
-            type="submit" (click)="onGenreClick('scifi')">
+          <button class="btn form-control btn-dark" [ngClass]="{'btn-outline-light': activeGenre === 'sci-fi'}"
+            type="submit" (click)="onGenreClick('sci-fi')">
             Sci-Fi
           </button>
         </li>
@@ -44,32 +44,13 @@
     </div>
     <div class="col-10 bg-success-subtle">
       <div class="content-header row">
-        <input class="col-3 form-control-sm  ms-2 bg-primary-subtle" id="content-header-item" type="text"
+        <input class="col-3 form-control-sm  ms-2 bg-primary-subtle" 
+        id="content-header-item" type="text"
+        #searchvalue
           placeholder="Search Movies Name">
 
-        <!--Games -->
-        <select class="form-select-sm col-1 offset-2 me-4 bg-primary text-white" id="content-header-item"
-          aria-label="Default select example">
-          <option selected>Games</option>
-          <option value="1">Action</option>
-          <option value="2">Adventure</option>
-          <option value="3">Comedy</option>
-          <option value="4">Drama</option>
-          <option value="5">Sci_Fi</option>
-        </select>
-        <!-- Languages  -->
-        <select class="form-select-sm col-1 me-4 bg-primary text-white" id="content-header-item"
-          aria-label="Default select example">
-          <option selected>Languages</option>
-          <option value="1">English</option>
-          <option value="2">Chinese</option>
-          <option value="3">India</option>
-          <option value="4">Korea</option>
-          <option value="5">Myanmar</option>
-        </select>
-
         <!-- Countries  -->
-        <select class="form-select-sm col-1 me-4 bg-primary text-white" id="content-header-item"
+        <select class="form-select-sm col-2 offset-3 me-4 bg-primary text-white" id="content-header-item"
           aria-label="Default select example">
           <option selected>Countries</option>
           <option value="1">America</option>
@@ -81,7 +62,7 @@
           <option value="7">Thai</option>
         </select>
         <!-- Rating  -->
-        <select class="form-select-sm col-1 me-5 bg-primary text-white" id="content-header-item"
+        <select class="form-select-sm col-2 me-5 bg-primary text-white" id="content-header-item"
           aria-label="Default select example">
           <option selected>Rating</option>
           <option value="5">5</option>
@@ -92,7 +73,7 @@
         </select>
         <!-- Search -->
         <button class="btn btn-primary col-1" id="content-header-item" style="text-align: center;"
-          type="submit">Search</button>
+          type="submit" (click)="onSearch(searchvalue.value)">Search</button>
       </div>
       <div class="content-body">
         <!-- image card  -->

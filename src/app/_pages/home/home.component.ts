@@ -53,9 +53,20 @@ getAllMovies(){
   );
 }
 
-  // filter by genre
-  getMovieByGenre(genre:string){
-    this.movies = this.movies.filter(g => g.type.toLowerCase() === genre.toLowerCase());
+  // fetch movies by name
+  getMovieByName(name:string){
+      this.movies = this.movies.filter(movie => movie.name.toLowerCase().includes(name.toLowerCase()));
+  }
+
+  /*
+  *seach function
+  */
+  onSearch(name: string){
+    if(name){
+      this.getMovieByName(name);
+    }else{
+      this.getAllMovies();
+    }
   }
 
   onGenreClick(genre: string): void {
@@ -82,7 +93,8 @@ getAllMovies(){
   
   // transfer object(movie)
   selectMovie(movie: any) {
-    this.constantService.setObject(movie);
+    // this.constantService.setObject(movie);
+    localStorage.setItem('movie', JSON.stringify(movie));
     this.router.navigate(['/movies']);
   }
   

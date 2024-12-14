@@ -8,7 +8,6 @@ import { NotFoundComponent } from './_shared/not-found/not-found.component';
 
 export const routes: Routes = [
     { path: '404', component: NotFoundComponent },
-    // { path: '**', redirectTo: '/404' }, // Fallback for undefined routes
     { path: 'login', component: LoginComponent},
     { path: 'home', component: HomeComponent,canActivate: [AuthGuard] },
     { path: '', redirectTo: '/login', pathMatch: 'full' },

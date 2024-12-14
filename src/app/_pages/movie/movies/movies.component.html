@@ -31,7 +31,6 @@
             </div>
             <!-- media -->
             <div class="row border border-2 border-secondary rounded-2 media" >
-                <div *ngIf="!isDeleted">
                     <p class="col-12 movie-about">{{strMovieAbout}}</p>
                     <div class="d-flex">
                         <div class="movie-name">
@@ -42,14 +41,13 @@
                         <img src="https://th.bing.com/th/id/OIP.Nf4HBjqFmfH7RJWb-dJCPQHaEo?rs=1&pid=ImgDetMain" height="120px"
                                 width="250px" alt="">
                     </div>
-                </div>
             </div>
 
             <!-- comments, reviews -->
             <div class="row m-3">
                 <button class="col-1 offset-2 btn btn-outline-primary" routerLink="/home">Back</button>
-                <button class="col-1 offset-2 btn btn-primary" (click)="onEditMovie()" *ngIf="!isDeleted">Review</button>
-                <button class="col-1 offset-2 btn btn-primary" *ngIf="!isDeleted">Comment</button>
+                <button class="col-1 offset-2 btn btn-primary" (click)="onEditMovie()">Review</button>
+                <button class="col-1 offset-2 btn btn-primary">Comment</button>
             </div>
         </div>
     </div>

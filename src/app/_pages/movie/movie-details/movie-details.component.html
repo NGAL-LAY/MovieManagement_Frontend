@@ -1,5 +1,5 @@
 <div class="body-height">
-    <form [formGroup]="movieForm" (ngSubmit)="onRegister()">
+    <form [formGroup]="movieForm">
         <div class="row text-center mb-3">
             <p class="fs-4 fw-bold text-primary">Movie Creation</p>
         </div>
@@ -22,12 +22,12 @@
 
         <div class="row mb-3">
             <label class="col-3 offset-1 form-control-sm fs-5 text-primary" for="date">Movie Date</label>
-            <app-datepicker class="col-7 form-control-sm" id="year" type="date" formControlName="date" 
-             (dateChange)="onDateChange($event)"></app-datepicker>
+            <app-datepicker class="col-7 form-control-sm" id="year" type="date" formControlName="date"></app-datepicker>
         </div>
         <div class="row">
             <button class="btn btn-outline-primary col-2 offset-4" routerLink="/movies">Back</button>
-            <button class="btn btn-primary col-2 offset-3" type="submit">Register</button>
+            <button class="btn btn-primary col-2 offset-3" type="submit" *ngIf="!isEdit" (click)="onRegister()"  [disabled]="!movieForm.valid">Register</button>
+            <button class="btn btn-primary col-2 offset-3" type="submit" *ngIf="isEdit" (click)="onUpdate()"  [disabled]="!movieForm.valid">Update</button>
         </div>
     </form>
 </div>
