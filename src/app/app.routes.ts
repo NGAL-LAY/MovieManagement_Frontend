@@ -5,6 +5,7 @@ import { AuthGuard } from './auth.guard';
 import { MoviesComponent } from './_pages/movie/movies/movies.component';
 import { MovieDetailsComponent } from './_pages/movie/movie-details/movie-details.component';
 import { NotFoundComponent } from './_shared/not-found/not-found.component';
+import { CommentsComponent } from './_pages/comments/comments.component';
 
 export const routes: Routes = [
     { path: '404', component: NotFoundComponent },
@@ -16,4 +17,5 @@ export const routes: Routes = [
             { path: 'movie-details', component: MovieDetailsComponent},
         ]
     },
+    { path: 'comments', component: CommentsComponent},
 ];

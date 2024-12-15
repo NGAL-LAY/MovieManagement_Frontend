@@ -1,0 +1,54 @@
+<div class="container-fluid">
+    <div id="header">
+        <app-header></app-header>
+    </div>
+
+    <!-- body start-->
+    <div class="row  body-height">
+        <div class="row content-header">
+            <button class="btn btn-primary offset-1 col-1" (click)="onNewComment()">New</button>
+            <input class="col-3 form-control-sm offset-5 bg-primary-subtle me-5" id="content-header-item" type="text"
+                #searchvalue placeholder="Enter movie and user">
+            <!-- Search -->
+            <button class="btn btn-primary col-1 ms-5" id="content-header-item" style="text-align: center;" type="submit"
+                (click)="onSearch(searchvalue.value)">Search</button>
+        </div>
+        <!-- Table start -->
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Comments</th>
+                    <th>Movie Name</th>
+                    <th>User</th>
+                    <th>Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Inception</td>
+                    <td>Sci-Fi</td>
+                    <td>2010</td>
+                    <td>2</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Table end -->
+        <div class="row content-header">
+            <!-- Back -->
+            <button class="btn btn-primary col-1" type="submit" routerLink="/home">Back</button>
+            <!-- Delete -->
+            <button class="btn btn-danger col-1" id="content-header-item" style="text-align: center;" type="submit"
+                (click)="onDelete()">Delete</button>
+        </div>
+    </div>
+    <!-- body end -->
+
+    <!-- child movie details component -->
+    <!-- <app-movie-details *ngIf="isMovieDetailsActive()" [movieDetails]="movieDetails"></app-movie-details> -->
+
+    <div id="footer">
+        <app-footer></app-footer>
+    </div>
+</div>

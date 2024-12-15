@@ -98,4 +98,13 @@ refreshMovies(): void {
       }
     );
   }
+
+  /**
+   * show movie details
+   */
+  onComment(){
+    // localStorage.setItem('movie', JSON.stringify(this.movie));
+    // this.movieDetails = this.movie;
+    this.router.navigate(['/comments']);
+  }
 }
