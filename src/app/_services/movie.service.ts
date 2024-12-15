@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { ConstantService } from '../_shared/constant/constant.service';
@@ -51,8 +51,6 @@ export class MovieService {
    * register new movie
    */
   registerMovie(movieData: Movie): Observable<Movie> {
-    console.log("This is register function");
-    
     const headers = { 'Content-Type': 'application/json' };
     return this.http.post<Movie>(this.movieAPI, movieData, { headers }).pipe(
       catchError((error: HttpErrorResponse) => {
@@ -96,6 +94,7 @@ export class MovieService {
   
 }
 
+// movie interface
 export interface Movie {
   name: string;
   type: string;

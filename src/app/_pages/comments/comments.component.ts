@@ -50,4 +50,18 @@ export class CommentsComponent implements OnInit{
   
   }
 
+  /*
+  * all check or not
+  */
+  toggleAllCheckBoxes(){
+  
+  }
+
+  /*
+  * check or not
+  */
+  toggleCheckBox(){
+  
+  }
+
 }

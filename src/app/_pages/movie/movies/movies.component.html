@@ -47,7 +47,7 @@
             <div class="row m-3">
                 <button class="col-1 offset-2 btn btn-outline-primary" routerLink="/home">Back</button>
                 <button class="col-1 offset-2 btn btn-primary" (click)="onComment()">Comment</button>
-                <button class="col-1 offset-2 btn btn-primary">Comment</button>
+                <button class="col-1 offset-2 btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Comment</button>
             </div>
         </div>
     </div>
@@ -55,6 +55,27 @@
 
     <!-- child movie details component -->
     <app-movie-details *ngIf="isMovieDetailsActive()" [movieDetails]="movieDetails"></app-movie-details>
+
+    <!-- start of popup dialog -->  
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header justify-content-center">
+          <h5 class="modal-title" id="myModalLabel">Recommandation</h5>
+        </div>
+        <div class="modal-body">
+            <textarea type="text" class="form-control mb-3" placeholder="Enter something..." [(ngModel)]="strComments"></textarea>
+            <input type="number" class="form-control" max="5" min="0" placeholder="Choose rating(0~5)..." [(ngModel)]="intRating"/>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" (click)="onCommentsSave()">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end of popup dialog -->
 
     <div id="footer">
         <app-footer></app-footer>

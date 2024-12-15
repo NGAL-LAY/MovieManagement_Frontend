@@ -5,8 +5,9 @@ import { HeaderComponent } from '../../../_shared/header/header.component';
 import { FooterComponent } from '../../../_shared/footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { MovieService } from '../../../_services/movie.service';
+import { CommentService, Comment } from '../../../_services/comment.service';
 import { ConstantService } from '../../../_shared/constant/constant.service';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatepickerComponent } from '../../../_shared/datepicker/datepicker.component';
 import { Router } from '@angular/router';
 
@@ -22,6 +23,7 @@ import { Router } from '@angular/router';
     FooterComponent,
     MovieDetailsComponent,
     DatepickerComponent,
+    FormsModule
   ],
   templateUrl: './movies.component.html',
   styleUrl: './movies.component.css'
@@ -33,11 +35,16 @@ export class MoviesComponent {
   // to transfer moviedetails
   movieDetails: any;
   strMovieAbout: string = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus sequi explicabo commodi iusto obcaecati. Molestiae, illo nostrum. Asperiores ullam atque eos facere a optio rem corrupti blanditiis nisi, vitae reiciendis.Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus sequi explicabo commodi iusto obcaecati. Molestiae, illo nostrum. Asperiores ullam atque eos facere a optio rem corrupti blanditiis nisi, vitae reiciendis.Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus sequi explicabo commodi iusto obcaecati. Molestiae, illo nostrum. Asperiores ullam atque eos facere a optio rem corrupti blanditiis nisi, vitae reiciendis.';
-  
+  // comments 
+  strComments: string = '';
+  // rating 
+  intRating: string = '';
+
   constructor(
     private movieService: MovieService,
     // private constantService: ConstantService,
-    private router: Router
+    private router: Router,
+    private commentService: CommentService
   )
   {}
 
@@ -57,9 +64,11 @@ export class MoviesComponent {
    * get movie data from storage
    */
 refreshMovies(): void {
-  const movieData = localStorage.getItem('movie');
-  if (movieData) {
-    this.movie = JSON.parse(movieData);
+  if (typeof window !== 'undefined'){
+    const movieData = localStorage.getItem('movie');
+    if (movieData) {
+      this.movie = JSON.parse(movieData);
+    }
   }
 }
 
@@ -106,5 +115,29 @@ refreshMovies(): void {
     // localStorage.setItem('movie', JSON.stringify(this.movie));
     // this.movieDetails = this.movie;
     this.router.navigate(['/comments']);
+  }
+
+   /*
+      new comment register  
+    */
+  onCommentsSave(): void {
+    if (this.strComments || this.intRating) {
+      console.log('Comments value:', this.strComments);
+      console.log('Rating value:', this.intRating);
+      const comment: Comment = {
+        // movieid: this.movieForm.value.name || '',  
+        // userid: this.movieForm.value.type || '', 
+        movieid: +this.movie?.id,  
+        userid: 3, 
+        comments: this.strComments,  
+        rating: +this.intRating
+      };
+        this.commentService.registerComment(comment).subscribe(
+          (response) => {
+            // localStorage.setItem('movie', JSON.stringify(response));
+            this.router.navigate(['/movies']);
+          }
+        );
+    }
   }
 }

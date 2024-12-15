@@ -4,19 +4,30 @@
     </div>
 
     <!-- body start-->
-    <div class="row  body-height">
-        <div class="row content-header">
-            <button class="btn btn-primary offset-1 col-1" (click)="onNewComment()">New</button>
-            <input class="col-3 form-control-sm offset-5 bg-primary-subtle me-5" id="content-header-item" type="text"
+    <div class="row  body-height" style="height: 505px;">
+        <div class="row btn-div1">
+            <!-- <button class="btn btn-primary offset-1 col-1" (click)="onNewComment()">New</button> -->
+            <input class="col-3 form-control-sm offset-1 bg-primary-subtle" id="content-header-item" type="text"
                 #searchvalue placeholder="Enter movie and user">
             <!-- Search -->
-            <button class="btn btn-primary col-1 ms-5" id="content-header-item" style="text-align: center;" type="submit"
+            <button class="btn btn-primary col-1 offset-7" id="content-header-item" style="text-align: center;" type="submit"
                 (click)="onSearch(searchvalue.value)">Search</button>
         </div>
         <!-- Table start -->
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped tbl-div">
+            <colgroup>
+                <col style="width: 50px;">
+                <col style="width: 50px;">
+                <col style="width: 450px;">
+                <col style="width: 200px;">
+                <col style="width: 200px;">
+                <col style="width: 50px;">
+            </colgroup>
             <thead>
                 <tr>
+                    <th>
+                        <input type="checkbox" id="isAllCheck" (click)="toggleAllCheckBoxes()"/>
+                    </th>
                     <th>No</th>
                     <th>Comments</th>
                     <th>Movie Name</th>
@@ -26,6 +37,9 @@
             </thead>
             <tbody>
                 <tr>
+                    <td>
+                        <input type="checkbox" id="isCheck" (click)="toggleCheckBox()"/>
+                    </td>
                     <td>1</td>
                     <td>Inception</td>
                     <td>Sci-Fi</td>
@@ -35,11 +49,11 @@
             </tbody>
         </table>
         <!-- Table end -->
-        <div class="row content-header">
+        <div class="row btn-div2">
             <!-- Back -->
-            <button class="btn btn-primary col-1" type="submit" routerLink="/home">Back</button>
+            <button class="btn btn-primary col-1 offset-1 " type="submit" routerLink="/movies">Back</button>
             <!-- Delete -->
-            <button class="btn btn-danger col-1" id="content-header-item" style="text-align: center;" type="submit"
+            <button class="btn btn-danger col-1 offset-9" id="content-header-item" style="text-align: center;" type="submit"
                 (click)="onDelete()">Delete</button>
         </div>
     </div>
