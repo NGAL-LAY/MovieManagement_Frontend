@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component, ElementRef, ViewChild} from '@angular/core';
 import { MovieDetailsComponent } from '../movie-details/movie-details.component';
 import { NavigationEnd, RouterLink, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from '../../../_shared/header/header.component';
@@ -30,6 +30,8 @@ import { Router } from '@angular/router';
 })
 export class MoviesComponent {
 
+  // comment modal dialog
+  @ViewChild('myModal', { static: false }) myModal!: ElementRef;
   //to store movie
   movie: any;
   // to transfer moviedetails
@@ -122,8 +124,6 @@ refreshMovies(): void {
     */
   onCommentsSave(): void {
     if (this.strComments || this.intRating) {
-      console.log('Comments value:', this.strComments);
-      console.log('Rating value:', this.intRating);
       const comment: Comment = {
         // movieid: this.movieForm.value.name || '',  
         // userid: this.movieForm.value.type || '', 
@@ -134,7 +134,7 @@ refreshMovies(): void {
       };
         this.commentService.registerComment(comment).subscribe(
           (response) => {
-            // localStorage.setItem('movie', JSON.stringify(response));
+            console.log("Success",response);
             this.router.navigate(['/movies']);
           }
         );
