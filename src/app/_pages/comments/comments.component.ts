@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../_shared/header/header.component';
 import { FooterComponent } from '../../_shared/footer/footer.component';
 import { Router, RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { CommentService } from '../../_services/comment.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-comments',
@@ -10,19 +13,50 @@ import { Router, RouterLink } from '@angular/router';
     HeaderComponent,
     FooterComponent,
     RouterLink,
+    CommonModule,
+    FormsModule
   ],
   templateUrl: './comments.component.html',
   styleUrl: './comments.component.css'
 })
 export class CommentsComponent implements OnInit{
 
+  // store all comments
+  comments: any[] = [];
+  // check or not all checkboxes
+  isAllChecked: boolean = false;
+  // check or not individual checkbox
+  isCheckedItems: boolean[] = [];
+
   constructor(
-      private router: Router
+      private router: Router,
+      private commentService: CommentService
     )
     {}
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.getAllComments();
+  }
+
+  /*
+  * set initial value of all check box
+  */
+ fillCheckedItems(){
+  this.isCheckedItems = new Array(this.comments.length).fill(false);
+ }
+
+  /*
+  * fetch all comments
+  */
+  getAllComments(){
+    this.commentService.getAllComments().subscribe(
+      (data)=> {
+          this.comments = data;
+          this.fillCheckedItems();
+      },(error)=>{
+        console.log('Error fetched:',error);
+      }
+    );
   }
 
   /*
@@ -51,17 +85,20 @@ export class CommentsComponent implements OnInit{
   }
 
   /*
-  * all check or not
+  * check or not all check box by master checkbox
   */
-  toggleAllCheckBoxes(){
-  
+  toggleAllCheckBoxes():void{
+    this.isCheckedItems.fill(this.isAllChecked)
   }
 
   /*
   * check or not
   */
-  toggleCheckBox(){
-  
+  toggleCheckBox(index: number,  event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const isChecked = inputElement.checked;
+    this.isCheckedItems[index] = isChecked;
+    this.isAllChecked = this.isCheckedItems.every((checked) => checked);
   }
 
 }

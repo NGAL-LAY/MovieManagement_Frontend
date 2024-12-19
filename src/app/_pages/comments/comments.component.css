@@ -8,5 +8,18 @@
 .tbl-div{
     margin-top: 4px;
     margin-bottom: 4px;
-    height: 390px;
+    max-height: 390px;
+}
+
+.table-scroll-wrapper {
+    max-height: 390px; /* Adjust height as needed */
+    overflow-y: auto;
+    /* border: 1px solid #ccc; */
+}
+
+/* Ensure the table headers are fixed when scrolling */
+.table-scroll-wrapper thead th {
+    position: sticky;
+    top: 0;
+    background-color: #f8f9fa; 
 }

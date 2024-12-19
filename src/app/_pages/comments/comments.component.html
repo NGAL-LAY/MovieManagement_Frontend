@@ -7,48 +7,54 @@
     <div class="row  body-height" style="height: 505px;">
         <div class="row btn-div1">
             <!-- <button class="btn btn-primary offset-1 col-1" (click)="onNewComment()">New</button> -->
-            <input class="col-3 form-control-sm offset-1 bg-primary-subtle" id="content-header-item" type="text"
+            <input class="col-3 form-control-sm offset-1 bg-primary-subtle border-0" id="content-header-item" type="text"
                 #searchvalue placeholder="Enter movie and user">
             <!-- Search -->
             <button class="btn btn-primary col-1 offset-7" id="content-header-item" style="text-align: center;" type="submit"
                 (click)="onSearch(searchvalue.value)">Search</button>
         </div>
+
         <!-- Table start -->
-        <table class="table table-bordered table-striped tbl-div">
-            <colgroup>
-                <col style="width: 50px;">
-                <col style="width: 50px;">
-                <col style="width: 450px;">
-                <col style="width: 200px;">
-                <col style="width: 200px;">
-                <col style="width: 50px;">
-            </colgroup>
-            <thead>
-                <tr>
-                    <th>
-                        <input type="checkbox" id="isAllCheck" (click)="toggleAllCheckBoxes()"/>
-                    </th>
-                    <th>No</th>
-                    <th>Comments</th>
-                    <th>Movie Name</th>
-                    <th>User</th>
-                    <th>Rating</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <input type="checkbox" id="isCheck" (click)="toggleCheckBox()"/>
-                    </td>
-                    <td>1</td>
-                    <td>Inception</td>
-                    <td>Sci-Fi</td>
-                    <td>2010</td>
-                    <td>2</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-scroll-wrapper">
+            <table class="table table-bordered table-striped tbl-div">
+                <colgroup>
+                    <col style="width: 50px;">
+                    <col style="width: 50px;">
+                    <col style="width: 450px;">
+                    <col style="width: 200px;">
+                    <col style="width: 200px;">
+                    <col style="width: 50px;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>
+                            <input type="checkbox" id="isAllCheck"
+                            [(ngModel)]="isAllChecked"  (change)="toggleAllCheckBoxes()"/>
+                        </th>
+                        <th>No</th>
+                        <th>Comments</th>
+                        <th>Movie Name</th>
+                        <th>User</th>
+                        <th>Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let comment of comments; let i = index">
+                        <td>
+                            <input type="checkbox" id="isCheck" [checked]="isCheckedItems[i]" 
+                            (change)="toggleCheckBox(i, $event)"/>
+                        </td>
+                        <td>{{i+1}}</td>
+                        <td>{{comment.comments}}</td>
+                        <td>{{comment.movieid}}</td>
+                        <td>{{comment.userid}}</td>
+                        <td>{{comment.rating}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <!-- Table end -->
+
         <div class="row btn-div2">
             <!-- Back -->
             <button class="btn btn-primary col-1 offset-1 " type="submit" routerLink="/movies">Back</button>

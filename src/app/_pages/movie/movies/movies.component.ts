@@ -6,7 +6,6 @@ import { FooterComponent } from '../../../_shared/footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { MovieService } from '../../../_services/movie.service';
 import { CommentService, Comment } from '../../../_services/comment.service';
-import { ConstantService } from '../../../_shared/constant/constant.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatepickerComponent } from '../../../_shared/datepicker/datepicker.component';
 import { Router } from '@angular/router';
@@ -46,7 +45,7 @@ export class MoviesComponent {
     private movieService: MovieService,
     // private constantService: ConstantService,
     private router: Router,
-    private commentService: CommentService
+    private commentService: CommentService,
   )
   {}
 
@@ -135,7 +134,10 @@ refreshMovies(): void {
         this.commentService.registerComment(comment).subscribe(
           (response) => {
             console.log("Success",response);
-            this.router.navigate(['/movies']);
+            const modalElement = this.myModal.nativeElement;
+            console.log("modalElement",modalElement);
+            const modalInstance =  new (window as any).bootstrap.Modal(modalElement);
+            modalInstance.hide();
           }
         );
     }

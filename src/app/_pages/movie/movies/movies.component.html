@@ -58,15 +58,15 @@
 
     <!-- start of popup dialog -->  
   <!-- Modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div #myModal class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header justify-content-center">
           <h5 class="modal-title" id="myModalLabel">Recommandation</h5>
         </div>
         <div class="modal-body">
-            <textarea type="text" class="form-control mb-3" placeholder="Enter something..." [(ngModel)]="strComments"></textarea>
-            <input type="number" class="form-control" max="5" min="0" placeholder="Choose rating(0~5)..." [(ngModel)]="intRating"/>
+          <textarea type="text" class="form-control mb-3" placeholder="Enter something..." [(ngModel)]="strComments"></textarea>
+          <input type="number" class="form-control" max="5" min="0" placeholder="Choose rating(0~5)..." [(ngModel)]="intRating" />
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -75,6 +75,7 @@
       </div>
     </div>
   </div>
+  
   <!-- end of popup dialog -->
 
     <div id="footer">
