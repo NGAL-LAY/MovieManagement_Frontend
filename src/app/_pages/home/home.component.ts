@@ -59,7 +59,7 @@ getAllMovies(){
   }
 
   /*
-  *seach function
+  * seach function
   */
   onSearch(name: string){
     if(name){
@@ -69,6 +69,9 @@ getAllMovies(){
     }
   }
 
+  /*
+  * filter by movie genre
+  */
   onGenreClick(genre: string): void {
     // Set the clicked genre as active
     this.activeGenre = genre; 
@@ -91,13 +94,24 @@ getAllMovies(){
     }
   }
   
-  // transfer object(movie)
+  /*
+  * selected movie
+  */
   selectMovie(movie: any) {
-    // this.constantService.setObject(movie);
     localStorage.setItem('movie', JSON.stringify(movie));
     this.router.navigate(['/movies']);
   }
+
+  /*
+  * add function for actors, directors and companies
+  */
+ onAdd(){
+  this.router.navigate(['/actors']);
+ }
   
+  /*
+  * logout function
+  */
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);

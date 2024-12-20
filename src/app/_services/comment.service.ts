@@ -67,9 +67,15 @@ export class CommentService {
   /**
    * delete comment
    */
-  deleteMovie(id: number): Observable<any> {
+  deleteCommentByIds(commentIds: number[]): Observable<any> {
+    console.log("Comments service", commentIds);
+    
     const headers = { 'Content-Type': 'application/json' };
-    return this.http.delete<number>(`${this.commentAPI}/${id}`, { headers }).pipe(
+    const options = {
+      headers: headers,
+      body:  commentIds
+    };
+    return this.http.delete<number>(this.commentAPI,options).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === 404) {
           return throwError('Not Found');

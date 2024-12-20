@@ -5,19 +5,20 @@
 .btn-div2{
     height: 35px;
 }
-.tbl-div{
+
+.table-body{
+    height: 390px;
+}
+.table-scroll-wrapper {
+    max-height: 390px; 
+    overflow-y: auto; 
+    margin-top: 0px;
+}
+.tbl-div {
     margin-top: 4px;
     margin-bottom: 4px;
-    max-height: 390px;
+    width: 100%;
 }
-
-.table-scroll-wrapper {
-    max-height: 390px; /* Adjust height as needed */
-    overflow-y: auto;
-    /* border: 1px solid #ccc; */
-}
-
-/* Ensure the table headers are fixed when scrolling */
 .table-scroll-wrapper thead th {
     position: sticky;
     top: 0;

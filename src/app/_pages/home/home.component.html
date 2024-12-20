@@ -6,38 +6,45 @@
     <div class="content-sidebar col-2 bg-info">
       <ul>
         <!-- all films -->
-        <li class="active mt-5 mb-5 ms-1">
+        <li class="active mt-5 mb-4 ms-1">
           <button class="btn form-control btn-dark" [ngClass]="{'btn-outline-light': activeGenre === 'all'}"
             type="submit" (click)="onGenreClick('all')">
             All Films
           </button>
         </li>
         <!-- sci-fi -->
-        <li class="mt-5 mb-5 ms-1">
+        <li class="mt-5 mb-4 ms-1">
           <button class="btn form-control btn-dark" [ngClass]="{'btn-outline-light': activeGenre === 'sci-fi'}"
             type="submit" (click)="onGenreClick('sci-fi')">
             Sci-Fi
           </button>
         </li>
         <!-- drama -->
-        <li class="mt-5 mb-5 ms-1">
+        <li class="mt-5 mb-4 ms-1">
           <button class="btn form-control btn-dark" [ngClass]="{'btn-outline-light': activeGenre === 'drama'}"
             type="submit" (click)="onGenreClick('drama')">
             Drama
           </button>
         </li>
         <!-- action -->
-        <li class="mt-5 mb-5 ms-1">
+        <li class="mt-5 mb-4 ms-1">
           <button class="btn form-control btn-dark" [ngClass]="{'btn-outline-light': activeGenre === 'action'}"
             type="submit" (click)="onGenreClick('action')">
             Action
           </button>
         </li>
         <!-- comedy -->
-        <li class="mt-5 mb-5 ms-1">
+        <li class="mt-5 mb-4 ms-1">
           <button class="btn form-control btn-dark" [ngClass]="{'btn-outline-light': activeGenre === 'comedy'}"
             type="submit" (click)="onGenreClick('comedy')">
             Comedy
+          </button>
+        </li>
+        <!-- Add for admin -->
+        <li class="mt-4 ms-1">
+          <button class="btn form-control btn-light btn-outline-secondary"
+            type="submit" (click)="onAdd()">
+            Add
           </button>
         </li>
       </ul>
@@ -75,15 +82,17 @@
         <button class="btn btn-primary col-1" id="content-header-item" style="text-align: center;"
           type="submit" (click)="onSearch(searchvalue.value)">Search</button>
       </div>
-      <div class="content-body">
-        <!-- image card  -->
-        <div class="row dynamic-div"  *ngFor="let movie of movies;let i = index">
-          <div class="card" (click)="selectMovie(movie)">
-            <img class="card-img-top img-margin"
-              src="https://th.bing.com/th/id/OIP.Nf4HBjqFmfH7RJWb-dJCPQHaEo?rs=1&pid=ImgDetMain" alt="Card image cap">
-            <div class="card-body">
-              <p class="card-text card-margin">{{movie.name}}</p>
-              <p class="card-text">{{movie.type}}</p>
+      <div class="body-div">
+        <div class="content-body">
+          <!-- image card  -->
+          <div class="row dynamic-div"  *ngFor="let movie of movies;let i = index">
+            <div class="card" (click)="selectMovie(movie)">
+              <img class="card-img-top img-margin"
+                src="https://th.bing.com/th/id/OIP.Nf4HBjqFmfH7RJWb-dJCPQHaEo?rs=1&pid=ImgDetMain" alt="Card image cap">
+              <div class="card-body">
+                <p class="card-text card-margin">{{movie.name}}</p>
+                <p class="card-text">{{movie.type}}</p>
+              </div>
             </div>
           </div>
         </div>

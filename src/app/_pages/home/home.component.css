@@ -38,9 +38,14 @@ a {
 #content-header-item{
     height: 30px;
 }
+
+.body-div{
+    height: 446px;;
+}
 .content-body{
     overflow-y: auto; 
     max-height: 446px;
+    margin-top: 0px;
 }
 .dynamic-div{
     width: 230px;
