@@ -4,13 +4,12 @@
     </div>
 
     <!-- body start-->
-    <div class="row  body-height" style="height: 505px;">
+    <div class="row  body-height">
         <div class="row btn-div1">
-            <!-- <button class="btn btn-primary offset-1 col-1" (click)="onNewComment()">New</button> -->
-            <input class="col-3 form-control-sm offset-1 bg-primary-subtle border-0" id="content-header-item" type="text"
-                #searchvalue placeholder="Enter movie and user"  (keydown.enter)="onSearch(searchvalue.value)">
+            <input class="col-3 form-control-sm offset-7 bg-primary-subtle border-0" id="content-header-item" type="text"
+                #searchvalue placeholder="Enter movie and user" (keydown.enter)="onSearch(searchvalue.value)">
             <!-- Search -->
-            <button class="btn btn-primary col-1 offset-7" id="content-header-item" style="text-align: center;" type="submit"
+            <button class="btn btn-primary col-1 offset-1" id="content-header-item" style="text-align: center;" type="submit"
                 (click)="onSearch(searchvalue.value)">Search</button>
         </div>
 

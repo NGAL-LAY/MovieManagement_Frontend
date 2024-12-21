@@ -77,13 +77,6 @@ export class CommentsComponent implements OnInit{
   }
 
   /*
-  * register new comment
-  */
-  onNewComment(){
-
-  }
-
-  /*
   *delete comment
   */
   onDelete(){

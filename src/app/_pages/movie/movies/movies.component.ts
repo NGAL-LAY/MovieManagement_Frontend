@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild} from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MovieDetailsComponent } from '../movie-details/movie-details.component';
 import { NavigationEnd, RouterLink, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from '../../../_shared/header/header.component';
@@ -46,32 +46,31 @@ export class MoviesComponent {
     // private constantService: ConstantService,
     private router: Router,
     private commentService: CommentService,
-  )
-  {}
+  ) { }
 
   ngOnInit(): void {
-  // Refresh logic on navigation to the same route
-  this.router.events.subscribe((event) => {
-    if (event instanceof NavigationEnd && event.url === '/movies') {
-      this.refreshMovies();
-    }
-  });
+    // Refresh logic on navigation to the same route
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd && event.url === '/movies') {
+        this.refreshMovies();
+      }
+    });
 
-  // Initial load
-  this.refreshMovies();
-}
+    // Initial load
+    this.refreshMovies();
+  }
 
-/**
-   * get movie data from storage
-   */
-refreshMovies(): void {
-  if (typeof window !== 'undefined'){
-    const movieData = localStorage.getItem('movie');
-    if (movieData) {
-      this.movie = JSON.parse(movieData);
+  /**
+     * get movie data from storage
+     */
+  refreshMovies(): void {
+    if (typeof window !== 'undefined') {
+      const movieData = localStorage.getItem('movie');
+      if (movieData) {
+        this.movie = JSON.parse(movieData);
+      }
     }
   }
-}
 
   /**
    * check active link
@@ -83,7 +82,7 @@ refreshMovies(): void {
   /**
    * new movie 
    */
-  onNewMovie(){
+  onNewMovie() {
     localStorage.setItem('movie', JSON.stringify(this.movie));
     this.movieDetails = [];
     this.router.navigate(['/movies/movie-details']);
@@ -92,7 +91,7 @@ refreshMovies(): void {
   /**
    * show movie details
    */
-  onEditMovie(){
+  onEditMovie() {
     localStorage.setItem('movie', JSON.stringify(this.movie));
     this.movieDetails = this.movie;
     this.router.navigate(['/movies/movie-details']);
@@ -101,7 +100,7 @@ refreshMovies(): void {
   /**
    * delete movie
    */
-  onDeleteMovie(){
+  onDeleteMovie() {
     this.movieService.deleteMovie(this.movie?.id).subscribe(
       (response) => {
         this.router.navigate(['/home']);
@@ -112,34 +111,32 @@ refreshMovies(): void {
   /**
    * show movie details
    */
-  onComment(){
-    // localStorage.setItem('movie', JSON.stringify(this.movie));
-    // this.movieDetails = this.movie;
+  onComment() {
     this.router.navigate(['/comments']);
   }
 
-   /*
-      new comment register  
-    */
+  /*
+     new comment register  
+   */
   onCommentsSave(): void {
     if (this.strComments || this.intRating) {
       const comment: Comment = {
         // movieid: this.movieForm.value.name || '',  
         // userid: this.movieForm.value.type || '', 
-        movieid: +this.movie?.id,  
-        userid: 3, 
-        comments: this.strComments,  
+        movieid: +this.movie?.id,
+        userid: 3,
+        comments: this.strComments,
         rating: +this.intRating
       };
-        this.commentService.registerComment(comment).subscribe(
-          (response) => {
-            console.log("Success",response);
-            const modalElement = this.myModal.nativeElement;
-            console.log("modalElement",modalElement);
-            const modalInstance =  new (window as any).bootstrap.Modal(modalElement);
-            modalInstance.hide();
-          }
-        );
+      this.commentService.registerComment(comment).subscribe(
+        (response) => {
+          console.log("Success", response);
+          const modalElement = this.myModal.nativeElement;
+          console.log("modalElement", modalElement);
+          const modalInstance = new (window as any).bootstrap.Modal(modalElement);
+          modalInstance.hide();
+        }
+      );
     }
   }
 }
