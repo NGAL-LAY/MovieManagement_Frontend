@@ -1,1 +1,41 @@
-<p>actor-details works!</p>
+<div class="row body-height mt-2">
+    <form [formGroup]="actorForm">
+        <div class="row text-center mt-5 mb-4">
+            <p class="fs-4 fw-bold text-primary">Actor Creation</p>
+        </div>
+        <div class="row mb-5">
+            <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="name">Name</label>
+            <div class="col-3">
+                <input class="form-control" id="name" formControlName="name" [value]="actorDetails?.name"
+                [placeholder]="actorForm.get('name')?.invalid && actorForm.get('name')?.touched && actorForm.get('name')?.value.length < 6 
+               ? 'Name must be at least 6 characters' : ''">
+            </div>
+        </div>
+        <div class="row mb-5">
+            <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="gentle">Gentle</label>
+            <div class="col-2">
+                <input type="radio" class="me-1" id="male" name="gentle" formControlName="gentle" value="m">
+                <label for="male" class="me-2">Male</label>
+                <input type="radio" class="me-1" id="female" name="gentle" formControlName="gentle" value="f">
+                <label for="female">Female</label>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="nationality">Nationality</label>
+            <div class="col-3">
+                <select class="form-select" formControlName="nationality" aria-label=".form-select-sm example">
+                    <option value="" selected>---select---</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <button class="btn btn-outline-primary col-1 offset-4" routerLink="/actors">Back</button>
+            <button class="btn btn-primary col-1 offset-2" type="submit" *ngIf="!isEdit" (click)="onRegister()"  [disabled]="!actorForm.valid">Register</button>
+            <button class="btn btn-primary col-1 offset-2" type="submit" *ngIf="isEdit" (click)="onUpdate()"  [disabled]="!actorForm.valid">Update</button>
+        </div> 
+    </form>
+</div>

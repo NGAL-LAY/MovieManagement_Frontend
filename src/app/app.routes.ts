@@ -15,28 +15,21 @@ import { CompanyDetailsComponent } from './_pages/company/company-details/compan
 
 export const routes: Routes = [
     { path: '404', component: NotFoundComponent },
-    { path: 'login', component: LoginComponent},
-    { path: 'home', component: HomeComponent,canActivate: [AuthGuard] },
+    { path: 'login', component: LoginComponent },
     { path: '', redirectTo: '/login', pathMatch: 'full' },
-    { path: 'movies', component: MoviesComponent,
-        children:[
-            { path: 'movie-details', component: MovieDetailsComponent},
+    { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+    {
+        path: 'movies', component: MoviesComponent,
+        children: [
+            { path: 'movie-details', component: MovieDetailsComponent },
         ]
     },
-    { path: 'actors', component: ActorsComponent,
-        children:[
-            { path: 'actor-details', component: ActorDetailsComponent},
-        ]
-    },
-    { path: 'directors', component: DirectorsComponent,
-        children:[
-            { path: 'director-details', component: DirectorDetailsComponent},
-        ]
-    },
-    { path: 'companies', component: CompaniesComponent,
-        children:[
-            { path: 'company-details', component: CompanyDetailsComponent},
-        ]
-    },
-    { path: 'comments', component: CommentsComponent},
+    { path: 'actors', component: ActorsComponent },
+    { path: 'actors/actor-details', component: ActorDetailsComponent },
+    { path: 'directors', component: DirectorsComponent },
+    { path: 'directors/director-details', component: DirectorDetailsComponent },
+    { path: 'companies', component: CompaniesComponent },
+    { path: 'companies/company-details', component: CompanyDetailsComponent },
+    { path: 'comments', component: CommentsComponent },
+    { path: '**', redirectTo: '/404' }, // Wildcard route for handling 404
 ];

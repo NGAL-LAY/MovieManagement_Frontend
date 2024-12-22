@@ -1,1 +1,9 @@
-<router-outlet></router-outlet>
+<section class="container-fluid" id="content">
+    <div id="header" *ngIf="!isLoginRoute">
+        <app-header></app-header>
+    </div>
+    <router-outlet></router-outlet>
+    <div id="footer" *ngIf="!isLoginRoute">
+        <app-footer></app-footer>
+    </div>
+</section>
