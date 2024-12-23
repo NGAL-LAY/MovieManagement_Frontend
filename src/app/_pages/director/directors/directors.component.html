@@ -2,7 +2,9 @@
 <div class="row  body-height">
     <div class="row btn-div1">
         <button class="btn btn-primary offset-1 col-1" (click)="onNewDirector()">New</button>
-        <input class="col-3 form-control-sm offset-5 bg-primary-subtle border-0" id="content-header-item" type="text"
+        <a class="col-1 offset-1 line_hide" routerLink="/actors">GoActor</a>
+        <a class="col-1 offset-1 line_hide" routerLink="/companies">GoCompany</a>
+        <input class="col-3 form-control-sm offset-1 bg-primary-subtle border-0" id="content-header-item" type="text"
             #searchvalue placeholder="Enter director" (keydown.enter)="onSearch(searchvalue.value)">
         <!-- Search -->
         <button class="btn btn-primary col-1 offset-1" id="content-header-item" style="text-align: center;" type="submit"
@@ -36,7 +38,7 @@
                     <tr *ngFor="let director of directors; let i = index">
                         <td>
                             <input type="checkbox" id="isCheck" [checked]="isCheckedItems[i]" 
-                            (change)="toggleCheckBox(i, $event)"/>
+                            (change)="toggleCheckBox(i,director.id, $event)"/>
                         </td>
                         <td>{{i+1}}</td>
                         <td>{{director.name}}</td>
@@ -53,8 +55,11 @@
     <div class="row btn-div2">
         <!-- Back -->
         <button class="btn btn-primary col-1 offset-1 " type="submit" routerLink="/home">Back</button>
+        <!-- Edit -->
+        <button class="btn btn-primary col-1 offset-7" id="content-header-item" style="text-align: center;" type="submit"
+        (click)="onEditDirector()" [disabled]="!isDisabled()">Edit</button>
         <!-- Delete -->
-        <button class="btn btn-danger col-1 offset-9" id="content-header-item" style="text-align: center;" type="submit"
+        <button class="btn btn-danger col-1 offset-1" id="content-header-item" style="text-align: center;" type="submit"
             (click)="onDelete()">Delete</button>
     </div>
 </div>

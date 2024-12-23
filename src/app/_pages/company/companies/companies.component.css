@@ -1,0 +1,41 @@
+.btn-div1{
+    margin-top: 12px;
+    height: 35px;
+}
+.btn-div2{
+    height: 35px;
+}
+
+.line_hide{
+    text-decoration: none;
+    text-align: center;
+    margin-top: 6px;
+}
+
+.body-height{
+    height: 505px;
+}
+.table-body{
+    height: 390px;
+}
+.table-scroll-wrapper {
+    max-height: 390px; 
+    overflow-y: auto; 
+    margin-top: 0px;
+}
+.tbl-div {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    width: 100%;
+}
+.table-scroll-wrapper thead th {
+    position: sticky;
+    top: 0;
+    text-align: center;
+    background-color: #bec3c7; 
+}
+.table-scroll-wrapper tbody tr {
+    position: sticky;
+    top: 0;
+    text-align: center;
+}

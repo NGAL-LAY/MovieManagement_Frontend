@@ -6,6 +6,12 @@
     height: 35px;
 }
 
+.line_hide{
+    text-decoration: none;
+    text-align: center;
+    margin-top: 6px;
+}
+
 .body-height{
     height: 505px;
 }
@@ -25,5 +31,11 @@
 .table-scroll-wrapper thead th {
     position: sticky;
     top: 0;
-    background-color: #f8f9fa; 
+    text-align: center;
+    background-color: #bec3c7; 
+}
+.table-scroll-wrapper tbody tr {
+    position: sticky;
+    top: 0;
+    text-align: center;
 }

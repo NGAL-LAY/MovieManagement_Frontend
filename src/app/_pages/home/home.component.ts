@@ -3,8 +3,6 @@ import { AuthService } from '../../auth.service';
 import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MoviesComponent } from '../movie/movies/movies.component';
-import { HeaderComponent } from '../../_shared/header/header.component';
-import { FooterComponent } from '../../_shared/footer/footer.component';
 import { ConstantService } from '../../_shared/constant/constant.service';
 import { MovieService } from '../../_services/movie.service';
 
@@ -17,8 +15,6 @@ import { MovieService } from '../../_services/movie.service';
     RouterLink,
     RouterOutlet,
     CommonModule,
-    HeaderComponent,
-    FooterComponent,
     MoviesComponent,
   ]
 })

@@ -34,21 +34,7 @@ export class ActorService {
   }
 
   /**
-   * get actor by name
-   */
-  // getMovieByName(name: string): Observable<any> {
-  //   return this.http.get<any>(`${this.commentAPI}/${name}`).pipe(
-  //     catchError((error: HttpErrorResponse) => {
-  //       if (error.status === 404) {
-  //         return throwError('Not Found');
-  //       }
-  //       return throwError('An unexpected error occurred');
-  //     })
-  //   );
-  // }
-
-  /**
-   * register new movie
+   * register new actor
    */
   registerActor(actorData: Actor): Observable<Actor> {
     console.log("This is register function", actorData);
@@ -65,25 +51,39 @@ export class ActorService {
   }
 
   /**
-   * delete comment
+   * update actor
    */
-  // deleteCommentByIds(commentIds: number[]): Observable<any> {
-  //   console.log("Comments service", commentIds);
+  updateActor(id: number, actor: Actor): Observable<any> {
+    const headers = { 'Content-Type': 'application/json' };
+    return this.http.put<number>(`${this.actorAPI}/${id}`, actor, { headers }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 404) {
+          return throwError('Not Found');
+        }
+        return throwError('An unexpected error occurred');
+      })
+    );
+  }
 
-  //   const headers = { 'Content-Type': 'application/json' };
-  //   const options = {
-  //     headers: headers,
-  //     body:  commentIds
-  //   };
-  //   return this.http.delete<number>(this.commentAPI,options).pipe(
-  //     catchError((error: HttpErrorResponse) => {
-  //       if (error.status === 404) {
-  //         return throwError('Not Found');
-  //       }
-  //       return throwError('An unexpected error occurred');
-  //     })
-  //   );
-  // }
+  /**
+   * delete actor
+   */
+  deleteActorByIds(actorIds: number[]): Observable<any> {
+    //header and body create send by http
+    const headers = { 'Content-Type': 'application/json' };
+    const options = {
+      headers: headers,
+      body: actorIds
+    };
+    return this.http.delete<number>(this.actorAPI, options).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 404) {
+          return throwError('Not Found');
+        }
+        return throwError('An unexpected error occurred');
+      })
+    );
+  }
 }
 
 // actor interface

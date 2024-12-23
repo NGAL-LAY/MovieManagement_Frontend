@@ -1,1 +1,65 @@
-<p>companies works!</p>
+<!-- body start-->
+<div class="row  body-height">
+    <div class="row btn-div1">
+        <button class="btn btn-primary offset-1 col-1" (click)="onNewCompany()">New</button>
+        <a class="col-1 offset-1 line_hide" routerLink="/actors">GoActor</a>
+            <a class="col-1 offset-1 line_hide" routerLink="/directors">GoDirector</a>
+        <input class="col-3 form-control-sm offset-1 bg-primary-subtle border-0" id="content-header-item" type="text"
+            #searchvalue placeholder="Enter company" (keydown.enter)="onSearch(searchvalue.value)">
+        <!-- Search -->
+        <button class="btn btn-primary col-1 offset-1" id="content-header-item" style="text-align: center;" type="submit"
+            (click)="onSearch(searchvalue.value)">Search</button>
+    </div>
+
+    <!-- Table start -->
+     <div class="table-body">
+        <div class="table-scroll-wrapper">
+            <table class="table table-bordered table-striped tbl-div">
+                <colgroup>
+                    <col style="width: 50px;">
+                    <col style="width: 100px;">
+                    <col style="width: 450px;">
+                    <col style="width: 200px;">
+                    <col style="width: 200px;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>
+                            <input type="checkbox" id="isAllCheck"
+                            [(ngModel)]="isAllChecked"  (change)="toggleAllCheckBoxes()"/>
+                        </th>
+                        <th>No</th>
+                        <th>Company Name</th>
+                        <th>Release Movies</th>
+                        <th>Country</th>
+                        <th>Create Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let company of companies; let i = index">
+                        <td>
+                            <input type="checkbox" id="isCheck" [checked]="isCheckedItems[i]" 
+                            (change)="toggleCheckBox(i, $event)"/>
+                        </td>
+                        <td>{{i+1}}</td>
+                        <td>{{company.name}}</td>
+                        <td>{{company.release_movies}}</td>
+                        <td>{{company.country}}</td>
+                        <td>{{company.open_date}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+     </div>
+    
+    <!-- Table end -->
+
+    <div class="row btn-div2">
+        <!-- Back -->
+        <button class="btn btn-primary col-1 offset-1 " type="submit" routerLink="/home">Back</button>
+        <!-- Delete -->
+        <button class="btn btn-danger col-1 offset-9" id="content-header-item" style="text-align: center;" type="submit"
+            (click)="onDelete()">Delete</button>
+    </div>
+</div>
+<!-- body end -->

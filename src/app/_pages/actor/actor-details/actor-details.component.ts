@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink} from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { Actor, ActorService } from '../../../_services/actor.service';
+import { ConstantService } from '../../../_shared/constant/constant.service';
 
 @Component({
   selector: 'app-actor-details',
@@ -17,14 +19,16 @@ import { Router, RouterLink} from '@angular/router';
 })
 export class ActorDetailsComponent implements OnInit {
 
-  // actor details from parent actor
-  @Input() actorDetails: any;
+  // actor details from actor
+  actorDetails: any;
   actorForm!: FormGroup;
   // edit status
   isEdit: boolean = false;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private actorService: ActorService,
+    private constantService: ConstantService
   ) { }
 
   ngOnInit(): void {
@@ -43,13 +47,18 @@ export class ActorDetailsComponent implements OnInit {
       ]),
     });
 
+    // actor details set by shared service
+    this.constantService.currentData.subscribe((actors) => {
+      this.actorDetails = actors;
+    });
+
     // Dynamically set values
-    if (this.actorDetails?.name) {
+    if (this.actorDetails != null) {
       this.isEdit = true;
       this.actorForm.patchValue({
         name: this.actorDetails.name,
-        type: this.actorDetails.type,
-        date: this.actorDetails.year
+        gentle: this.actorDetails.gentle,
+        nationality: this.actorDetails.nationality
       });
     }
   }
@@ -58,33 +67,38 @@ export class ActorDetailsComponent implements OnInit {
       new actor register  
     */
   onRegister() {
-    // const movie: Movie = {
-    //   name: this.movieForm.value.name || '',  
-    //   type: this.movieForm.value.type || '', 
-    //   year: this.movieForm.value.date || '',  
-    // };
-    //   this.movieService.registerMovie(movie).subscribe(
-    //     (response) => {
-    //       localStorage.setItem('movie', JSON.stringify(response));
-    //       this.router.navigate(['/movies']);
-    //     }
-    //   );
+    const actor: Actor = {
+      name: this.actorForm.value.name || '',
+      gentle: this.actorForm.value.gentle || '',
+      nationality: this.actorForm.value.nationality || '',
+    };
+
+    this.actorService.registerActor(actor).subscribe(
+      (response) => {
+        // localStorage.setItem('movie', JSON.stringify(response));
+        this.router.navigate(['/actors']);
+      }, (error) => {
+        this.router.navigate(['/404'])
+      }
+    );
   }
 
   /*
     actor update  
   */
   onUpdate() {
-    //   const movie: Movie = {
-    //     name: this.movieForm.value.name || '',  
-    //     type: this.movieForm.value.type || '', 
-    //     year: this.movieForm.value.date || '',  
-    //   };
-    //   this.movieService.updateMovie(this.movieDetails.id,movie).subscribe(
-    //     (response) => {
-    //       localStorage.setItem('movie', JSON.stringify(response));
-    //       this.router.navigate(['/movies']);
-    //     }
-    //   );
-    }
+    const actor: Actor = {
+      name: this.actorForm.value.name || '',
+      gentle: this.actorForm.value.gentle || '',
+      nationality: this.actorForm.value.nationality || '',
+    };
+
+    this.actorService.updateActor(this.actorDetails.id, actor).subscribe(
+      (response) => {
+        this.router.navigate(['/actors']);
+      }, (error) => {
+        this.router.navigate(['/404'])
+      }
+    );
   }
+}

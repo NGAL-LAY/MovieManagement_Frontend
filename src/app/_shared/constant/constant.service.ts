@@ -11,17 +11,17 @@ export class ConstantService {
   public apiUrl = 'http://localhost:8080/api/';
 
   // Use BehaviorSubject to store the data and make it available to subscribers
-  private movieDataSource = new BehaviorSubject<any>(null);
-  currentMovieData = this.movieDataSource.asObservable(); // Observable for the components to subscribe to
+  private dataSource = new BehaviorSubject<any>(null);
+  currentData = this.dataSource.asObservable(); // Observable for the components to subscribe to
 
   constructor() { }
   
  // getter and setter for object
   setObject(object: any) {
-    this.movieDataSource.next(object);
+    this.dataSource.next(object);
   }
 
   getObject() {
-    return this.currentMovieData;
+    return this.currentData;
   }
 }

@@ -68,8 +68,6 @@ export class CommentService {
    * delete comment
    */
   deleteCommentByIds(commentIds: number[]): Observable<any> {
-    console.log("Comments service", commentIds);
-    
     const headers = { 'Content-Type': 'application/json' };
     const options = {
       headers: headers,
