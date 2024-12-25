@@ -12,11 +12,13 @@ import { DirectorsComponent } from './_pages/director/directors/directors.compon
 import { DirectorDetailsComponent } from './_pages/director/director-details/director-details.component';
 import { CompaniesComponent } from './_pages/company/companies/companies.component';
 import { CompanyDetailsComponent } from './_pages/company/company-details/company-details.component';
+import { SignupComponent } from './_pages/auth/signup/signup.component';
 
 export const routes: Routes = [
     { path: '404', component: NotFoundComponent },
+    { path: 'signup', component: SignupComponent },
+    { path: '', redirectTo: '/signup', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
     {
         path: 'movies', component: MoviesComponent,

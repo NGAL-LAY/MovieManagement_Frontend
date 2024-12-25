@@ -20,8 +20,6 @@ import { ConstantService } from '../../../_shared/constant/constant.service';
 })
 export class DirectorsComponent implements OnInit {
   
-  // to transfer actordetails
-  actorDetails: any;
   // to transfer directordetails
   directorDetails: any;
   // store all directors
@@ -30,7 +28,7 @@ export class DirectorsComponent implements OnInit {
   isAllChecked: boolean = false;
   // check or not individual checkbox
   isCheckedItems: boolean[] = [];
-  // select actor id
+  // select director id
   selectedDirectorIds: number[] = [];
   
   constructor(
@@ -62,6 +60,7 @@ getAllDirectors(){
 */
 onNewDirector(){
   this.directorDetails = [];
+  this.constantService.setObject(this.directorDetails);
   this.router.navigate(['/directors/director-details']);
 }
 
@@ -70,10 +69,10 @@ onNewDirector(){
 */
 onEditDirector(){
   const editDirectorId = this.selectedDirectorIds[0];
-  this.actorDetails = this.directors.find(director => director.id === editDirectorId);
-  if(this.actorDetails != null){
-    this.constantService.setObject(this.actorDetails);
-    this.router.navigate(['/actors/actor-details']);
+  this.directorDetails = this.directors.find(director => director.id === editDirectorId);
+  if(this.directorDetails != null){
+    this.constantService.setObject(this.directorDetails);
+    this.router.navigate(['/directors/director-details']);
   }
 }
   

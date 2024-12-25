@@ -64,6 +64,7 @@ getAllActors(){
 */
 onNewActor(){
   this.actorDetails = [];
+  this.constantService.setObject(this.actorDetails);
   this.router.navigate(['/actors/actor-details']);
 }
 

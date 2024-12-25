@@ -52,7 +52,7 @@ export class DirectorService {
     * update director
     */
     updateDirector(id: number, director: Director): Observable<any> {
-      console.log("Id",id, "Director", director);
+      console.log("Id",id, "Director", director.name);
       
       const headers = { 'Content-Type': 'application/json' };
       return this.http.put<number>(`${this.directorAPI}/${id}`, director, { headers }).pipe(

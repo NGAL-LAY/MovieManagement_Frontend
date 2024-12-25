@@ -31,40 +31,40 @@ export class DirectorDetailsComponent implements OnInit{
       private constantService: ConstantService
     ) { }
   
-    ngOnInit(): void {
-      this.directorForm = new FormGroup({
-        name: new FormControl('', [
-          Validators.required,
-          Validators.minLength(6),
-          Validators.maxLength(25),
-          Validators.pattern(/^[A-Za-z][A-Za-z0-9\s]*$/)
-        ]),
-        gentle: new FormControl('m', [
-          Validators.required
-        ]),
-        nationality: new FormControl('', [
-          Validators.required
-        ]),
+  ngOnInit(): void {
+    this.directorForm = new FormGroup({
+      name: new FormControl('', [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(25),
+        Validators.pattern(/^[A-Za-z][A-Za-z0-9\s]*$/)
+      ]),
+      gentle: new FormControl('m', [
+        Validators.required
+      ]),
+      nationality: new FormControl('', [
+        Validators.required
+      ]),
+    });
+
+    // actor details set by shared service
+    this.constantService.currentData.subscribe((directors) => {
+      this.directorDetails = directors;
+    });
+    // Dynamically set values
+    if (this.directorDetails != null) {
+      this.isEdit = true;
+      this.directorForm.patchValue({
+        name: this.directorDetails.name,
+        gentle: this.directorDetails.gentle,
+        nationality: this.directorDetails.nationality
       });
-  
-      // actor details set by shared service
-      this.constantService.currentData.subscribe((directors) => {
-        this.directorDetails = directors;
-      });
-      // Dynamically set values
-      if (this.directorDetails != null) {
-        this.isEdit = true;
-        this.directorForm.patchValue({
-          name: this.directorDetails.name,
-          gentle: this.directorDetails.gentle,
-          nationality: this.directorDetails.nationality
-        });
-      }
-    }
+    }  
+  }
   
   /*
-    new director register  
-  */
+   *new director register  
+   */
   onRegister() {
     const director: Director = {
       name: this.directorForm.value.name || '',
@@ -82,23 +82,21 @@ export class DirectorDetailsComponent implements OnInit{
   }
   
   /*
-    director update  
-  */
+   *director update  
+   */
   onUpdate() {
     const director: Director = {
       name: this.directorForm.value.name || '',
       gentle: this.directorForm.value.gentle || '',
       nationality: this.directorForm.value.nationality || '',
     };
-
-    console.log("Director-Details", director);
     
-    // this.directorService.updateDirector(this.directorDetails.id, director).subscribe(
-    //   (response) => {
-    //     this.router.navigate(['/directors']);
-    //   }, (error) => {
-    //     this.router.navigate(['/404'])
-    //   }
-    // );
+    this.directorService.updateDirector(this.directorDetails.id, director).subscribe(
+      (response) => {
+        this.router.navigate(['/directors']);
+      }, (error) => {
+        this.router.navigate(['/404'])
+      }
+    );
   }
 }
