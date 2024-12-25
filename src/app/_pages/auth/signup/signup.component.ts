@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -10,7 +10,8 @@ import { CommonModule } from '@angular/common';
   imports: [
     FormsModule,
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterLink,
   ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
@@ -27,28 +28,33 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     this.signupForm = new FormGroup({
-          name: new FormControl('', [
-            Validators.required,
-            Validators.minLength(6),
-            Validators.maxLength(25),
-            Validators.pattern(/^[A-Za-z][A-Za-z0-9\s]*$/)
-          ]),
-          email: new FormControl('', [
-            Validators.required
-          ]),
-          nationality: new FormControl('', [
-            Validators.required
-          ]),
-          age: new FormControl('', [
-            Validators.required
-          ]),
-          gentle: new FormControl('m', [
-            Validators.required
-          ]),
-          role: new FormControl('user', [
-            Validators.required
-          ]),
-        });
+      name: new FormControl('', [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(25),
+        Validators.pattern(/^[A-Za-z][A-Za-z0-9\s]*$/)
+      ]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8)
+      ]),
+      repassword: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8)
+      ]),
+      email: new FormControl('', [
+        Validators.required
+      ]),
+      nationality: new FormControl('', [
+        Validators.required
+      ]),
+      age: new FormControl('', [
+        Validators.required
+      ]),
+      gentle: new FormControl('m', [
+        Validators.required
+      ])
+    });
   }
   onSubmit(): void {
     // if (this.authService.login(this.username, this.password)) {

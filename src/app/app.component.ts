@@ -34,7 +34,7 @@ export class AppComponent implements OnInit{
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         // Check if the current route is the login route
-        this.isLoginRoute = event.url === '/login';
+        this.isLoginRoute = (event.url === '/login' || event.url === ''||event.url === '/'|| event.url === '/signup') ;
       }
     });
   }

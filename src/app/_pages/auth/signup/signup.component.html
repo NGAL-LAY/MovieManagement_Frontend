@@ -1,24 +1,38 @@
-<form [formGroup]="signupForm">
-    <div class="row text-center mt-5 mb-4">
-        <p class="fs-4 fw-bold text-primary">User Creation</p>
+<form [formGroup]="signupForm" class="signup_container">
+    <div class="row text-center mb-3">
+        <p class="fs-4 fw-bold text-primary">Sign Up</p>
     </div>
-    <div class="row mb-5">
-        <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="name">Name</label>
-        <div class="col-3">
+    <div class="row mb-4">
+        <label class="col-2 offset-1 form-control-sm fs-5 text-primary" for="name">Name</label>
+        <div class="col-7 offset-1">
             <input class="form-control" id="name" formControlName="name"
             [placeholder]="signupForm.get('name')?.invalid && signupForm.get('name')?.touched ? 'Name must be at least 6 characters' : ''">
         </div>
     </div>
-    <div class="row mb-5">
-        <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="email">Email</label>
-        <div class="col-3">
+    <div class="row mb-4">
+        <label class="col-2 offset-1 form-control-sm fs-5 text-primary" for="password">Password:</label>
+        <div class="col-7 offset-1">
+            <input class="form-control" id="password" formControlName="password" type="password"
+            [placeholder]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched ? 'password must be at least 8 characters' : ''">
+        </div>
+    </div>
+    <div class="row mb-4">
+        <label class="col-2 offset-1 form-control-sm fs-5 text-primary" for="repassword">RePassword:</label>
+        <div class="col-7 offset-1">
+            <input class="form-control" id="repassword" formControlName="repassword" type="password"
+            [placeholder]="loginForm.get('repassword')?.invalid && loginForm.get('repassword')?.touched ? 'Repassword must be same password' : ''">
+        </div>
+    </div>
+    <div class="row mb-4">
+        <label class="col-2 offset-1 form-control-sm fs-5 text-primary" for="email">Email</label>
+        <div class="col-7 offset-1">
             <input class="form-control" id="email" formControlName="email"
             [placeholder]="signupForm.get('email')?.invalid && signupForm.get('email')?.touched ? 'Email must be at least 6 characters' : ''">
         </div>
     </div>
-    <div class="row mb-5">
-        <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="nationality">Nationality</label>
-        <div class="col-3">
+    <div class="row mb-4">
+        <label class="col-2 offset-1 form-control-sm fs-5 text-primary" for="nationality">Nationality</label>
+        <div class="col-7 offset-1">
             <select class="form-select" formControlName="nationality" aria-label=".form-select-sm example">
                 <option value="" selected>---select countries---</option>
                 <option value="America">America</option>
@@ -32,34 +46,24 @@
             </select>
         </div>
     </div>
-    <div class="row mb-5">
-        <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="age">Age</label>
-        <div class="col-3">
-            <input class="form-control" id="age" formControlName="age"
+    <div class="row mb-4">
+        <label class="col-2 offset-1 form-control-sm fs-5 text-primary" for="age">Age</label>
+        <div class="col-7 offset-1">
+            <input class="form-control" id="age" formControlName="age" type="number"
             [placeholder]="signupForm.get('age')?.invalid && signupForm.get('age')?.touched ? 'Age must be at least 16' : ''">
         </div>
     </div>
-    <div class="row mb-5">
-        <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="gentle">Gentle</label>
-        <div class="col-2">
+    <div class="row mb-4">
+        <label class="col-2 offset-1 form-control-sm fs-5 text-primary" for="gentle">Gentle</label>
+        <div class="col-7 offset-1 mt-2">
             <input type="radio" class="me-1" id="male" name="gentle" formControlName="gentle" value="m">
             <label for="male" class="me-2">Male</label>
             <input type="radio" class="me-1" id="female" name="gentle" formControlName="gentle" value="f">
             <label for="female">Female</label>
         </div>
     </div>
-    <div class="row mb-5">
-        <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="role">Role</label>
-        <div class="col-2">
-            <input type="radio" class="me-1" id="user" name="role" formControlName="role" value="user">
-            <label for="user" class="me-2">User</label>
-            <input type="radio" class="me-1" id="admin" name="role" formControlName="role" value="admin">
-            <label for="admin">Admin</label>
-        </div>
-    </div>
-    <div class="row mt-5">
-        <button class="btn btn-outline-primary col-1 offset-4" routerLink="/actors">Back</button>
-        <!-- <button class="btn btn-primary col-1 offset-2" type="submit" *ngIf="!isEdit" (click)="onRegister()"  [disabled]="!signupForm.valid">Register</button>
-        <button class="btn btn-primary col-1 offset-2" type="submit" *ngIf="isEdit" (click)="onUpdate()"  [disabled]="!signupForm.valid">Update</button> -->
+    <div class="row">
+        <button class="btn btn-outline-primary col-2 offset-4" routerLink="/login">Login</button>
+        <button class="btn btn-primary col-3 offset-2" type="submit" routerLink="/"  [disabled]="!signupForm.valid">Sign Up</button>
     </div> 
 </form>
