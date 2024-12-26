@@ -13,14 +13,18 @@
         <label class="col-2 offset-1 form-control-sm fs-5 text-primary" for="password">Password:</label>
         <div class="col-7 offset-1">
             <input class="form-control" id="password" formControlName="password" type="password"
-            [placeholder]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched ? 'password must be at least 8 characters' : ''">
+            [placeholder]="signupForm.get('password')?.invalid && signupForm.get('password')?.touched ? 'password must be at least 8 characters' : ''">
         </div>
     </div>
     <div class="row mb-4">
         <label class="col-2 offset-1 form-control-sm fs-5 text-primary" for="repassword">RePassword:</label>
         <div class="col-7 offset-1">
             <input class="form-control" id="repassword" formControlName="repassword" type="password"
-            [placeholder]="loginForm.get('repassword')?.invalid && loginForm.get('repassword')?.touched ? 'Repassword must be same password' : ''">
+            [placeholder]="
+            (signupForm.get('repassword')?.errors?.['required'] ? 'Repassword is required' :
+            signupForm.get('repassword')?.errors?.['minlength'] ? 'Repassword must be at least 8 characters' :
+            signupForm.get('repassword')?.errors?.['passwordMismatch']) && signupForm.get('repassword')?.touched ? 'Repassword must match Password' :
+          ''">
         </div>
     </div>
     <div class="row mb-4">
@@ -64,6 +68,6 @@
     </div>
     <div class="row">
         <button class="btn btn-outline-primary col-2 offset-4" routerLink="/login">Login</button>
-        <button class="btn btn-primary col-3 offset-2" type="submit" routerLink="/"  [disabled]="!signupForm.valid">Sign Up</button>
+        <button class="btn btn-primary col-3 offset-2" type="submit" (click)="onSignUp()" [disabled]="!signupForm.valid">Sign Up</button>
     </div> 
 </form>

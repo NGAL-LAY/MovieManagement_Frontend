@@ -56,7 +56,7 @@ getAllDirectors(){
 }
   
 /*
-* new actor to route actor-details
+* new director to route director-details
 */
 onNewDirector(){
   this.directorDetails = [];

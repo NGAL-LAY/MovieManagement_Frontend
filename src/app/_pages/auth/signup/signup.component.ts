@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '../../../auth.service';
+import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { User, UsersService } from '../../../_services/users.service';
 
 @Component({
   selector: 'app-signup',
@@ -20,10 +20,10 @@ export class SignupComponent implements OnInit {
   username: string = '';
   password: string = '';
   signupForm!: FormGroup;
-  
+
   constructor(
-    private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private userService: UsersService
   ) { }
 
   ngOnInit(): void {
@@ -40,7 +40,8 @@ export class SignupComponent implements OnInit {
       ]),
       repassword: new FormControl('', [
         Validators.required,
-        Validators.minLength(8)
+        Validators.minLength(8),
+        matchPasswordValidator('password'), // Custom validator
       ]),
       email: new FormControl('', [
         Validators.required
@@ -56,11 +57,41 @@ export class SignupComponent implements OnInit {
       ])
     });
   }
-  onSubmit(): void {
-    // if (this.authService.login(this.username, this.password)) {
-    //   this.router.navigate(['/home']);
-    // } else {
-    //   alert('Invalid credentials. Please try again.');
-    // }
+
+  /**
+   * sign up form registration
+   */
+  onSignUp(): void {
+    const userData: User = {
+      name: this.signupForm.value.name || '',
+      password: this.signupForm.value.password || '',
+      email: this.signupForm.value.email || '',
+      nationality: this.signupForm.value.nationality || '',
+      age: this.signupForm.value.age || '',
+      gentle: this.signupForm.value.gentle || '',
+      role: "user"
+    };
+
+    this.userService.registerUser(userData).subscribe(
+      (response) => {
+        this.router.navigate(['/home']);
+      }, (error) => {
+        this.router.navigate(['/404'])
+      }
+    );
   }
+}
+
+// password and repassword validation
+export function matchPasswordValidator(passwordControlName: string): (control: AbstractControl) => ValidationErrors | null {
+  return (control: AbstractControl): ValidationErrors | null => {
+    if (!control.parent) {
+      return null; // Return null if control is not part of a group yet.
+    }
+
+    const password = control.parent.get(passwordControlName)?.value;
+    const confirmPassword = control.value;
+
+    return password === confirmPassword ? null : { passwordMismatch: true };
+  };
 }

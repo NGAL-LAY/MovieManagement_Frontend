@@ -1,12 +1,12 @@
 <!-- body start-->
 <div class="row  body-height">
     <div class="row btn-div1">
-        <button class="btn btn-primary offset-1 col-1" (click)="onNewCompany()">New</button>
+        <button class="btn btn-primary offset-1 col-1" (click)="onNewUser()">New</button>
         <a class="col-1 offset-1 line_hide" routerLink="/actors">GoActor</a>
-        <a class="col-1 line_hide" routerLink="/directors">GoDirector</a>
-        <a class="col-1 line_hide" routerLink="/users">GoUser</a>
+        <a class="col-1 offset-1 line_hide" routerLink="/directors">GoDirector</a>
+        <a class="col-1 offset-1 line_hide" routerLink="/companies">GoCompany</a>
         <input class="col-3 form-control-sm offset-1 bg-primary-subtle border-0" id="content-header-item" type="text"
-            #searchvalue placeholder="Enter company" (keydown.enter)="onSearch(searchvalue.value)">
+            #searchvalue placeholder="Enter user" (keydown.enter)="onSearch(searchvalue.value)">
         <!-- Search -->
         <button class="btn btn-primary col-1 offset-1" id="content-header-item" style="text-align: center;" type="submit"
             (click)="onSearch(searchvalue.value)">Search</button>
@@ -19,9 +19,12 @@
                 <colgroup>
                     <col style="width: 50px;">
                     <col style="width: 100px;">
-                    <col style="width: 450px;">
-                    <col style="width: 200px;">
-                    <col style="width: 200px;">
+                    <col style="width: 300px;">
+                    <col style="width: 300px;">
+                    <col style="width: 150px;">
+                    <col style="width: 100px;">
+                    <col style="width: 100px;">
+                    <col style="width: 100px;">
                 </colgroup>
                 <thead>
                     <tr>
@@ -30,23 +33,27 @@
                             [(ngModel)]="isAllChecked"  (change)="toggleAllCheckBoxes()"/>
                         </th>
                         <th>No</th>
-                        <th>Company Name</th>
-                        <th>Release Movies</th>
-                        <th>Country</th>
-                        <th>Open Date</th>
+                        <th>User Name</th>
+                        <th>Email</th>
+                        <th>Nationality</th>
+                        <th>age</th>
+                        <th>Gentle</th>
+                        <th>Role</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let company of companies; let i = index">
+                    <tr *ngFor="let user of users; let i = index">
                         <td>
                             <input type="checkbox" id="isCheck" [checked]="isCheckedItems[i]" 
-                            (change)="toggleCheckBox(i,company.id, $event)"/>
+                            (change)="toggleCheckBox(i,user.id, $event)"/>
                         </td>
                         <td>{{i+1}}</td>
-                        <td>{{company.name}}</td>
-                        <td>{{company.releaseMovies}}</td>
-                        <td>{{company.country}}</td>
-                        <td>{{company.openDate}}</td>
+                        <td>{{user.name}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.nationality}}</td>
+                        <td>{{user.age}}</td>
+                        <td>{{user.gentle == 'm'?'Male':'Female'}}</td>
+                        <td>{{user.role}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -60,7 +67,7 @@
         <button class="btn btn-primary col-1 offset-1 " type="submit" routerLink="/home">Back</button>
         <!-- Edit -->
         <button class="btn btn-primary col-1 offset-7" id="content-header-item" style="text-align: center;" type="submit"
-        (click)="onEditCompany()" [disabled]="!isDisabled()">Edit</button>
+        (click)="onEditUser()" [disabled]="!isDisabled()">Edit</button>
         <!-- Delete -->
         <button class="btn btn-danger col-1 offset-1" id="content-header-item" style="text-align: center;" type="submit"
             (click)="onDelete()">Delete</button>

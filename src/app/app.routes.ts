@@ -13,6 +13,8 @@ import { DirectorDetailsComponent } from './_pages/director/director-details/dir
 import { CompaniesComponent } from './_pages/company/companies/companies.component';
 import { CompanyDetailsComponent } from './_pages/company/company-details/company-details.component';
 import { SignupComponent } from './_pages/auth/signup/signup.component';
+import { UsersComponent } from './_pages/user/users/users.component';
+import { UserDetailsComponent } from './_pages/user/user-details/user-details.component';
 
 export const routes: Routes = [
     { path: '404', component: NotFoundComponent },
@@ -32,6 +34,8 @@ export const routes: Routes = [
     { path: 'directors/director-details', component: DirectorDetailsComponent },
     { path: 'companies', component: CompaniesComponent },
     { path: 'companies/company-details', component: CompanyDetailsComponent },
+    { path: 'users', component: UsersComponent },
+    { path: 'users/user-details', component: UserDetailsComponent },
     { path: 'comments', component: CommentsComponent },
     { path: '**', redirectTo: '/404' }, // Wildcard route for handling 404
 ];

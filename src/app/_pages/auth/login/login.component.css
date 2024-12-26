@@ -14,3 +14,7 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional, adds a shadow */
   border-radius: 8px; /* Optional, rounds the corners */
 }
+
+input.ng-touched.ng-invalid::placeholder {
+  color: red;
+}

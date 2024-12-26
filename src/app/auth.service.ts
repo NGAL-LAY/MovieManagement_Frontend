@@ -13,7 +13,9 @@ export class AuthService {
   ) { }
 
   login(username: string, password: string): boolean {
-    if (username === 'admin' && password === 'root') {
+    username = "admin123";
+    password = "12345678";
+    if (username === 'admin123' && password === '12345678') {
       this.isAuthenticated = true;
       return true;
     }
