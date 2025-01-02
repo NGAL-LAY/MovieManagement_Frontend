@@ -3,8 +3,8 @@
     <div class="row btn-div1">
         <button class="btn btn-primary offset-1 col-1" (click)="onNewUser()">New</button>
         <a class="col-1 offset-1 line_hide" routerLink="/actors">GoActor</a>
-        <a class="col-1 offset-1 line_hide" routerLink="/directors">GoDirector</a>
-        <a class="col-1 offset-1 line_hide" routerLink="/companies">GoCompany</a>
+        <a class="col-1 line_hide" routerLink="/directors">GoDirector</a>
+        <a class="col-1 line_hide" routerLink="/companies">GoCompany</a>
         <input class="col-3 form-control-sm offset-1 bg-primary-subtle border-0" id="content-header-item" type="text"
             #searchvalue placeholder="Enter user" (keydown.enter)="onSearch(searchvalue.value)">
         <!-- Search -->

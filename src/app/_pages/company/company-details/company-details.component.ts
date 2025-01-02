@@ -19,8 +19,8 @@ import { ConstantService } from '../../../_shared/constant/constant.service';
   templateUrl: './company-details.component.html',
   styleUrl: './company-details.component.css'
 })
-export class CompanyDetailsComponent implements OnInit{
-  
+export class CompanyDetailsComponent implements OnInit {
+
   // company details from parent company
   @Input() companyDetails: any;
   companyForm!: FormGroup;
@@ -55,18 +55,17 @@ export class CompanyDetailsComponent implements OnInit{
     // company details set by shared service
     this.constantService.currentData.subscribe((company) => {
       this.companyDetails = company;
+      // Dynamically set values
+      if (this.companyDetails) {
+        this.isEdit = true;
+        this.companyForm.patchValue({
+          name: this.companyDetails.name,
+          releaseMovies: this.companyDetails.releaseMovies,
+          country: this.companyDetails.country,
+          openDate: this.companyDetails.openDate
+        });
+      }
     });
-
-    // Dynamically set values
-    if (this.companyDetails?.name) {
-      this.isEdit = true;
-      this.companyForm.patchValue({
-        name: this.companyDetails.name,
-        releaseMovies: this.companyDetails.releaseMovies,
-        country: this.companyDetails.country,
-        openDate: this.companyDetails.openDate
-      });
-    }
   }
 
   /*
@@ -74,9 +73,9 @@ export class CompanyDetailsComponent implements OnInit{
    */
   onRegister() {
     const Company: Company = {
-      name: this.companyForm.value.name || '',  
-      releaseMovies: this.companyForm.value.releaseMovies || '', 
-      country: this.companyForm.value.country || '',  
+      name: this.companyForm.value.name || '',
+      releaseMovies: this.companyForm.value.releaseMovies || '',
+      country: this.companyForm.value.country || '',
       openDate: this.companyForm.value.openDate || ''
     };
     this.companyService.registerCompany(Company).subscribe(
@@ -93,9 +92,9 @@ export class CompanyDetailsComponent implements OnInit{
    */
   onUpdate() {
     const company: Company = {
-      name: this.companyForm.value.name || '',  
-      releaseMovies: this.companyForm.value.releaseMovies || '', 
-      country: this.companyForm.value.country || '',  
+      name: this.companyForm.value.name || '',
+      releaseMovies: this.companyForm.value.releaseMovies || '',
+      country: this.companyForm.value.country || '',
       openDate: this.companyForm.value.openDate || ''
     };
     this.companyService.updateCompany(this.companyDetails.id, company).subscribe(

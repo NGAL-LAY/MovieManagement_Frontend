@@ -59,7 +59,7 @@ export class CompaniesComponent implements OnInit {
    * new company to route company-details
    */
   onNewCompany() {
-    this.companyDetails = [];
+    this.companyDetails = null;
     this.constantService.setObject(this.companyDetails);
     this.router.navigate(['/companies/company-details']);
   }

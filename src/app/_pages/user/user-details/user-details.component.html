@@ -1,1 +1,74 @@
-<p>user-details works!</p>
+<form [formGroup]="userForm" class="body-height mt-2">
+    <div class="row text-center">
+        <p class="fs-4 fw-bold text-primary">User Creation</p>
+    </div>
+    <div class="row mb-3">
+        <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="name">Name</label>
+        <div class="col-3">
+            <input class="form-control" id="name" formControlName="name"
+            [placeholder]="userForm.get('name')?.invalid && userForm.get('name')?.touched ? 'Name must be at least 6 characters' : ''">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="password">Password:</label>
+        <div class="col-3">
+            <input class="form-control" id="password" formControlName="password" type="password"
+            [placeholder]="userForm.get('password')?.invalid && userForm.get('password')?.touched ? 'password must be at least 8 characters' : ''">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="repassword">RePasswd:</label>
+        <div class="col-3">
+            <input class="form-control" id="repassword" formControlName="repassword" type="password"
+            [placeholder]="
+            (userForm.get('repassword')?.errors?.['required'] ? 'Repassword is required' :
+            userForm.get('repassword')?.errors?.['minlength'] ? 'Repassword must be at least 8 characters' :
+            userForm.get('repassword')?.errors?.['passwordMismatch']) && userForm.get('repassword')?.touched ? 'Repassword must match Password' :
+          ''">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="email">Email</label>
+        <div class="col-3">
+            <input class="form-control" id="email" formControlName="email"
+            [placeholder]="userForm.get('email')?.invalid && userForm.get('email')?.touched ? 'Email must be required' : ''">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="nationality">Nationality</label>
+        <div class="col-3">
+            <select class="form-select" formControlName="nationality" aria-label=".form-select-sm example">
+                <option value="" selected>---select countries---</option>
+                <option value="America">America</option>
+                <option value="Chinese">Chinese</option>
+                <option value="English">English</option>
+                <option value="India">India</option>
+                <option value="Japan">Japan</option>
+                <option value="Korea">Korea</option>
+                <option value="Myanmar">Myanmar</option>
+                <option value="Thai">Thai</option>
+            </select>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="age">Age</label>
+        <div class="col-3">
+            <input class="form-control" id="age" formControlName="age" type="number"
+            [placeholder]="userForm.get('age')?.invalid && userForm.get('age')?.touched ? 'Age must be at least 16' : ''">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="gentle">Gentle</label>
+        <div class="col-3 mt-2">
+            <input type="radio" class="me-1" id="male" name="gentle" formControlName="gentle" value="m">
+            <label for="male" class="me-2">Male</label>
+            <input type="radio" class="me-1" id="female" name="gentle" formControlName="gentle" value="f">
+            <label for="female">Female</label>
+        </div>
+    </div>
+    <div class="row">
+        <button class="btn btn-outline-primary col-1 offset-4" routerLink="/users">Back</button>
+        <button class="btn btn-primary col-1 offset-2" type="submit" *ngIf="!isEdit" (click)="onRegUser()" [disabled]="!userForm.valid">Register</button>
+        <button class="btn btn-primary col-1 offset-2" type="submit" *ngIf="isEdit" (click)="onUpdate()"  [disabled]="!userForm.valid">Update</button>
+    </div> 
+</form>

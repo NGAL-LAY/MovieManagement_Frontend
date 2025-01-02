@@ -58,10 +58,15 @@ getAllMovies(){
   * seach function
   */
   onSearch(name: string){
-    if(name){
-      this.getMovieByName(name);
-    }else{
+    if(!name){
       this.getAllMovies();
+    }else{
+      this.movieService.getAllMovies().subscribe(
+        (response)=>{
+          this.movies = response.filter(
+            (data:any)=> data.name.toLowerCase().includes(name.toLowerCase()));
+        }
+      );
     }
   }
 

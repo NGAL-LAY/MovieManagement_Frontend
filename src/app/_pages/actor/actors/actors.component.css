@@ -33,6 +33,7 @@
     top: 0;
     text-align: center;
     background-color: #bec3c7; 
+    font-weight: 400;
 }
 .table-scroll-wrapper tbody tr {
     position: sticky;

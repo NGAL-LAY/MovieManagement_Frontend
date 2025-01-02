@@ -50,9 +50,8 @@ export class DirectorDetailsComponent implements OnInit{
     // actor details set by shared service
     this.constantService.currentData.subscribe((directors) => {
       this.directorDetails = directors;
-    });
-    // Dynamically set values
-    if (this.directorDetails != null) {
+      // Dynamically set values
+    if (this.directorDetails) {
       this.isEdit = true;
       this.directorForm.patchValue({
         name: this.directorDetails.name,
@@ -60,6 +59,7 @@ export class DirectorDetailsComponent implements OnInit{
         nationality: this.directorDetails.nationality
       });
     }  
+    });
   }
   
   /*

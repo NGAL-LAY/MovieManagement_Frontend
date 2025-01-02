@@ -59,7 +59,7 @@ export class UsersComponent implements OnInit{
   * new user to route user-details
   */
   onNewUser(){
-    this.userDetails = [];
+    this.userDetails = null;
     this.constantService.setObject(this.userDetails);
     this.router.navigate(['/users/user-details']);
   }

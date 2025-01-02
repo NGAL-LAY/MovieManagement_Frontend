@@ -50,22 +50,21 @@ export class ActorDetailsComponent implements OnInit {
     // actor details set by shared service
     this.constantService.currentData.subscribe((actors) => {
       this.actorDetails = actors;
+      // Dynamically set values
+      if (this.actorDetails) {
+        this.isEdit = true;
+        this.actorForm.patchValue({
+          name: this.actorDetails.name,
+          gentle: this.actorDetails.gentle,
+          nationality: this.actorDetails.nationality
+        });
+      }
     });
-
-    // Dynamically set values
-    if (this.actorDetails != null) {
-      this.isEdit = true;
-      this.actorForm.patchValue({
-        name: this.actorDetails.name,
-        gentle: this.actorDetails.gentle,
-        nationality: this.actorDetails.nationality
-      });
-    }
   }
 
   /*
-      new actor register  
-    */
+    new actor register  
+  */
   onRegister() {
     const actor: Actor = {
       name: this.actorForm.value.name || '',

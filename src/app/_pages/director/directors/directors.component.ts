@@ -59,7 +59,7 @@ getAllDirectors(){
 * new director to route director-details
 */
 onNewDirector(){
-  this.directorDetails = [];
+  this.directorDetails = null;
   this.constantService.setObject(this.directorDetails);
   this.router.navigate(['/directors/director-details']);
 }

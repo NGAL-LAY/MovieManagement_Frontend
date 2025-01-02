@@ -1,20 +1,7 @@
-.signup_container {
-    position: absolute; /* Positioned relative to the viewport */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Centers the form horizontally and vertically */
-    display: flex;
-    flex-direction: column; /* Aligns items in a column */
-    justify-content: center; 
-    /* align-items: center;  */
-    width: 100%; 
-    max-width: 500px; 
-    background-color: #f9f9f9; /* Optional, adds a background color */
-    padding: 20px; /* Optional, adds some padding */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional, adds a shadow */
-    border-radius: 8px; /* Optional, rounds the corners */
-  }
-  
-  input.ng-touched.ng-invalid::placeholder {
-    color: red;
-  }
+.body-height{
+  height: 497px;
+}
+
+input.ng-touched.ng-invalid::placeholder {
+  color: red;
+}

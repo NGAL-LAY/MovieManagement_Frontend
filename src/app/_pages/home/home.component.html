@@ -47,7 +47,7 @@
   <div class="col-10 bg-success-subtle">
     <div class="content-header row">
       <input class="col-3 form-control-sm  ms-2 bg-primary-subtle" id="content-header-item" type="text" #searchvalue
-        placeholder="Search Movies Name">
+        placeholder="Search Movies Name" (keydown.enter)="onSearch(searchvalue.value)">
 
       <!-- Countries  -->
       <select class="form-select-sm col-2 offset-3 me-4 bg-primary text-white" id="content-header-item"

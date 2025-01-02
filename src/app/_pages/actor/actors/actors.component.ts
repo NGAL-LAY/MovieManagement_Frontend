@@ -63,7 +63,7 @@ getAllActors(){
 * new actor to route actor-details
 */
 onNewActor(){
-  this.actorDetails = [];
+  this.actorDetails = null;
   this.constantService.setObject(this.actorDetails);
   this.router.navigate(['/actors/actor-details']);
 }
