@@ -1,33 +1,105 @@
-<div class="body-height">
+<div class="row body-height mb-2">
     <form [formGroup]="movieForm">
-        <div class="row text-center mb-3">
+        <div class="row text-center">
             <p class="fs-4 fw-bold text-primary">Movie Creation</p>
-        </div>
-        <div class="row mb-3">
-            <label class="col-3 offset-1 form-control-sm fs-5 text-primary" for="name">Movie Name</label>
-            <input class="col-7 form-control-sm" id="name" formControlName="name" [value]="movieDetails?.name">
-            <p class="validation-message"
-                [class.visible]="movieForm.get('name')?.invalid && movieForm.get('name')?.touched">
-                Movie Name is required and at least 6 characters.
-            </p>
-        </div>
-        <div class="row mb-3">
-            <label class="col-3 offset-1 form-control-sm fs-5 text-primary" for="type">Movie Type</label>
-            <input class="col-7 form-control-sm" id="type" formControlName="type">
-            <p class="validation-message"
-                [class.visible]="movieForm.get('type')?.invalid && movieForm.get('type')?.touched">
-                Movie Type is required and at least 3 characters.
-            </p>
         </div>
 
         <div class="row mb-3">
-            <label class="col-3 offset-1 form-control-sm fs-5 text-primary" for="date">Movie Date</label>
-            <app-datepicker class="col-7 form-control-sm" id="year" type="date" formControlName="date"></app-datepicker>
+            <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="name">Name</label>
+            <div class="col-3">
+                <input class="form-control" id="name" formControlName="name" [value]="movieDetails?.name" [placeholder]="movieForm.get('name')?.invalid && movieForm.get('name')?.touched && movieForm.get('name')?.value.length < 6 
+               ? 'Name must be at least 6 characters' : ''">
+            </div>
         </div>
+
+        <div class="row mb-3">
+            <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="type">Type</label>
+            <div class="col-3">
+                <select class="form-select" formControlName="type" aria-label=".form-select-sm example">
+                    <option value="" selected>---select movie types---</option>
+                    <option value="Sci-Fi">Sci-Fi</option>
+                    <option value="Drama">Drama</option>
+                    <option value="Action">Action</option>
+                    <option value="Comedy">Comedy</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="actorids">Actor</label>
+            <div class="col-3">
+                <div class="multiselect">
+                    <div class="selectBox" (click)="toggleCheckboxes()">
+                        <div class="form-select" id="actorids">
+                            {{ selectedActors.length ? selectedActors.join(', ') : '---select actor---' }}
+                        </div>
+                    </div>
+                    <div class="checkboxes" [class.hidden]="!showCheckboxes">
+                        <ul class="list-group">
+                            <li class="list-group-item" *ngFor="let actor of actorDetails">
+                                <label>
+                                    <input type="checkbox" [value]="actor.name"
+                                        (change)="onCheckboxChange($event, actor)" />
+                                    {{ actor.name }}
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="director">Director</label>
+            <div class="col-3">
+                <select class="form-select" formControlName="director" aria-label=".form-select-sm example">
+                    <option value="0" selected>---select director---</option>
+                    <option *ngFor="let director of directorDetails" [value]="director.id">{{ director.name }}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="company">Company</label>
+            <div class="col-3">
+                <select class="form-select" formControlName="company" aria-label=".form-select-sm example">
+                    <option value="0" selected>---select companies---</option>
+                    <option *ngFor="let company of companyDetails" [value]="company.id">{{ company.name }}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="language">Language</label>
+            <div class="col-3">
+                <select class="form-select" formControlName="language" aria-label=".form-select-sm example">
+                    <option value="" selected>---select languages---</option>
+                    <option value="America">America</option>
+                    <option value="Chinese">Chinese</option>
+                    <option value="English">English</option>
+                    <option value="India">India</option>
+                    <option value="Japan">Japan</option>
+                    <option value="Korea">Korea</option>
+                    <option value="Myanmar">Myanmar</option>
+                    <option value="Thai">Thai</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="year">Year</label>
+            <div class="col-3">
+                <app-datepicker class="form-control border-white rounded" id="year" type="date" formControlName="year"></app-datepicker>
+            </div>
+        </div>
+
         <div class="row">
-            <button class="btn btn-outline-primary col-2 offset-4" routerLink="/movies">Back</button>
-            <button class="btn btn-primary col-2 offset-3" type="submit" *ngIf="!isEdit" (click)="onRegister()"  [disabled]="!movieForm.valid">Register</button>
-            <button class="btn btn-primary col-2 offset-3" type="submit" *ngIf="isEdit" (click)="onUpdate()"  [disabled]="!movieForm.valid">Update</button>
+            <button class="btn btn-outline-primary col-1 offset-4" routerLink="/movies">Back</button>
+            <button class="btn btn-primary col-1 offset-3" type="submit" *ngIf="!isEdit" (click)="onRegister()"
+                [disabled]="!movieForm.valid || !selectedActors.length">Register</button>
+            <button class="btn btn-primary col-1 offset-3" type="submit" *ngIf="isEdit" (click)="onUpdate()"
+                [disabled]="!movieForm.valid || !selectedActors.length">Update</button>
         </div>
+
     </form>
 </div>

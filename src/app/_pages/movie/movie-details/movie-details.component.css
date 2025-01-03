@@ -1,17 +1,54 @@
 .body-height {
+    height: 497px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.validation-message {
-    height: 20px;
-    margin: 0;
+/* If you want the color to persist only when the field is invalid and touched */
+input.ng-touched.ng-invalid::placeholder {
     color: red;
-    visibility: hidden; 
 }
 
-.validation-message.visible {
-    visibility: visible; 
-    margin-left: 31.5%;
+.multiselect {
+    position: relative;
+}
+
+.selectBox {
+    position: relative;
+    cursor: pointer;
+}
+
+.checkboxes {
+    display: block;
+    border: 1px solid #ccc;
+    background: white;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    padding: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    border-radius: 5px;
+}
+
+.checkboxes.hidden {
+    display: none;
+}
+
+.list-group {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.list-group-item {
+    border: none;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+}
+
+.list-group-item input {
+    margin-right: 10px;
 }
