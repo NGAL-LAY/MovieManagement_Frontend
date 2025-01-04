@@ -5,7 +5,6 @@ import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CommentService } from '../../_services/comment.service';
 import { FormsModule } from '@angular/forms';
-import { response } from 'express';
 
 @Component({
   selector: 'app-comments',
@@ -30,7 +29,6 @@ export class CommentsComponent implements OnInit{
   isCheckedItems: boolean[] = [];
 
   constructor(
-      private router: Router,
       private commentService: CommentService
     )
     {}

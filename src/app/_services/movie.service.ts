@@ -98,5 +98,10 @@ export class MovieService {
 export interface Movie {
   name: string;
   type: string;
+  actorids: string;
+  directorid: number;
+  companyid: number;
+  language: string;
   year: string;
+  rating: number
 }

@@ -36,7 +36,11 @@ export class MovieDetailsComponent implements OnInit {
   companyDetails: any;
   // actors from checkboxes and dropdown
   selectedActors: string[] = [];
-  showCheckboxes:boolean = false;
+  // actorids from checkboxes and dropdown
+  arrActorIds: number[] = [];
+  // actorids store as string
+  selectedActorIds: string = "";
+  showCheckboxes: boolean = false;
 
   constructor(
     private movieService: MovieService,
@@ -113,9 +117,9 @@ export class MovieDetailsComponent implements OnInit {
     );
   }
 
-/*
- fetch all companies  
-*/
+  /*
+   fetch all companies  
+  */
   getAllCompanies() {
     this.companyService.getAllCompanies().subscribe(
       (data) => {
@@ -133,8 +137,14 @@ export class MovieDetailsComponent implements OnInit {
     const movie: Movie = {
       name: this.movieForm.value.name || '',
       type: this.movieForm.value.type || '',
-      year: this.movieForm.value.date || '',
+      actorids: this.selectedActorIds,
+      directorid: +this.movieForm.value.director || 0,
+      companyid: +this.movieForm.value.company || 0,
+      language: this.movieForm.value.language || '',
+      year: this.movieForm.value.year || '',
+      rating: 0
     };
+
     this.movieService.registerMovie(movie).subscribe(
       (response) => {
         localStorage.setItem('movie', JSON.stringify(response));
@@ -150,7 +160,12 @@ export class MovieDetailsComponent implements OnInit {
     const movie: Movie = {
       name: this.movieForm.value.name || '',
       type: this.movieForm.value.type || '',
-      year: this.movieForm.value.date || '',
+      actorids: this.selectedActorIds,
+      directorid: +this.movieForm.value.director || 0,
+      companyid: +this.movieForm.value.company || 0,
+      language: this.movieForm.value.language || '',
+      year: this.movieForm.value.year || '',
+      rating: 0
     };
     this.movieService.updateMovie(this.movieDetails.id, movie).subscribe(
       (response) => {
@@ -160,21 +175,26 @@ export class MovieDetailsComponent implements OnInit {
     );
   }
 
-    // show and hide select box like as traditional dropdown
-    toggleCheckboxes(): void {
-      this.showCheckboxes = !this.showCheckboxes;
+  // show and hide select box like as traditional dropdown
+  toggleCheckboxes(): void {
+    this.showCheckboxes = !this.showCheckboxes;
+  }
+
+  /**
+   * get data from checkbox and dropdown
+   */
+  onCheckboxChange(event: any, data: any): void {
+    if (event.target.checked) {
+      this.selectedActors.push(data.name);
+      this.arrActorIds.push(data.id);
+    } else {
+      this.selectedActors = this.selectedActors.filter(
+        (name) => name !== data.name
+      );
+      this.arrActorIds = this.arrActorIds.filter(
+        (id) => id !== data.id
+      );
     }
-  
-    /**
-     * get data from checkbox and dropdown
-     */
-    onCheckboxChange(event: any, data: any): void {
-      if (event.target.checked) {
-        this.selectedActors.push(data.name);
-      } else {
-        this.selectedActors = this.selectedActors.filter(
-          (name) => name !== data.name
-        );
-      }
-    }
+    this.selectedActorIds = this.arrActorIds.join(',');
+  }
 }

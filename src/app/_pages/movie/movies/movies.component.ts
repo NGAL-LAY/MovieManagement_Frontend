@@ -84,7 +84,7 @@ export class MoviesComponent {
    */
   onNewMovie() {
     localStorage.setItem('movie', JSON.stringify(this.movie));
-    this.movieDetails = [];
+    this.movieDetails = null;
     this.router.navigate(['/movies/movie-details']);
   }
 
@@ -130,9 +130,7 @@ export class MoviesComponent {
       };
       this.commentService.registerComment(comment).subscribe(
         (response) => {
-          console.log("Success", response);
           const modalElement = this.myModal.nativeElement;
-          console.log("modalElement", modalElement);
           const modalInstance = new (window as any).bootstrap.Modal(modalElement);
           modalInstance.hide();
         }
