@@ -72,8 +72,6 @@ export class HomeComponent implements OnInit {
    * get movie rating
    */
   calculateMovieRatings(): void {
-  console.log("Calculating movie ratings...");
-
   // Step 1: Create a map of movie IDs to their cumulative ratings
   const ratingsMap = new Map<number, number>();
 

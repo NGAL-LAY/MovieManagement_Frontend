@@ -39,6 +39,7 @@
                             <li class="list-group-item" *ngFor="let actor of actorDetails">
                                 <label>
                                     <input type="checkbox" [value]="actor.name"
+                                        [checked]="arrActorIds.includes(actor.id)"
                                         (change)="onCheckboxChange($event, actor)" />
                                     {{ actor.name }}
                                 </label>
@@ -89,7 +90,8 @@
         <div class="row mb-3">
             <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="year">Year</label>
             <div class="col-3">
-                <app-datepicker class="form-control border-white rounded" id="year" type="date" formControlName="year"></app-datepicker>
+                <app-datepicker class="form-control border-white rounded" id="year" type="date"
+                    formControlName="year"></app-datepicker>
             </div>
         </div>
 

@@ -66,6 +66,8 @@ export class MoviesComponent {
   refreshMovies(): void {
     if (typeof window !== 'undefined') {
       const movieData = localStorage.getItem('movie');
+      console.log("data from localstorage", movieData);
+      
       if (movieData) {
         this.movie = JSON.parse(movieData);
       }
