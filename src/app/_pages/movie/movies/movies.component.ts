@@ -9,6 +9,8 @@ import { CommentService, Comment } from '../../../_services/comment.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatepickerComponent } from '../../../_shared/datepicker/datepicker.component';
 import { Router } from '@angular/router';
+import { ActorService } from '../../../_services/actor.service';
+import { DirectorService } from '../../../_services/director.service';
 
 @Component({
   selector: 'app-movies',
@@ -35,9 +37,13 @@ export class MoviesComponent {
   movie: any;
   // to transfer moviedetails
   movieDetails: any;
+  actorDetails: any;
+  directorDetails: any;
   strMovieAbout: string = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus sequi explicabo commodi iusto obcaecati. Molestiae, illo nostrum. Asperiores ullam atque eos facere a optio rem corrupti blanditiis nisi, vitae reiciendis.Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus sequi explicabo commodi iusto obcaecati. Molestiae, illo nostrum. Asperiores ullam atque eos facere a optio rem corrupti blanditiis nisi, vitae reiciendis.Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus sequi explicabo commodi iusto obcaecati. Molestiae, illo nostrum. Asperiores ullam atque eos facere a optio rem corrupti blanditiis nisi, vitae reiciendis.';
   // comments 
   strComments: string = '';
+  strActorsName: string = '';
+  strDirectorName: string = '';
   // rating 
   intRating: string = '';
 
@@ -46,6 +52,8 @@ export class MoviesComponent {
     // private constantService: ConstantService,
     private router: Router,
     private commentService: CommentService,
+    private actorService: ActorService,
+    private directorService: DirectorService
   ) { }
 
   ngOnInit(): void {
@@ -66,12 +74,35 @@ export class MoviesComponent {
   refreshMovies(): void {
     if (typeof window !== 'undefined') {
       const movieData = localStorage.getItem('movie');
-      console.log("data from localstorage", movieData);
-      
       if (movieData) {
         this.movie = JSON.parse(movieData);
+        Promise.all([
+          this.actorService.getAllActors().toPromise(),
+          this.directorService.getAllDirectors().toPromise()
+        ]).then(([actors, directors]) => {
+          this.actorDetails = actors;
+          this.directorDetails = directors;
+
+          let intArrActorId = this.movie.actorids.split(',').map((id: string) => parseInt(id.trim(), 10) || []);
+          let strDirectorId = this.movie.directorid;
+          let strArrActorName = intArrActorId
+            .map((id: number) => this.actorDetails
+              ?.find((actor: any) => actor.id === id)?.name)
+            ?.filter((name: string): name is string => !!name);
+
+          this.strActorsName = strArrActorName.join(',');
+
+          this.strDirectorName = this.directorDetails?.find((director: any) => director.id === strDirectorId)?.name;
+
+        }).catch(error => {
+          console.log(this.handleError(error));
+        })
       }
     }
+  }
+
+  private handleError(error: any): void {
+    console.error('Error:', error);
   }
 
   /**

@@ -5,6 +5,8 @@ import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CommentService } from '../../_services/comment.service';
 import { FormsModule } from '@angular/forms';
+import { UsersService } from '../../_services/users.service';
+import { MovieService } from '../../_services/movie.service';
 
 @Component({
   selector: 'app-comments',
@@ -23,18 +25,25 @@ export class CommentsComponent implements OnInit{
 
   // store all comments
   comments: any[] = [];
+  // store all movies
+  movies: any[] = [];
+  // store all users
+  users: any[] = [];
   // check or not all checkboxes
   isAllChecked: boolean = false;
   // check or not individual checkbox
   isCheckedItems: boolean[] = [];
 
   constructor(
-      private commentService: CommentService
+      private commentService: CommentService,
+      private userService: UsersService,
+      private movieService: MovieService
     )
     {}
 
-  ngOnInit(): void {
-    this.getAllComments();
+  async ngOnInit() {
+    await this.loadAllComments();
+    this.convertIdToName();
   }
 
   /*
@@ -45,17 +54,43 @@ export class CommentsComponent implements OnInit{
  }
 
   /*
-  * fetch all comments
-  */
-  getAllComments(){
-    this.commentService.getAllComments().subscribe(
-      (data)=> {
-          this.comments = data;
-          this.fillCheckedItems();
-      },(error)=>{
-        console.log('Error fetched:',error);
-      }
-    );
+ * Fetch all comments, users, and movies asynchronously
+ */
+async loadAllComments() {
+  try {
+    // Wait for all promises to resolve
+    const [comments, users, movies] = await Promise.all([
+      this.commentService.getAllComments().toPromise(),
+      this.userService.getAllUsers().toPromise(),
+      this.movieService.getAllMovies().toPromise()
+    ]);
+
+    this.comments = comments;
+    this.users = users;
+    this.movies = movies;
+
+    // Set initial state for checkboxes
+    this.fillCheckedItems();
+  } catch (error) {
+    this.handleError(error);
+  }
+}
+
+/**
+ * Convert ID values to names and update the comments
+ */
+convertIdToName(): void {
+  this.comments.forEach((comment) => {
+    const movieName = this.movies.find((movie: any) => movie.id === comment.movieid)?.name;
+    const userName = this.users.find((user: any) => user.id === comment.userid)?.name;
+
+    comment.movieName = movieName;
+    comment.userName = userName;
+  });
+}
+
+  private handleError(error: any): void {
+    console.error('Error:', error);
   }
 
   /*
@@ -63,7 +98,7 @@ export class CommentsComponent implements OnInit{
   */
   onSearch(name: string){
     if(!name){
-      this.getAllComments();
+      this.loadAllComments();
     }else{
       this.commentService.getAllComments().subscribe(
         (response)=>{

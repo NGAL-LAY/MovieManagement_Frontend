@@ -3,87 +3,83 @@
         <app-header></app-header>
     </div> -->
 
-    <!-- body start-->
-    <div class="row bg-primary body-height" *ngIf="!isMovieDetailsActive()">
-        <!-- All movies -->
-        <div class="col-3 border border-2 border-secondary rounded-2">
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>5</li>
-        </div>
-        <!-- Current movies -->
-        <div class="col-9 bg-success-subtle">
-            <!-- buttom -->
-            <div class="row m-3">
-                <button class="col-1 offset-2 btn btn-primary" 
-                (click)="onNewMovie()"
-                >New
-                </button>
-                <button class="col-1 offset-2 btn btn-primary"
-                (click)="onEditMovie()"
-                >Edit
-                </button>
-                <button class="col-1 offset-2 btn btn-danger"
-                (click)="onDeleteMovie()"
-                >Delete</button>
-            </div>
-            <!-- media -->
-            <div class="row border border-2 border-secondary rounded-2 media" >
-                    <p class="col-12 movie-about">{{strMovieAbout}}</p>
-                    <div class="d-flex">
-                        <div class="movie-name">
-                            <p>Name : {{movie?.name}}</p>
-                            <p>Type : {{movie?.type}}</p>
-                            <p>Actor: {{movie?.actorids}}</p>
-                        </div>
-                        <div class="movie-company">
-                          <p>director : {{movie?.directorid}}</p>
-                          <p>language : {{movie?.language}}</p>
-                          <p>Release: {{movie?.year}}</p>
-                      </div>
-                        <img src="https://th.bing.com/th/id/OIP.Nf4HBjqFmfH7RJWb-dJCPQHaEo?rs=1&pid=ImgDetMain" height="120px"
-                                width="220px" alt="" class="image_rightMargin">
-                    </div>
-            </div>
-
-            <!-- comments, reviews -->
-            <div class="row m-3">
-                <button class="col-1 offset-2 btn btn-outline-primary" routerLink="/home">Back</button>
-                <button class="col-1 offset-2 btn btn-primary" (click)="onComment()">Comment</button>
-                <button class="col-1 offset-2 btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Comment</button>
-            </div>
-        </div>
+<!-- body start-->
+<div class="row bg-primary body-height" *ngIf="!isMovieDetailsActive()">
+  <!-- All movies -->
+  <div class="col-3 border border-2 border-secondary rounded-2">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+  </div>
+  <!-- Current movies -->
+  <div class="col-9 bg-success-subtle">
+    <!-- buttom -->
+    <div class="row m-3">
+      <button class="col-1 offset-2 btn btn-primary" (click)="onNewMovie()">New
+      </button>
+      <button class="col-1 offset-2 btn btn-primary" (click)="onEditMovie()">Edit
+      </button>
+      <button class="col-1 offset-2 btn btn-danger" (click)="onDeleteMovie()">Delete</button>
     </div>
-    <!-- body end -->
+    <!-- media -->
+    <div class="row border border-2 border-secondary rounded-2 media">
+      <p class="col-12 movie-about">{{strMovieAbout}}</p>
+      <div class="d-flex">
+        <div class="movie-name">
+          <p>Name : {{movie?.name}}</p>
+          <p>Type : {{movie?.type}}</p>
+          <p>Actors: {{strActorsName}}</p>
+        </div>
+        <div class="movie-company">
+          <p>director : {{strDirectorName}}</p>
+          <p>language : {{movie?.language}}</p>
+          <p>Release: {{movie?.year}}</p>
+        </div>
+        <img src="https://th.bing.com/th/id/OIP.Nf4HBjqFmfH7RJWb-dJCPQHaEo?rs=1&pid=ImgDetMain" height="120px"
+          width="220px" alt="" class="image_rightMargin">
+      </div>
+    </div>
 
-    <!-- child movie details component -->
-    <app-movie-details *ngIf="isMovieDetailsActive()" [movieDetails]="movieDetails"></app-movie-details>
+    <!-- comments, reviews -->
+    <div class="row m-3">
+      <button class="col-1 offset-2 btn btn-outline-primary" routerLink="/home">Back</button>
+      <button class="col-1 offset-2 btn btn-primary" (click)="onComment()">Comment</button>
+      <button class="col-1 offset-2 btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Comment</button>
+    </div>
+  </div>
+</div>
+<!-- body end -->
 
-    <!-- start of popup dialog -->  
-  <!-- Modal -->
-  <div #myModal class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header justify-content-center">
-          <h5 class="modal-title" id="myModalLabel">Recommandation</h5>
-        </div>
-        <div class="modal-body">
-          <textarea type="text" class="form-control mb-3" placeholder="Enter something..." [(ngModel)]="strComments"></textarea>
-          <input type="number" class="form-control" max="5" min="0" placeholder="Choose rating(0~5)..." [(ngModel)]="intRating" />
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary" (click)="onCommentsSave()">Save</button>
-        </div>
+<!-- child movie details component -->
+<app-movie-details *ngIf="isMovieDetailsActive()" [movieDetails]="movieDetails"></app-movie-details>
+
+<!-- start of popup dialog -->
+<!-- Modal -->
+<div #myModal class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header justify-content-center">
+        <h5 class="modal-title" id="myModalLabel">Recommandation</h5>
+      </div>
+      <div class="modal-body">
+        <textarea type="text" class="form-control mb-3" placeholder="Enter something..."
+          [(ngModel)]="strComments"></textarea>
+        <input type="number" class="form-control" max="5" min="0" placeholder="Choose rating(0~5)..."
+          [(ngModel)]="intRating" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="onCommentsSave()">Save</button>
       </div>
     </div>
   </div>
-  
-  <!-- end of popup dialog -->
+</div>
 
-    <!-- <div id="footer">
+<!-- end of popup dialog -->
+
+<!-- <div id="footer">
         <app-footer></app-footer>
     </div>
 </div> -->
