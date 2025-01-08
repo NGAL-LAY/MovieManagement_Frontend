@@ -157,7 +157,7 @@ export class MoviesComponent {
         // movieid: this.movieForm.value.name || '',  
         // userid: this.movieForm.value.type || '', 
         movieid: +this.movie?.id,
-        userid: 3,
+        userid: 8,
         comments: this.strComments,
         rating: +this.intRating
       };

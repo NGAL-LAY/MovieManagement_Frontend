@@ -23,17 +23,6 @@ export class HomeComponent implements OnInit {
 
   //store movies list
   movies: any[] = [];
-  // allMovies = {
-  //   id : 0,
-  //   name: "",
-  //   type: "",
-  //   actorids: "",
-  //   directorid: 0,
-  //   companyid: 0,
-  //   language: "",
-  //   year: "",
-  //   rating: ""
-  // };
   //store comments list
   comments: any[] = [];
   activeGenre: string = 'all';

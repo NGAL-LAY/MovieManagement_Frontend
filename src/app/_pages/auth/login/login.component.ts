@@ -19,7 +19,7 @@ import { CommonModule } from '@angular/common';
 
 export class LoginComponent implements OnInit{
 
-  username: string = '';
+  email: string = '';
   password: string = '';
   loginForm!: FormGroup;
 
@@ -30,11 +30,8 @@ export class LoginComponent implements OnInit{
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      username: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(25),
-        Validators.pattern(/^[A-Za-z][A-Za-z0-9\s]*$/)
+      email: new FormControl('', [
+        Validators.required
       ]),
       password: new FormControl('', [
         Validators.required,
@@ -43,11 +40,16 @@ export class LoginComponent implements OnInit{
     });
   }
 
-  onLogin(): void {
-    if (this.authService.login(this.username, this.password)) {
+  async onLogin(): Promise<void> {
+    const userEmail = this.loginForm.value.email;
+    const userPassword = this.loginForm.value.password;
+    if (await this.authService.login(userEmail,userPassword)) {
+      const strUserName = await this.authService.getUserName(userEmail,userPassword);
+      localStorage.setItem('accountName', JSON.stringify(strUserName));
       this.router.navigate(['/home']);
     } else {
       alert('Invalid credentials. Please try again.');
+        this.router.navigate(['/404'])
     }
   }
 }

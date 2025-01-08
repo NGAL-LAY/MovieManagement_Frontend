@@ -3,16 +3,16 @@
       <p class="fs-4 fw-bold text-primary">Login</p>
   </div>
   <div class="row mb-5">
-      <label class="col-2 offset-1 form-control-sm fs-5 text-primary" for="username">UserName:</label>
+      <label class="col-2 offset-1 form-control-sm fs-5 text-primary" for="email">Email:</label>
       <div class="col-7 offset-1">
-          <input class="form-control" id="username" formControlName="username" type="text"
-          [placeholder]="loginForm.get('username')?.invalid && loginForm.get('username')?.touched ? 'Name must be at least 6 characters' : ''">
+          <input class="form-control" id="email" formControlName="email" type="text" 
+          [placeholder]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched ? 'Enter correct email format' : ''">
       </div>
   </div>
   <div class="row mb-5">
       <label class="col-2 offset-1 form-control-sm fs-5 text-primary" for="password">Password:</label>
       <div class="col-7 offset-1">
-          <input class="form-control" id="password" formControlName="password" type="password"
+          <input class="form-control" id="password" formControlName="password" type="password" 
           [placeholder]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched ? 'password must be at least 8 characters' : ''">
       </div>
   </div>

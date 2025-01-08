@@ -74,6 +74,7 @@ export class SignupComponent implements OnInit {
 
     this.userService.registerUser(userData).subscribe(
       (response) => {
+        localStorage.setItem('accountName', JSON.stringify(response.name));
         this.router.navigate(['/home']);
       }, (error) => {
         this.router.navigate(['/404'])

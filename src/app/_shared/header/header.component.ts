@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../auth.service';
 import { Router } from '@angular/router';
 
@@ -9,21 +9,29 @@ import { Router } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+
+  strAccountName: string = '';
+  blnCollapse: boolean = false;
+
   constructor(
-    private authService: AuthService, 
+    private authService: AuthService,
     private router: Router
-  ){}
-  // Add logic or data bindings specific to the homepage if needed
-  strAccountName : string = 'Jay Mg Mg';
-  blnCollapse : boolean = false;
-  
+  ) { }
+
+  ngOnInit(): void {
+    if (typeof window !== 'undefined') {
+      const accountName = localStorage.getItem('accountName');
+      this.strAccountName = accountName ? JSON.parse(accountName) : '';
+    }
+  }
+
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
 
-  CollapseOn(){
+  CollapseOn() {
     this.blnCollapse = !this.blnCollapse;
   }
 }

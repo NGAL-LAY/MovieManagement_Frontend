@@ -21,7 +21,7 @@ import { MovieService } from '../../_services/movie.service';
   templateUrl: './comments.component.html',
   styleUrl: './comments.component.css'
 })
-export class CommentsComponent implements OnInit{
+export class CommentsComponent implements OnInit {
 
   // store all comments
   comments: any[] = [];
@@ -35,11 +35,10 @@ export class CommentsComponent implements OnInit{
   isCheckedItems: boolean[] = [];
 
   constructor(
-      private commentService: CommentService,
-      private userService: UsersService,
-      private movieService: MovieService
-    )
-    {}
+    private commentService: CommentService,
+    private userService: UsersService,
+    private movieService: MovieService
+  ) { }
 
   async ngOnInit() {
     await this.loadAllComments();
@@ -49,45 +48,45 @@ export class CommentsComponent implements OnInit{
   /*
   * set initial value of all check box
   */
- fillCheckedItems(){
-  this.isCheckedItems = new Array(this.comments.length).fill(false);
- }
+  fillCheckedItems() {
+    this.isCheckedItems = new Array(this.comments.length).fill(false);
+  }
 
   /*
  * Fetch all comments, users, and movies asynchronously
  */
-async loadAllComments() {
-  try {
-    // Wait for all promises to resolve
-    const [comments, users, movies] = await Promise.all([
-      this.commentService.getAllComments().toPromise(),
-      this.userService.getAllUsers().toPromise(),
-      this.movieService.getAllMovies().toPromise()
-    ]);
+  async loadAllComments() {
+    try {
+      // Wait for all promises to resolve
+      const [comments, users, movies] = await Promise.all([
+        this.commentService.getAllComments().toPromise(),
+        this.userService.getAllUsers().toPromise(),
+        this.movieService.getAllMovies().toPromise()
+      ]);
 
-    this.comments = comments;
-    this.users = users;
-    this.movies = movies;
+      this.comments = comments;
+      this.users = users;
+      this.movies = movies;
 
-    // Set initial state for checkboxes
-    this.fillCheckedItems();
-  } catch (error) {
-    this.handleError(error);
+      // Set initial state for checkboxes
+      this.fillCheckedItems();
+    } catch (error) {
+      this.handleError(error);
+    }
   }
-}
 
-/**
- * Convert ID values to names and update the comments
- */
-convertIdToName(): void {
-  this.comments.forEach((comment) => {
-    const movieName = this.movies.find((movie: any) => movie.id === comment.movieid)?.name;
-    const userName = this.users.find((user: any) => user.id === comment.userid)?.name;
+  /**
+   * Convert ID values to names and update the comments
+   */
+  convertIdToName(): void {
+    this.comments.forEach((comment) => {
+      const movieName = this.movies.find((movie: any) => movie.id === comment.movieid)?.name;
+      const userName = this.users.find((user: any) => user.id === comment.userid)?.name;
 
-    comment.movieName = movieName;
-    comment.userName = userName;
-  });
-}
+      comment.movieName = movieName;
+      comment.userName = userName;
+    });
+  }
 
   private handleError(error: any): void {
     console.error('Error:', error);
@@ -96,14 +95,18 @@ convertIdToName(): void {
   /*
   *seach function
   */
-  onSearch(name: string){
-    if(!name){
+  onSearch(name: string) {
+    if (!name) {
       this.loadAllComments();
-    }else{
+    } else {
       this.commentService.getAllComments().subscribe(
-        (response)=>{
+        (response) => {
+          this.comments = response;
+          this.convertIdToName();
           this.comments = response.filter(
-            (data:any)=> data.comments.toLowerCase().includes(name.toLowerCase()));
+            (data: any) => data.comments?.toLowerCase().includes(name.toLowerCase())
+              || data.userName?.toLowerCase().includes(name.toLowerCase())
+              || data.movieName?.toLowerCase().includes(name.toLowerCase()));
         }
       );
     }
@@ -112,27 +115,27 @@ convertIdToName(): void {
   /*
   *delete comment
   */
-  onDelete(){
+  onDelete() {
     // checked comments
     const checkedCommentIds = this.comments.filter(
-      (comments,index)=>this.isCheckedItems[index]).map(
-      (comment)=>comment.id);
+      (comments, index) => this.isCheckedItems[index]).map(
+        (comment) => comment.id);
 
-    if(checkedCommentIds.length === 0){
+    if (checkedCommentIds.length === 0) {
       alert("No comments selected for deletion.");
       return;
     }
 
     // call comment service
     this.commentService.deleteCommentByIds(checkedCommentIds).subscribe(
-      (response)=> {
+      (response) => {
         // 
         this.comments = this.comments.filter(
-          (comment,index)=> !this.isCheckedItems[index]
+          (comment, index) => !this.isCheckedItems[index]
         );
         this.fillCheckedItems();
         alert("Comments delete successfully");
-      },(error)=>{
+      }, (error) => {
         alert("Comments delete Error");
       }
     )
@@ -141,14 +144,14 @@ convertIdToName(): void {
   /*
   * check or not all check box by master checkbox
   */
-  toggleAllCheckBoxes():void{
+  toggleAllCheckBoxes(): void {
     this.isCheckedItems.fill(this.isAllChecked)
   }
 
   /*
   * check or not individual and check or not master checkbox depends on individual check box
   */
-  toggleCheckBox(index: number,  event: Event): void {
+  toggleCheckBox(index: number, event: Event): void {
     const inputElement = event.target as HTMLInputElement;
     const isChecked = inputElement.checked;
     this.isCheckedItems[index] = isChecked;
