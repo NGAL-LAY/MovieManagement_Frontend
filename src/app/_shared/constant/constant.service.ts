@@ -15,8 +15,8 @@ export class ConstantService {
   currentData = this.dataSource.asObservable(); // Observable for the components to subscribe to
 
   constructor() { }
-  
- // getter and setter for object
+
+  // getter and setter for object
   setObject(object: any) {
     this.dataSource.next(object);
   }

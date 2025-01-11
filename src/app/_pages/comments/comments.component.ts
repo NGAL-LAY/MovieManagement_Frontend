@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../_shared/header/header.component';
 import { FooterComponent } from '../../_shared/footer/footer.component';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CommentService } from '../../_services/comment.service';
 import { FormsModule } from '@angular/forms';
@@ -42,7 +42,6 @@ export class CommentsComponent implements OnInit {
 
   async ngOnInit() {
     await this.loadAllComments();
-    this.convertIdToName();
   }
 
   /*
@@ -67,6 +66,8 @@ export class CommentsComponent implements OnInit {
       this.comments = comments;
       this.users = users;
       this.movies = movies;
+
+      this.convertIdToName();
 
       // Set initial state for checkboxes
       this.fillCheckedItems();

@@ -17,20 +17,20 @@ import { ConstantService } from '../../../_shared/constant/constant.service';
   templateUrl: './director-details.component.html',
   styleUrl: './director-details.component.css'
 })
-export class DirectorDetailsComponent implements OnInit{
-  
+export class DirectorDetailsComponent implements OnInit {
+
   // director details from parent director
-    @Input() directorDetails: any;
-    directorForm!: FormGroup;
-    // edit status
-    isEdit: boolean = false;
-  
-    constructor(
-      private router: Router,
-      private directorService: DirectorService,
-      private constantService: ConstantService
-    ) { }
-  
+  @Input() directorDetails: any;
+  directorForm!: FormGroup;
+  // edit status
+  isEdit: boolean = false;
+
+  constructor(
+    private router: Router,
+    private directorService: DirectorService,
+    private constantService: ConstantService
+  ) { }
+
   ngOnInit(): void {
     this.directorForm = new FormGroup({
       name: new FormControl('', [
@@ -51,17 +51,17 @@ export class DirectorDetailsComponent implements OnInit{
     this.constantService.currentData.subscribe((directors) => {
       this.directorDetails = directors;
       // Dynamically set values
-    if (this.directorDetails) {
-      this.isEdit = true;
-      this.directorForm.patchValue({
-        name: this.directorDetails.name,
-        gentle: this.directorDetails.gentle,
-        nationality: this.directorDetails.nationality
-      });
-    }  
+      if (this.directorDetails) {
+        this.isEdit = true;
+        this.directorForm.patchValue({
+          name: this.directorDetails.name,
+          gentle: this.directorDetails.gentle,
+          nationality: this.directorDetails.nationality
+        });
+      }
     });
   }
-  
+
   /*
    *new director register  
    */
@@ -80,7 +80,7 @@ export class DirectorDetailsComponent implements OnInit{
       }
     );
   }
-  
+
   /*
    *director update  
    */
@@ -90,7 +90,7 @@ export class DirectorDetailsComponent implements OnInit{
       gentle: this.directorForm.value.gentle || '',
       nationality: this.directorForm.value.nationality || '',
     };
-    
+
     this.directorService.updateDirector(this.directorDetails.id, director).subscribe(
       (response) => {
         this.router.navigate(['/directors']);

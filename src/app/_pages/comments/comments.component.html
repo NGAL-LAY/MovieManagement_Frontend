@@ -1,76 +1,64 @@
-<!-- <div class="container-fluid">
-    <div id="header">
-        <app-header></app-header>
-    </div> -->
+<!-- body start-->
+<div class="row  body-height">
+    <div class="row btn-div1">
+        <label class="col-1 text-primary fs-4 fw-semibold">Comment</label>
+        <input class="col-3 form-control-sm offset-6 bg-primary-subtle border-0" id="content-header-item" type="text"
+            #searchvalue placeholder="Enter you wanna search" (keydown.enter)="onSearch(searchvalue.value)">
+        <!-- Search -->
+        <button class="btn btn-primary col-1 offset-1" id="content-header-item" style="text-align: center;"
+            type="submit" (click)="onSearch(searchvalue.value)">Search</button>
+    </div>
 
-    <!-- body start-->
-    <div class="row  body-height">
-        <div class="row btn-div1">
-            <input class="col-3 form-control-sm offset-7 bg-primary-subtle border-0" id="content-header-item" type="text"
-                #searchvalue placeholder="Enter movie and user" (keydown.enter)="onSearch(searchvalue.value)">
-            <!-- Search -->
-            <button class="btn btn-primary col-1 offset-1" id="content-header-item" style="text-align: center;" type="submit"
-                (click)="onSearch(searchvalue.value)">Search</button>
-        </div>
-
-        <!-- Table start -->
-         <div class="table-body">
-            <div class="table-scroll-wrapper">
-                <table class="table table-bordered table-striped tbl-div">
-                    <colgroup>
-                        <col style="width: 50px;">
-                        <col style="width: 50px;">
-                        <col style="width: 450px;">
-                        <col style="width: 200px;">
-                        <col style="width: 200px;">
-                        <col style="width: 50px;">
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th>
-                                <input type="checkbox" id="isAllCheck"
-                                [(ngModel)]="isAllChecked"  (change)="toggleAllCheckBoxes()"/>
-                            </th>
-                            <th>No</th>
-                            <th>Comments</th>
-                            <th>Movie Name</th>
-                            <th>User</th>
-                            <th>Rating</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let comment of comments; let i = index">
-                            <td>
-                                <input type="checkbox" id="isCheck" [checked]="isCheckedItems[i]" 
-                                (change)="toggleCheckBox(i, $event)"/>
-                            </td>
-                            <td>{{i+1}}</td>
-                            <td>{{comment.comments}}</td>
-                            <td>{{comment.movieName}}</td>
-                            <td>{{comment.userName}}</td>
-                            <td>{{comment.rating}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-         </div>
-        
-        <!-- Table end -->
-
-        <div class="row btn-div2">
-            <!-- Back -->
-            <button class="btn btn-primary col-1 offset-1 " type="submit" routerLink="/movies">Back</button>
-            <!-- Delete -->
-            <button class="btn btn-danger col-1 offset-9" id="content-header-item" style="text-align: center;" type="submit"
-                (click)="onDelete()">Delete</button>
+    <!-- Table start -->
+    <div class="table-body">
+        <div class="table-scroll-wrapper">
+            <table class="table table-bordered table-striped tbl-div">
+                <colgroup>
+                    <col style="width: 50px;">
+                    <col style="width: 50px;">
+                    <col style="width: 450px;">
+                    <col style="width: 200px;">
+                    <col style="width: 200px;">
+                    <col style="width: 50px;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>
+                            <input type="checkbox" id="isAllCheck" [(ngModel)]="isAllChecked"
+                                (change)="toggleAllCheckBoxes()" />
+                        </th>
+                        <th>No</th>
+                        <th>Comments</th>
+                        <th>Movie Name</th>
+                        <th>User</th>
+                        <th>Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let comment of comments; let i = index">
+                        <td>
+                            <input type="checkbox" id="isCheck" [checked]="isCheckedItems[i]"
+                                (change)="toggleCheckBox(i, $event)" />
+                        </td>
+                        <td>{{i+1}}</td>
+                        <td>{{comment.comments}}</td>
+                        <td>{{comment.movieName}}</td>
+                        <td>{{comment.userName}}</td>
+                        <td>{{comment.rating}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
-    <!-- body end -->
 
-    <!-- child movie details component -->
-    <!-- <app-movie-details *ngIf="isMovieDetailsActive()" [movieDetails]="movieDetails"></app-movie-details> -->
+    <!-- Table end -->
 
-    <!-- <div id="footer">
-        <app-footer></app-footer>
+    <div class="row btn-div2">
+        <!-- Back -->
+        <button class="btn btn-primary col-1 offset-1 " type="submit" routerLink="/movies">Back</button>
+        <!-- Delete -->
+        <button class="btn btn-danger col-1 offset-9" id="content-header-item" style="text-align: center;" type="submit"
+            (click)="onDelete()">Delete</button>
     </div>
-</div> -->
+</div>
+<!-- body end -->

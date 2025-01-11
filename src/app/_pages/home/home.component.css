@@ -3,9 +3,11 @@ ul {
     margin: 0;
     padding: 0;
 }
+
 a {
     text-decoration: none;
 }
+
 #content {
     float: left;
     word-wrap: break-word;
@@ -13,7 +15,7 @@ a {
     font-family: Raleway, sans-serif;
 }
 
-#content-sidebar{
+#content-sidebar {
     overflow: hidden;
     width: 100px;
     height: 100%;
@@ -21,44 +23,47 @@ a {
     background: #2A2D33;
 }
 
-.content-header{
+.content-header {
     margin-top: 15px;
     height: 44px;
 }
 
-.content-header input{
+.content-header input {
     border: thin;
 }
 
-.content-header button{
+.content-header button {
     font-size: .875rem;
     padding-top: 3px;
 }
 
-#content-header-item{
+#content-header-item {
     height: 30px;
 }
 
-.body-div{
-    height: 446px;;
+.body-div {
+    height: 446px;
+    ;
 }
-.content-body{
-    overflow-y: auto; 
+
+.content-body {
+    overflow-y: auto;
     max-height: 446px;
     margin-top: 0px;
 }
-.dynamic-div{
+
+.dynamic-div {
     width: 230px;
     display: inline-block;
     margin-left: 17px;
     margin-right: 2px;
     margin-bottom: 10px;
 }
-.img-margin{
+
+.img-margin {
     margin-top: 3px;
 }
 
-.card-margin{
+.card-margin {
     margin-bottom: 1px;
 }
-

@@ -27,19 +27,11 @@ export class AuthService {
   }
 
   async login(email: string, password: string): Promise<boolean> {
-    if (await this.getUserName(email,password)) {
+    if (await this.userService.getUserName(email, password)) {
       this.isAuthenticated = true;
       return true;
     }
     return false;
-  }
-
-  // fetch user name by email and password
-  async getUserName(email: string, password: string){
-    await this.getAllUsers();
-    this.strUserName = this.users.find((user:any) => 
-      user.email === email && user.password === password)?.name;
-    return this.strUserName;
   }
 
   logout(): void {

@@ -67,7 +67,7 @@ export class MovieService {
    */
   updateMovie(id: number, movie: Movie): Observable<any> {
     const headers = { 'Content-Type': 'application/json' };
-    return this.http.put<number>(`${this.movieAPI}/${id}`,movie, { headers }).pipe(
+    return this.http.put<number>(`${this.movieAPI}/${id}`, movie, { headers }).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === 404) {
           return throwError('Not Found');
@@ -91,7 +91,7 @@ export class MovieService {
       })
     );
   }
-  
+
 }
 
 // movie interface

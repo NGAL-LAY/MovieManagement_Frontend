@@ -6,21 +6,20 @@
         <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="name">Name</label>
         <div class="col-3">
             <input class="form-control" id="name" formControlName="name"
-            [placeholder]="userForm.get('name')?.invalid && userForm.get('name')?.touched ? 'Name must be at least 6 characters' : ''">
+                [placeholder]="userForm.get('name')?.invalid && userForm.get('name')?.touched ? 'Name must be at least 6 characters' : ''">
         </div>
     </div>
     <div class="row mb-3">
         <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="password">Password:</label>
         <div class="col-3">
             <input class="form-control" id="password" formControlName="password" type="password"
-            [placeholder]="userForm.get('password')?.invalid && userForm.get('password')?.touched ? 'password must be at least 8 characters' : ''">
+                [placeholder]="userForm.get('password')?.invalid && userForm.get('password')?.touched ? 'password must be at least 8 characters' : ''">
         </div>
     </div>
     <div class="row mb-3">
         <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="repassword">RePasswd:</label>
         <div class="col-3">
-            <input class="form-control" id="repassword" formControlName="repassword" type="password"
-            [placeholder]="
+            <input class="form-control" id="repassword" formControlName="repassword" type="password" [placeholder]="
             (userForm.get('repassword')?.errors?.['required'] ? 'Repassword is required' :
             userForm.get('repassword')?.errors?.['minlength'] ? 'Repassword must be at least 8 characters' :
             userForm.get('repassword')?.errors?.['passwordMismatch']) && userForm.get('repassword')?.touched ? 'Repassword must match Password' :
@@ -31,7 +30,7 @@
         <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="email">Email</label>
         <div class="col-3">
             <input class="form-control" id="email" formControlName="email"
-            [placeholder]="userForm.get('email')?.invalid && userForm.get('email')?.touched ? 'Email must be required' : ''">
+                [placeholder]="userForm.get('email')?.invalid && userForm.get('email')?.touched ? 'Email must be required' : ''">
         </div>
     </div>
     <div class="row mb-3">
@@ -54,7 +53,7 @@
         <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="age">Age</label>
         <div class="col-3">
             <input class="form-control" id="age" formControlName="age" type="number"
-            [placeholder]="userForm.get('age')?.invalid && userForm.get('age')?.touched ? 'Age must be at least 16' : ''">
+                [placeholder]="userForm.get('age')?.invalid && userForm.get('age')?.touched ? 'Age must be at least 16' : ''">
         </div>
     </div>
     <div class="row mb-3">
@@ -68,7 +67,9 @@
     </div>
     <div class="row">
         <button class="btn btn-outline-primary col-1 offset-4" routerLink="/users">Back</button>
-        <button class="btn btn-primary col-1 offset-2" type="submit" *ngIf="!isEdit" (click)="onRegUser()" [disabled]="!userForm.valid">Register</button>
-        <button class="btn btn-primary col-1 offset-2" type="submit" *ngIf="isEdit" (click)="onUpdate()"  [disabled]="!userForm.valid">Update</button>
-    </div> 
+        <button class="btn btn-primary col-1 offset-2" type="submit" *ngIf="!isEdit" (click)="onRegUser()"
+            [disabled]="!userForm.valid">Register</button>
+        <button class="btn btn-primary col-1 offset-2" type="submit" *ngIf="isEdit" (click)="onUpdate()"
+            [disabled]="!userForm.valid">Update</button>
+    </div>
 </form>

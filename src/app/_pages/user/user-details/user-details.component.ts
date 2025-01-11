@@ -79,7 +79,7 @@ export class UserDetailsComponent implements OnInit {
           age: this.userDetails.age,
           gentle: this.userDetails.gentle,
         });
-      }  
+      }
     });
   }
 
@@ -109,8 +109,8 @@ export class UserDetailsComponent implements OnInit {
   /*
      *user update  
      */
-    onUpdate() {
-      const userData: User = {
+  onUpdate() {
+    const userData: User = {
       name: this.userForm.value.name || '',
       password: this.userForm.value.password || '',
       email: this.userForm.value.email || '',
@@ -118,16 +118,16 @@ export class UserDetailsComponent implements OnInit {
       age: this.userForm.value.age || '',
       gentle: this.userForm.value.gentle || '',
       role: "admin"
-      };
-      
-      this.userService.updateUser(this.userDetails.id, userData).subscribe(
-        (response) => {
-          this.router.navigate(['/users']);
-        }, (error) => {
-          this.router.navigate(['/404'])
-        }
-      );
-    }
+    };
+
+    this.userService.updateUser(this.userDetails.id, userData).subscribe(
+      (response) => {
+        this.router.navigate(['/users']);
+      }, (error) => {
+        this.router.navigate(['/404'])
+      }
+    );
+  }
 
 }
 

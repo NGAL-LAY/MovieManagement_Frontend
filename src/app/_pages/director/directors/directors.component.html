@@ -8,12 +8,12 @@
         <input class="col-3 form-control-sm offset-1 bg-primary-subtle border-0" id="content-header-item" type="text"
             #searchvalue placeholder="Enter director" (keydown.enter)="onSearch(searchvalue.value)">
         <!-- Search -->
-        <button class="btn btn-primary col-1 offset-1" id="content-header-item" style="text-align: center;" type="submit"
-            (click)="onSearch(searchvalue.value)">Search</button>
+        <button class="btn btn-primary col-1 offset-1" id="content-header-item" style="text-align: center;"
+            type="submit" (click)="onSearch(searchvalue.value)">Search</button>
     </div>
 
     <!-- Table start -->
-     <div class="table-body">
+    <div class="table-body">
         <div class="table-scroll-wrapper">
             <table class="table table-bordered table-striped tbl-div">
                 <colgroup>
@@ -26,8 +26,8 @@
                 <thead>
                     <tr>
                         <th>
-                            <input type="checkbox" id="isAllCheck"
-                            [(ngModel)]="isAllChecked"  (change)="toggleAllCheckBoxes()"/>
+                            <input type="checkbox" id="isAllCheck" [(ngModel)]="isAllChecked"
+                                (change)="toggleAllCheckBoxes()" />
                         </th>
                         <th>No</th>
                         <th>Director Name</th>
@@ -38,8 +38,8 @@
                 <tbody>
                     <tr *ngFor="let director of directors; let i = index">
                         <td>
-                            <input type="checkbox" id="isCheck" [checked]="isCheckedItems[i]" 
-                            (change)="toggleCheckBox(i,director.id, $event)"/>
+                            <input type="checkbox" id="isCheck" [checked]="isCheckedItems[i]"
+                                (change)="toggleCheckBox(i,director.id, $event)" />
                         </td>
                         <td>{{i+1}}</td>
                         <td>{{director.name}}</td>
@@ -49,16 +49,16 @@
                 </tbody>
             </table>
         </div>
-     </div>
-    
+    </div>
+
     <!-- Table end -->
 
     <div class="row btn-div2">
         <!-- Back -->
         <button class="btn btn-outline-primary col-1 offset-1 " type="submit" routerLink="/home">Back</button>
         <!-- Edit -->
-        <button class="btn btn-primary col-1 offset-7" id="content-header-item" style="text-align: center;" type="submit"
-        (click)="onEditDirector()" [disabled]="!isDisabled()">Edit</button>
+        <button class="btn btn-primary col-1 offset-7" id="content-header-item" style="text-align: center;"
+            type="submit" (click)="onEditDirector()" [disabled]="!isDisabled()">Edit</button>
         <!-- Delete -->
         <button class="btn btn-danger col-1 offset-1" id="content-header-item" style="text-align: center;" type="submit"
             (click)="onDelete()">Delete</button>

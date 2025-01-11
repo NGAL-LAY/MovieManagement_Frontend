@@ -18,137 +18,137 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
 })
-export class UsersComponent implements OnInit{
-  
+export class UsersComponent implements OnInit {
+
   // to transfer userdetails
-    userDetails: any;
-    // store all users
-    users: any[] = [];
-    // check or not all checkboxes
-    isAllChecked: boolean = false;
-    // check or not individual checkbox
-    isCheckedItems: boolean[] = [];
-    // select user id
-    selectedUserIds: number[] = [];
-    
-    constructor(
-      private router: Router,
-      private userService: UsersService,
-      private constantService: ConstantService
-    ) { }
-    
-    ngOnInit(): void {
-      this.getAllUsers();
-    }
-    
+  userDetails: any;
+  // store all users
+  users: any[] = [];
+  // check or not all checkboxes
+  isAllChecked: boolean = false;
+  // check or not individual checkbox
+  isCheckedItems: boolean[] = [];
+  // select user id
+  selectedUserIds: number[] = [];
+
+  constructor(
+    private router: Router,
+    private userService: UsersService,
+    private constantService: ConstantService
+  ) { }
+
+  ngOnInit(): void {
+    this.getAllUsers();
+  }
+
   /*
   * fetch all users
   */
-  getAllUsers(){
+  getAllUsers() {
     this.userService.getAllUsers().subscribe(
-      (data)=> {
-          this.users = data;
-          this.fillCheckedItems();
-      },(error)=>{
-        console.log('Error fetched:',error);
+      (data) => {
+        this.users = data;
+        this.fillCheckedItems();
+      }, (error) => {
+        console.log('Error fetched:', error);
       }
     );
   }
-    
+
   /*
   * new user to route user-details
   */
-  onNewUser(){
+  onNewUser() {
     this.userDetails = null;
     this.constantService.setObject(this.userDetails);
     this.router.navigate(['/users/user-details']);
   }
-  
+
   /*
   * edit user to route user-details
   */
-  onEditUser(){
+  onEditUser() {
     const edituserId = this.selectedUserIds[0];
     this.userDetails = this.users.find(user => user.id === edituserId);
-    if(this.userDetails != null){
+    if (this.userDetails != null) {
       this.constantService.setObject(this.userDetails);
       this.router.navigate(['/users/user-details']);
     }
   }
-    
+
   /*
    *seach function
    */
-   onSearch(name: string){
-    if(!name){
+  onSearch(name: string) {
+    if (!name) {
       this.getAllUsers();
-    }else{
+    } else {
       this.userService.getAllUsers().subscribe(
-        (response)=>{
+        (response) => {
           this.users = response.filter(
-            (data:any)=> data.name.toLowerCase().includes(name.toLowerCase()));
+            (data: any) => data.name.toLowerCase().includes(name.toLowerCase()));
         }
       );
     }
   }
-    
+
   /*
    *delete user
    */
-   onDelete(){
+  onDelete() {
     // checked users
     const checkedUserIds = this.users.filter(
-    (users, index) => this.isCheckedItems[index]).map(
-      (user) => user.id);
+      (users, index) => this.isCheckedItems[index]).map(
+        (user) => user.id);
 
     if (checkedUserIds.length === 0) {
       alert("No users selected for deletion.");
       return;
     }
 
-  // call user service
-  this.userService.deleteUserByIds(checkedUserIds).subscribe(
-    (response) => {
-      // 
-      this.users = this.users.filter(
-        (director, index) => !this.isCheckedItems[index]
-      );
-      this.fillCheckedItems();
-      alert("User delete successfully");
+    // call user service
+    this.userService.deleteUserByIds(checkedUserIds).subscribe(
+      (response) => {
+        // 
+        this.users = this.users.filter(
+          (director, index) => !this.isCheckedItems[index]
+        );
+        this.fillCheckedItems();
+        alert("User delete successfully");
       }, (error) => {
         alert("User delete Error");
       }
     )
   }
-    
+
   /*
    * set initial value of all check box
    */
-  fillCheckedItems(){
+  fillCheckedItems() {
     this.isCheckedItems = new Array(this.users.length).fill(false);
   }
-    
+
   /*
    * check or not all check box by master checkbox
    */
-  toggleAllCheckBoxes():void{
+  toggleAllCheckBoxes(): void {
     this.isCheckedItems.fill(this.isAllChecked);
     // handle of edit button
-    if(!this.isAllChecked){
+    if (!this.isAllChecked) {
       this.selectedUserIds = [];
-    }else{
+    } else {
       this.selectedUserIds = this.users.map(director => director.id);
     }
   }
-    
+
   /*
    * check or not individual and check or not master checkbox depends on individual check box
    */
-  toggleCheckBox(index: number, directorId: number,  event: Event): void {
+  toggleCheckBox(index: number, directorId: number, event: Event): void {
     const inputElement = event.target as HTMLInputElement;
     const isChecked = inputElement.checked;
     //get checked id
-    if(isChecked){
+    if (isChecked) {
       this.selectedUserIds.push(directorId);
     } else {
       this.selectedUserIds = this.selectedUserIds.filter(id => id !== directorId);
@@ -156,11 +156,11 @@ export class UsersComponent implements OnInit{
     this.isCheckedItems[index] = isChecked;
     this.isAllChecked = this.isCheckedItems.every((checked) => checked);
   }
-  
+
   /**
    * @returns false
    */
-    isDisabled(): boolean {
-      return this.selectedUserIds.length === 1 && !this.isAllChecked;
-    }
+  isDisabled(): boolean {
+    return this.selectedUserIds.length === 1 && !this.isAllChecked;
   }
+}

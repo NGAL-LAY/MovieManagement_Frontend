@@ -3,8 +3,9 @@ import { AuthService } from '../../auth.service';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MoviesComponent } from '../movie/movies/movies.component';
-import { Movie, MovieService } from '../../_services/movie.service';
+import { MovieService } from '../../_services/movie.service';
 import { CommentService } from '../../_services/comment.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,7 @@ import { CommentService } from '../../_services/comment.service';
     RouterOutlet,
     CommonModule,
     MoviesComponent,
+    FormsModule
   ]
 })
 
@@ -26,6 +28,14 @@ export class HomeComponent implements OnInit {
   //store comments list
   comments: any[] = [];
   activeGenre: string = 'all';
+  //user role
+  blnAdmin: boolean = false;
+  //selected rating
+  selectedRating: string = "";
+  //selected language
+  selectedLanguage: string = "";
+  //search value
+  searchValue: string = "";
 
   constructor(
     private authService: AuthService,
@@ -36,11 +46,19 @@ export class HomeComponent implements OnInit {
 
   async ngOnInit() {
     try {
+      this.userPermission();
       await this.loadMoviesAndComments();
       this.calculateMovieRatings();
-      console.log("Updated movies with ratings:", this.movies);
     } catch (error) {
       console.error("Error during initialization:", error);
+    }
+  }
+
+  private userPermission() {
+    if (typeof window !== 'undefined') {
+      const strDataFromLS = localStorage.getItem('userRole');
+      const strUserRole = strDataFromLS ? JSON.parse(strDataFromLS) : '';
+      this.blnAdmin = strUserRole === 'admin' ? true : false;
     }
   }
 
@@ -52,68 +70,63 @@ export class HomeComponent implements OnInit {
       this.movieService.getAllMovies().toPromise(),
       this.commentService.getAllComments().toPromise(),
     ]);
-  
+
     this.movies = movies || [];
     this.comments = comments || [];
+
+    this.calculateMovieRatings();
   }
 
   /**
-   * get movie rating
+   * Calculate movie ratings
    */
   calculateMovieRatings(): void {
-  // Step 1: Create a map of movie IDs to their cumulative ratings
-  const ratingsMap = new Map<number, number>();
+    const ratingsMap = new Map<number, { totalRating: number; count: number }>();
 
-  this.comments.forEach((comment) => {
-    const movieId = comment.movieid;
-    const rating = comment.rating || 0;
+    this.comments.forEach(({ movieid, rating = 0 }) => {
+      const entry = ratingsMap.get(movieid) || { totalRating: 0, count: 0 };
+      ratingsMap.set(movieid, {
+        totalRating: entry.totalRating + rating,
+        count: entry.count + 1,
+      });
+    });
 
-    // Accumulate ratings
-    ratingsMap.set(movieId, (ratingsMap.get(movieId) || 0) + rating);
-  });
-
-  // Step 2: Update each movie's rating
-  this.movies = this.movies.map((movie) => ({
-    ...movie,
-    rating: ratingsMap.get(movie.id) || 0, // Default rating is 0 if no comments
-  }));
-}
-
-  // fetch movies by name
-  getMovieByName(name: string) {
-    this.movies = this.movies.filter(movie => movie.name.toLowerCase().includes(name.toLowerCase()));
+    this.movies = this.movies.map((movie) => ({
+      ...movie,
+      rating: ratingsMap.get(movie.id)?.totalRating || 0,
+      numOfUsers: ratingsMap.get(movie.id)?.count || 0,
+    }));
   }
 
-  /*
-  * seach function
-  */
-  onSearch(name: string) {
-    if (!name) {
-      this.movieService.getAllMovies().subscribe(
-        (response) => {
-          this.movies = response;
-        },
-        (error) => {
-          console.error("Http error", error)
-        }
+  /**
+   * Filter movies based on multiple criteria
+   */
+  filterMovies(name: string = '', language: string = '', rating: string = ''): void {
+    this.movies = this.movies
+      .filter((movie) =>
+        (!name || movie.name?.toLowerCase().includes(name.toLowerCase())) &&
+        (!language || movie.language?.toLowerCase().includes(language.toLowerCase())) &&
+        (!rating ||
+          (movie.numOfUsers > 0 && (movie.rating / movie.numOfUsers) >= parseInt(rating)))
       );
-    } else {
-      this.movieService.getAllMovies().subscribe(
-        (response) => {
-          this.movies = response.filter(
-            (data: any) => data.name.toLowerCase().includes(name.toLowerCase()));
-        },
-        (error) => {
-          console.error("Http error", error);
-        }
-      );
-    }
+  }
+
+  /**
+   * Search function
+   */
+  onSearch(name: string): void {
+    this.loadMoviesAndComments().then(() => {
+      this.filterMovies(name, this.selectedLanguage, this.selectedRating);
+    });
   }
 
   /*
   * filter by movie genre
   */
   onGenreClick(genre: string): void {
+    this.selectedLanguage = "";
+    this.selectedRating = "";
+    this.searchValue = "";
     // Set the clicked genre as active
     this.activeGenre = genre;
 
@@ -136,8 +149,8 @@ export class HomeComponent implements OnInit {
         (error) => {
           if (error === 'Not Found') {
             this.router.navigate(['/404']);
-          }else{
-            console.error("Http error",error);
+          } else {
+            console.error("Http error", error);
           }
         }
       );

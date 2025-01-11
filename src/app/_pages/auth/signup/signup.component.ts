@@ -3,6 +3,7 @@ import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModu
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { User, UsersService } from '../../../_services/users.service';
+import { AuthService } from '../../../auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -23,7 +24,8 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private userService: UsersService
+    private userService: UsersService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -61,7 +63,7 @@ export class SignupComponent implements OnInit {
   /**
    * sign up form registration
    */
-  onSignUp(): void {
+  async onSignUp(): Promise<void> {
     const userData: User = {
       name: this.signupForm.value.name || '',
       password: this.signupForm.value.password || '',
@@ -73,9 +75,15 @@ export class SignupComponent implements OnInit {
     };
 
     this.userService.registerUser(userData).subscribe(
-      (response) => {
-        localStorage.setItem('accountName', JSON.stringify(response.name));
-        this.router.navigate(['/home']);
+      async (response) => {
+        if (await this.authService.login(response.email, response.password)) {
+          const intUserId = this.userService.getUserId(response.email, response.password);
+          localStorage.setItem('userId', JSON.stringify(intUserId));
+          localStorage.setItem('accountName', JSON.stringify(response.name));
+          localStorage.setItem('userRole', JSON.stringify(response.role));
+          this.router.navigate(['/home']);
+        }
+
       }, (error) => {
         this.router.navigate(['/404'])
       }

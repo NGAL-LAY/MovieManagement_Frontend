@@ -7,14 +7,15 @@
             <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="name">Name</label>
             <div class="col-3">
                 <input class="form-control" id="name" formControlName="name" [value]="companyDetails?.name"
-                [placeholder]="companyForm.get('name')?.invalid && companyForm.get('name')?.touched && companyForm.get('name')?.value.length < 6 
+                    [placeholder]="companyForm.get('name')?.invalid && companyForm.get('name')?.touched && companyForm.get('name')?.value.length < 6 
                ? 'Name must be at least 6 characters' : ''">
             </div>
         </div>
         <div class="row mb-5">
             <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="releaseMovies">Rel_Movies</label>
             <div class="col-3">
-                <input type="number" class="form-control" id="releaseMovies" name="releaseMovies" formControlName="releaseMovies" min="0">
+                <input type="number" class="form-control" id="releaseMovies" name="releaseMovies"
+                    formControlName="releaseMovies" min="0">
             </div>
         </div>
 
@@ -37,13 +38,16 @@
         <div class="row mb-4">
             <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="openDate">Crea_Date</label>
             <div class="col-3">
-                <app-datepicker class="form-control border-0" id="openDate" type="date" formControlName="openDate"></app-datepicker>
+                <app-datepicker class="form-control border-0" id="openDate" type="date"
+                    formControlName="openDate"></app-datepicker>
             </div>
         </div>
         <div class="row">
             <button class="btn btn-outline-primary col-1 offset-4" routerLink="/companies">Back</button>
-            <button class="btn btn-primary col-1 offset-2" type="submit" *ngIf="!isEdit" (click)="onRegister()"  [disabled]="!companyForm.valid">Register</button>
-            <button class="btn btn-primary col-1 offset-2" type="submit" *ngIf="isEdit" (click)="onUpdate()"  [disabled]="!companyForm.valid">Update</button>
-        </div> 
+            <button class="btn btn-primary col-1 offset-2" type="submit" *ngIf="!isEdit" (click)="onRegister()"
+                [disabled]="!companyForm.valid">Register</button>
+            <button class="btn btn-primary col-1 offset-2" type="submit" *ngIf="isEdit" (click)="onUpdate()"
+                [disabled]="!companyForm.valid">Update</button>
+        </div>
     </form>
 </div>

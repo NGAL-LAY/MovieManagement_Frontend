@@ -97,9 +97,9 @@
 
         <div class="row">
             <button class="btn btn-outline-primary col-1 offset-4" routerLink="/movies">Back</button>
-            <button class="btn btn-primary col-1 offset-3" type="submit" *ngIf="!isEdit" (click)="onRegister()"
+            <button class="btn btn-primary col-1 offset-2" type="submit" *ngIf="!isEdit" (click)="onRegister()"
                 [disabled]="!movieForm.valid || !selectedActors.length">Register</button>
-            <button class="btn btn-primary col-1 offset-3" type="submit" *ngIf="isEdit" (click)="onUpdate()"
+            <button class="btn btn-primary col-1 offset-2" type="submit" *ngIf="isEdit" (click)="onUpdate()"
                 [disabled]="!movieForm.valid || !selectedActors.length">Update</button>
         </div>
 

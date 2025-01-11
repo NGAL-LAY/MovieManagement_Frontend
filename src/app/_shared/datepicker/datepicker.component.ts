@@ -32,7 +32,7 @@ export class DatepickerComponent implements ControlValueAccessor {
   value: any = '';
   @Output() dateChange = new EventEmitter<any>();
 
-  constructor(private datePipe: DatePipe) {}
+  constructor(private datePipe: DatePipe) { }
 
   // Callback function to be called when the form value changes
   onChange: any = () => { };

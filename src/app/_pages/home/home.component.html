@@ -38,7 +38,8 @@
       </li>
       <!-- Add for admin -->
       <li class="mt-4 ms-1">
-        <button class="btn form-control btn-light btn-outline-secondary" type="submit" (click)="onAdd()">
+        <button class="btn form-control btn-light btn-outline-secondary" type="submit" (click)="onAdd()"
+          *ngIf="blnAdmin">
           Add
         </button>
       </li>
@@ -46,25 +47,25 @@
   </div>
   <div class="col-10 bg-success-subtle">
     <div class="content-header row">
-      <input class="col-3 form-control-sm  ms-2 bg-primary-subtle" id="content-header-item" type="text" #searchvalue
-        placeholder="Search Movies Name" (keydown.enter)="onSearch(searchvalue.value)">
+      <input class="col-3 form-control-sm  ms-2 bg-primary-subtle" id="content-header-item" type="text"
+        [(ngModel)]="searchValue" placeholder="Search Movies Name" (keydown.enter)="onSearch(searchValue)">
 
-      <!-- Countries  -->
+      <!-- Languages  -->
       <select class="form-select-sm col-2 offset-3 me-4 bg-primary text-white" id="content-header-item"
-        aria-label="Default select example">
-        <option selected>Countries</option>
-        <option value="1">America</option>
-        <option value="2">Chinese</option>
-        <option value="3">English</option>
-        <option value="4">India</option>
-        <option value="5">Korea</option>
-        <option value="6">Myanmar</option>
-        <option value="7">Thai</option>
+        aria-label="Default select example" [(ngModel)]="selectedLanguage">
+        <option value="" selected>Language</option>
+        <option value="America">America</option>
+        <option value="Chinese">Chinese</option>
+        <option value="English">English</option>
+        <option value="India">India</option>
+        <option value="Korea">Korea</option>
+        <option value="Myanmar">Myanmar</option>
+        <option value="Thai">Thai</option>
       </select>
       <!-- Rating  -->
       <select class="form-select-sm col-2 me-5 bg-primary text-white" id="content-header-item"
-        aria-label="Default select example">
-        <option selected>Rating</option>
+        aria-label="Default select example" [(ngModel)]="selectedRating">
+        <option value="" selected>Rating</option>
         <option value="5">5</option>
         <option value="4">4</option>
         <option value="3">3</option>
@@ -73,7 +74,7 @@
       </select>
       <!-- Search -->
       <button class="btn btn-primary col-1" id="content-header-item" style="text-align: center;" type="submit"
-        (click)="onSearch(searchvalue.value)">Search</button>
+        (click)="onSearch(searchValue)">Search</button>
     </div>
     <div class="body-div">
       <div class="content-body">
@@ -84,8 +85,9 @@
               src="https://th.bing.com/th/id/OIP.Nf4HBjqFmfH7RJWb-dJCPQHaEo?rs=1&pid=ImgDetMain" alt="Card image cap">
             <div class="card-body">
               <p class="card-text card-margin">{{movie.name}}</p>
-              <p class="card-text">{{movie.type}}</p>
-              <p class="card-text">{{movie.language}}</p>
+              <p class="card-text card-margin">{{movie.type}}</p>
+              <p class="card-text card-margin">{{movie.rating/movie.numOfUsers || 0 | number: '1.0-1' }}</p>
+              <p class="card-text card-margin">{{movie.language}}</p>
             </div>
           </div>
         </div>

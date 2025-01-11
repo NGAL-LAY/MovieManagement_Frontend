@@ -6,8 +6,7 @@
         <div class="row mb-5">
             <label class="col-1 offset-4 form-control-sm fs-5 text-primary" for="name">Name</label>
             <div class="col-3">
-                <input class="form-control" id="name" formControlName="name" [value]="actorDetails?.name"
-                [placeholder]="actorForm.get('name')?.invalid && actorForm.get('name')?.touched && actorForm.get('name')?.value.length < 6 
+                <input class="form-control" id="name" formControlName="name" [value]="actorDetails?.name" [placeholder]="actorForm.get('name')?.invalid && actorForm.get('name')?.touched && actorForm.get('name')?.value.length < 6 
                ? 'Name must be at least 6 characters' : ''">
             </div>
         </div>
@@ -39,8 +38,10 @@
         </div>
         <div class="row mt-5">
             <button class="btn btn-outline-primary col-1 offset-4" routerLink="/actors">Back</button>
-            <button class="btn btn-primary col-1 offset-2" type="submit" *ngIf="!isEdit" (click)="onRegister()"  [disabled]="!actorForm.valid">Register</button>
-            <button class="btn btn-primary col-1 offset-2" type="submit" *ngIf="isEdit" (click)="onUpdate()"  [disabled]="!actorForm.valid">Update</button>
-        </div> 
+            <button class="btn btn-primary col-1 offset-2" type="submit" *ngIf="!isEdit" (click)="onRegister()"
+                [disabled]="!actorForm.valid">Register</button>
+            <button class="btn btn-primary col-1 offset-2" type="submit" *ngIf="isEdit" (click)="onUpdate()"
+                [disabled]="!actorForm.valid">Update</button>
+        </div>
     </form>
 </div>

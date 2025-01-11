@@ -35,6 +35,8 @@ export class MoviesComponent {
   @ViewChild('myModal', { static: false }) myModal!: ElementRef;
   //to store movie
   movie: any;
+  //to store movies
+  movies: any;
   // to transfer moviedetails
   movieDetails: any;
   actorDetails: any;
@@ -44,12 +46,14 @@ export class MoviesComponent {
   strComments: string = '';
   strActorsName: string = '';
   strDirectorName: string = '';
+  intUserId: number = 0;
   // rating 
-  intRating: string = '';
+  intRating: number = 0;
+  //user role
+  blnAdmin: boolean = false;
 
   constructor(
     private movieService: MovieService,
-    // private constantService: ConstantService,
     private router: Router,
     private commentService: CommentService,
     private actorService: ActorService,
@@ -60,12 +64,37 @@ export class MoviesComponent {
     // Refresh logic on navigation to the same route
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd && event.url === '/movies') {
+        this.getAllMovies();
         this.refreshMovies();
       }
     });
 
     // Initial load
+    this.userPermission();
+    this.getAllMovies();
     this.refreshMovies();
+  }
+
+  private userPermission() {
+    if (typeof window !== 'undefined') {
+      const strDataFromLS = localStorage.getItem('userRole');
+      const strUserRole = strDataFromLS ? JSON.parse(strDataFromLS) : '';
+      this.blnAdmin = strUserRole === 'admin' ? true : false;
+    }
+  }
+
+  /**
+   * fetch all movie
+   */
+  getAllMovies() {
+    this.movieService.getAllMovies().subscribe(
+      (response) => {
+        this.movies = response;
+      }, (error) => {
+        this.router.navigate(['/404']);
+        console.log("No response error", error);
+      }
+    );
   }
 
   /**
@@ -141,6 +170,11 @@ export class MoviesComponent {
     );
   }
 
+  changeActiveMoive(movie: any) {
+    localStorage.setItem('movie', JSON.stringify(movie));
+    this.movie = movie;
+  }
+
   /**
    * show movie details
    */
@@ -152,20 +186,27 @@ export class MoviesComponent {
      new comment register  
    */
   onCommentsSave(): void {
+    // get userid from local storage
+    if (typeof window !== 'undefined') {
+      const intUserId = localStorage.getItem('userId');
+      this.intUserId = intUserId ? +JSON.parse(intUserId) : 0;
+    }
+
+    // set comment data from popup form
     if (this.strComments || this.intRating) {
       const comment: Comment = {
-        // movieid: this.movieForm.value.name || '',  
-        // userid: this.movieForm.value.type || '', 
         movieid: +this.movie?.id,
-        userid: 8,
+        userid: this.intUserId,
         comments: this.strComments,
         rating: +this.intRating
       };
       this.commentService.registerComment(comment).subscribe(
         (response) => {
-          const modalElement = this.myModal.nativeElement;
-          const modalInstance = new (window as any).bootstrap.Modal(modalElement);
-          modalInstance.hide();
+          this.strComments = "";
+          this.intRating = 0;
+        }, (error) => {
+          this.router.navigate(['/404']);
+          console.log("Register fail error", error);
         }
       );
     }
